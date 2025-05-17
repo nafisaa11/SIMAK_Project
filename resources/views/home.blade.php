@@ -9,26 +9,8 @@ Dashboard
   <!-- Welcome Header Section -->
   <section class="relative overflow-hidden bg-gradient-to-r text-white">
     <div class="container mx-auto px-6 py-6">
-      <div class="flex flex-col md:flex-row items-start md:items-center justify-between">
-        <!-- <div class="mb-6 md:mb-0">
-          <h1 class="text-3xl font-bold  ">Selamat Datang di YAN-MIS</h1>
-          <p class="mt-2 text-blue-100">{{ Auth::user()->name ?? 'YAN-MIS' }} | Dashboard Administrator</p>
-        </div> -->
-        <!-- <div class="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          <span>{{ date('d F Y') }}</span>
-        </div> -->
-      </div>
     </div>
-    <!-- Wave Decoration -->
-    <!-- <div class="absolute bottom-0 left-0 right-0">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200">
-        <path fill="#f9fafb" fill-opacity="1" d="M0,128L60,133.3C120,139,240,149,360,144C480,139,600,117,720,112C840,107,960,117,1080,122.7C1200,128,1320,128,1380,128L1440,128L1440,200L1380,200C1320,200,1200,200,1080,200C960,200,840,200,720,200C600,200,480,200,360,200C240,200,120,200,60,200L0,200Z"></path>
-      </svg>
-    </div> -->
-  </section>
+  </section> 
 
   <!-- Stats Section -->
   <section class="container mx-auto px-1 -mt-10 mb-8 relative z-10">
@@ -77,32 +59,6 @@ Dashboard
       </div>
     </div>
 </div>
-
-<!-- Stat Card 4 -->
-<!-- <div class="bg-white rounded-xl shadow-md p-6 border-t-4 border-yellow-500 w-full md:w-1/2 lg:w-1/4">
-        <div class=" flex justify-between items-center">
-  <div>
-    <p class="text-sm text-gray-500 uppercase tracking-wider">Kelulusan</p>
-    <h3 class="text-2xl font-bold text-gray-800 mt-1">95%</h3>
-  </div>
-  <div class="bg-yellow-100 p-3 rounded-full">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path d="M12 14l9-5-9-5-9 5 9 5z" />
-      <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-    </svg>
-  </div>
-</div> -->
-<!-- <div class="mt-4 flex items-center text-sm">
-  <span class="text-green-500 flex items-center">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-    </svg>
-  </span>
-</div>
-</div>
-</div>
-</section> -->
 
 <!-- Main Menu Section -->
 <section class="container mx-auto px-1 py-8">
@@ -272,51 +228,6 @@ Dashboard
     </div>
   </div>
 </section>
-
-<!-- Quick Access Section -->
-<!-- <section class="container mx-auto px-6 py-8">
-  <div class="flex justify-between items-center mb-6">
-    <h2 class="text-2xl font-bold text-gray-800">Akses Cepat</h2>
-    <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
-      Semua Fitur
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-      </svg>
-    </a>
-  </div> -->
-
-  <!-- <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"> -->
-    <!--Quick Access Button 1 -->
-    <!-- <a href="#" class="flex flex-col items-center justify-center bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 hover:bg-blue-50">
-      <div class="bg-blue-100 p-3 rounded-full mb-3">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-      </div>
-      <span class="text-sm font-medium text-gray-700">Daftar Hadir</span>
-    </a> -->
-
-    <!-- Quick Access Button 2 -->
-    <!-- <a href="#" class="flex flex-col items-center justify-center bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 hover:bg-green-50">
-      <div class="bg-green-100 p-3 rounded-full mb-3">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-      </div>
-      <span class="text-sm font-medium text-gray-700">Nilai Semester</span>
-    </a> -->
-
-    <!-- Quick Access Button 2 -->
-    <!-- <a href="#" class="flex flex-col items-center justify-center bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 hover:bg-green-50">
-      <div class="bg-green-100 p-3 rounded-full mb-3">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-      </div>
-      <span class="text-sm font-medium text-gray-700">Nilai Semester</span>
-    </a>
-  </div>
-</section> -->
 </div>
 @endsection
 

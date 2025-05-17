@@ -5,12 +5,9 @@ Data Mahasiswa
 @endsection
 
 @section('content')
+<div class="space py-3"></div>
 <div class="bg-white rounded-lg shadow-md overflow-hidden">
-    <div class="flex justify-between items-center px-6 py-4 border-b border-gray-200 bg-gray-50">
-        <a href="#" class="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-4 rounded">
-            Tambah Data
-        </a>
-    </div>
+    
 
     <div class="overflow-x-auto p-4">
         <table class="min-w-full text-sm text-left text-gray-700">

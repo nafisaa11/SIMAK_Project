@@ -12,12 +12,7 @@
         <ul class="space-y-2">
 
             <li>
-                <!-- <<<<<<< HEAD
-        <a href="#" class="flex items-center px-3 py-2 rounded hover:bg-gray-800 transition duration-200 {{ Request::is('dashboard') ? 'bg-gray-800' : '' }}">
-          <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path d="M4 6h16M4 12h8m-8 6h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-======= -->
-                <a href="#"
+                <a href="{{ route('home') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
           {{ Request::is('dashboard') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
                     <svg class="w-5 h-5 {{ Request::is('dashboard') ? 'text-gray-900' : 'text-white' }}"
@@ -30,7 +25,7 @@
 
 
             <li>
-                <a href="#"
+                <a href="{{ route('mahasiswa.dashboard') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
           {{ Request::is('mahasiswa*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -41,7 +36,7 @@
                 </a>
             </li>
 
-            <li>
+            {{-- <li>
                 <a href="#"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
           {{ Request::is('dosen*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
@@ -75,7 +70,7 @@
                     </svg>
                     FRS
                 </a>
-            </li>
+            </li> --}}
 
             <li>
                 <form method="POST" action="{{ route('logout') }}">
