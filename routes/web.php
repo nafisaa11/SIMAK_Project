@@ -26,8 +26,14 @@ Route::get('dosen', function () {
     return view('dosen.dashboard');
 })->middleware(['auth', 'verified', 'role:dosen|admin'])->name('dosen.dashboard');
 
-Route::get('mahasiswa', [MahasiswaController::class, 'index'])
-    ->middleware(['auth', 'verified', 'role:mahasiswa|admin'])
-    ->name('mahasiswa.dashboard');
+
+//Mahasiswa
+Route::middleware(['auth', 'verified', 'role:mahasiswa'])->group(function (){
+    Route::get('mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.dashboard');
+    Route::get('/mahasiswa/create', [MahasiswaController::class, 'create'])->name('mahasiswa.create');
+    Route::post('/mahasiswa/store', [MahasiswaController::class, 'store'])->name('mahasiswa.store');
+    Route::get('mahasiswa/home', [MahasiswaController::class, 'home'])->name('home');
+});
+
 
 require __DIR__.'/auth.php';

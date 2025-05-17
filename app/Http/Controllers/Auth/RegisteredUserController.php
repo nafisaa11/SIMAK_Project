@@ -60,7 +60,7 @@ class RegisteredUserController extends Controller
         } elseif ($user->hasRole('dosen')) {
             return redirect()->route('dosen.dashboard');
         } elseif ($user->hasRole('mahasiswa')) {
-            return redirect()->route('mahasiswa.dashboard');
+            return redirect()->route('mahasiswa.create');
         } else {
             return redirect()->route('dashboard'); // fallback
         }

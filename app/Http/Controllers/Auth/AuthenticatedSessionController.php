@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Mahasiswa;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,11 @@ class AuthenticatedSessionController extends Controller
         } elseif ($user->hasRole('dosen')) {
             return redirect()->route('dosen.dashboard');
         } elseif ($user->hasRole('mahasiswa')) {
-            return redirect()->route('mahasiswa.dashboard');
+            $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
+            if (!$mahasiswa) {
+            return redirect()->route('mahasiswa.create');
+        }
+            return redirect()->route('home');
         } else {
             return redirect()->route('dashboard'); // fallback
         }
