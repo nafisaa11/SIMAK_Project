@@ -52,4 +52,11 @@ class MahasiswaController extends Controller
         // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('mahasiswa.dashboard')->with('success', 'Mahasiswa berhasil ditambahkan.');
     }
+
+    public function show(string $id)
+    {
+        return view('mahasiswa.show', [
+            'mahasiswa' => Mahasiswa::findOrFail($id)
+        ]);
+    }
 }

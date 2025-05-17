@@ -33,6 +33,7 @@ Route::middleware(['auth', 'verified', 'role:mahasiswa'])->group(function (){
     Route::get('/mahasiswa/create', [MahasiswaController::class, 'create'])->name('mahasiswa.create');
     Route::post('/mahasiswa/store', [MahasiswaController::class, 'store'])->name('mahasiswa.store');
     Route::get('mahasiswa/home', [MahasiswaController::class, 'home'])->name('home');
+    Route::get('mahasiswa/{id}', [MahasiswaController::class, 'show'])->name('mahasiswa.show');
 });
 
 
