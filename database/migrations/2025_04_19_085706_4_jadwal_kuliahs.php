@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('id_jadwal_kuliah');
             $table->unsignedBigInteger('id_matkul'); // Perubahan dari id_matakuliah menjadi id_matkul
             $table->unsignedBigInteger('id_dosen');
+            $table->unsignedBigInteger('id_prodi'); // <<-- Tambahin ini
             $table->string('hari');
             $table->date('tanggal');
             $table->string('ruangan');
@@ -23,9 +24,11 @@ return new class extends Migration
             $table->time('jam_awal');
             $table->time('jam_akhir');
             $table->timestamps();
-        
-            $table->foreign('id_matkul')->references('id_matkul')->on('matkuls'); // Perubahan referensi
+
+            // Foreign key
+            $table->foreign('id_matkul')->references('id_matkul')->on('matkuls');
             $table->foreign('id_dosen')->references('id_dosen')->on('dosens');
+            $table->foreign('id_prodi')->references('id_prodi')->on('prodi'); // <<-- Foreign key ke prodis
         });
     }
 
