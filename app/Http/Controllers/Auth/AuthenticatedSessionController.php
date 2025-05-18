@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,26 +27,28 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-    
         $request->session()->regenerate();
-    
+
         $user = Auth::user();
-    
-        if ($user->hasRole('admin')) {
-            return redirect()->route('admin.dashboard');
-        } elseif ($user->hasRole('dosen')) {
-            return redirect()->route('dosen.dashboard');
-        } elseif ($user->hasRole('mahasiswa')) {
+
+        // Cek dan buat data awal jika perlu
+        if ($user->hasRole('dosen')) {
+            $dosen = Dosen::where('user_id', $user->id)->first();
+            if (!$dosen) {
+                return redirect()->route('dosen.create');
+            }
+        }
+
+        if ($user->hasRole('mahasiswa')) {
             $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
             if (!$mahasiswa) {
-            return redirect()->route('mahasiswa.create');
+                return redirect()->route('mahasiswa.create');
+            }
         }
-            return redirect()->route('home');
-        } else {
-            return redirect()->route('dashboard'); // fallback
-        }
+
+        // Semua role diarahkan ke route 'home'
+        return redirect()->route('home');
     }
-    
 
     /**
      * Destroy an authenticated session.
@@ -55,7 +58,6 @@ class AuthenticatedSessionController extends Controller
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');

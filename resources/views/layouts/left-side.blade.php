@@ -36,7 +36,7 @@
                 </a>
             </li>
 
-            {{-- <li>
+            <li>
                 <a href="{{ route('dosen.dashboard') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
                         {{ Request::is('dosen*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
@@ -48,16 +48,16 @@
                 </a>
             </li>
 
-            <li>
-                <a href="{{ route('mataKuliah.index') }}"
+            {{-- <li>
+                <a href="#"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
                         {{ Request::is('mataKuliah*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
-                    <svg class="w-5 h-5 {{ Request::is('mataKuliah*') ? 'text-gray-900' : 'text-white' }}"
-                        fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M4 6v16h16V6H4zm2 2h12v12H6V8zm8-6v2H10V2h4z" />
-                    </svg>
-                    Mata Kuliah
-                </a>
+            <svg class="w-5 h-5 {{ Request::is('mataKuliah*') ? 'text-gray-900' : 'text-white' }}"
+                fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4 6v16h16V6H4zm2 2h12v12H6V8zm8-6v2H10V2h4z" />
+            </svg>
+            Mata Kuliah
+            </a>
             </li>
 
             <li>
