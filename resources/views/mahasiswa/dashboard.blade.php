@@ -22,8 +22,7 @@
                 </thead>
                 <tbody class="divide-y divide-gray-300">
                     @foreach ($mahasiswa as $mhs)
-                        <tr onclick="window.location='{{ route('mahasiswa.show', $mhs->id_mahasiswa) }}';"
-                            class="hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
+                        <tr onclick="window.location='{{ route('mahasiswa.show', $mhs->id_mahasiswa) }}';"class="hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
                             <td class="px-4 py-3">{{ $loop->iteration }}</td>
                             <td class="px-4 py-3">{{ $mhs->nrp }}</td>
                             <td class="px-4 py-3">{{ $mhs->nama }}</td>

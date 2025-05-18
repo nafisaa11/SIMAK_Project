@@ -13,7 +13,7 @@
                     <label for="nama" class="block mb-1 text-sm font-medium text-gray-700">Nama Lengkap</label>
                     <input type="text" name="nama" id="nama"
                         class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400"
-                        alue="{{ Auth::user()->name }}" readonly>
+                        value="{{ Auth::user()->name }}" readonly>
                 </div>
                 <div>
                     <label for="nrp" class="block mb-1 text-sm font-medium text-gray-700">NRP</label>

@@ -3,6 +3,10 @@
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\DosenController;
+// use App\Http\Controllers\MataKuliahController;
+// use App\Http\Controllers\FrsController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,6 +38,11 @@ Route::middleware(['auth', 'verified', 'role:mahasiswa'])->group(function (){
     Route::post('/mahasiswa/store', [MahasiswaController::class, 'store'])->name('mahasiswa.store');
     Route::get('mahasiswa/home', [MahasiswaController::class, 'home'])->name('home');
     Route::get('mahasiswa/{id}', [MahasiswaController::class, 'show'])->name('mahasiswa.show');
+    // Route::get('dosen/dashboard', [DosenController::class, 'index'])->name('dosen.dashboard')
+    // ->middleware(['auth', 'verified', 'role:dosen|mahasiswa']);
+    // Route::resource('dosen', DosenController::class);
+    // Route::resource('mataKuliah', MataKuliahController::class);
+    // Route::resource('frs', FrsController::class);
 });
 
 
