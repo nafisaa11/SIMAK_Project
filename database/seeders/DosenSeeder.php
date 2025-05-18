@@ -26,6 +26,7 @@ class DosenSeeder extends Seeder
             'alamat' => 'Jl. Raya No. 1, Jakarta',
             'jenis_kelamin' => 'Laki-laki',
             'agama' => 'Islam',
+            'user_id' => 1,
         ]);
 
         // Anda bisa menambahkan lebih banyak data contoh di sini
@@ -39,6 +40,7 @@ class DosenSeeder extends Seeder
                 'alamat' => $faker->address,
                 'jenis_kelamin' => $faker->randomElement(['Laki-laki', 'Perempuan']),
                 'agama' => $faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha']),
+                'user_id' => 1,  // <== atau kamu bisa generate random valid user_id
             ]);
         }
     }
