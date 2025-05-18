@@ -1,17 +1,35 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.master')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("Hello dosen!") }}
-                </div>
-            </div>
-        </div>
+@section('title')
+Data Dosen
+@endsection
+
+@section('content')
+<div class="space py-3"></div>
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="overflow-x-auto p-4">
+        <table class="min-w-full text-sm text-left text-gray-700">
+            <thead>
+                <tr class="bg-blue-900 text-white">
+                    <th class="px-4 py-3">NO</th>
+                    <th class="px-4 py-3">NIP</th>
+                    <th class="px-4 py-3">NAMA</th>
+                    <th class="px-4 py-3">ALAMAT</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-300">
+                @foreach ($dosen as $item)
+                <tr onclick="window.location='{{ route('dosen.show', $item->id_dosen) }}';"
+                class="hover:bg-gray-100 transition-colors duration-200">
+                    <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                    <td class="px-4 py-3">{{ $item->nip }}</td>
+                    <td class="px-4 py-3">{{ $item->nama }}</td>
+                    <td class="px-4 py-3">{{ $item->alamat }}</td>
+                    
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
-</x-app-layout>
+</div>
+@endsection

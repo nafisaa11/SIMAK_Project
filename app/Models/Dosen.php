@@ -9,6 +9,7 @@ class Dosen extends Model
     protected $table = 'dosens';
     protected $primaryKey = 'id_dosen';
     protected $fillable = [
+        'user_id',
         'nama',
         'nip',
         'email',
@@ -17,4 +18,11 @@ class Dosen extends Model
         'jenis_kelamin',
         'agama'
     ];
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
 }
+
+}
+

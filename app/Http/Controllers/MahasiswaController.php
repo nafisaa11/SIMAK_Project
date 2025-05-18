@@ -12,12 +12,14 @@ class MahasiswaController extends Controller
     /**
      * Tampilkan daftar mahasiswa.
      */
-    public function index()
-    {
-        $mahasiswa = Mahasiswa::with('user')->get();
-        return view('mahasiswa.dashboard', compact('mahasiswa'));
+        public function index()
+{
+    $mahasiswa = Mahasiswa::whereHas('user', function ($query) {
+        $query->role('mahasiswa'); // pakai helper dari Spatie
+    })->with('user')->get();
 
-    }
+    return view('mahasiswa.dashboard', compact('mahasiswa'));
+}
 
     public function home(){
         return view('home');
