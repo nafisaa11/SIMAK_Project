@@ -14,7 +14,7 @@ Tambah Data Dosen
         </div>
         <div>
             <label for="nama" class="block text-gray-700 text-sm font-bold mb-2">Nama Lengkap</label>
-            <input type="text" name="nama" id="nama" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ Auth::user()->name }}" readonly>
+            <input type="text" name="nama" id="nama" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
         <div>
             <label for="alamat" class="block text-gray-700 text-sm font-bold mb-2">alamat</label>
@@ -31,7 +31,7 @@ Tambah Data Dosen
         
         <div>
             <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
-            <input type="email" name="email" id="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ Auth::user()->email }}" readonly>
+            <input type="email" name="email" id="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>
         <div>
             <label for="no_telp" class="block text-gray-700 text-sm font-bold mb-2">Nomor HP</label>
@@ -49,9 +49,14 @@ Tambah Data Dosen
                 <option value="Konghucu">Konghucu</option>
             </select>
         </div>
-        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Tambah Data dosen
-        </button>
+        <div class="flex justify-center gap-6 mt-8">
+            <button type="button" onclick="window.history.back()" class="bg-gray-400 text-white font-semibold py-2 px-6 rounded shadow hover:bg-gray-500">
+                Kembali
+            </button>
+            <button type="submit" class="bg-yellow-400 text-black font-semibold py-2 px-6 rounded shadow hover:bg-yellow-500">
+                Tambah Data
+            </button>
+        </div>
     </form>
 </div>
 @endsection
