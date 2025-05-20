@@ -15,14 +15,13 @@ return new class extends Migration
             $table->id('id_kelas');
             $table->unsignedBigInteger('id_prodi'); 
             $table->unsignedBigInteger('id_dosen'); // Foreign key to dosens table
-            $table->unsignedBigInteger('id_mahasiswa'); // Foreign key to matkuls table
-            $table->string('nama_kelas');
+            $table->string('kelas');
+            $table->string('angkatan');
             $table->timestamps();
             // $table->string('angkatan');
 
             $table->foreign('id_prodi')->references('id_prodi')->on('prodies');
             $table->foreign('id_dosen')->references('id_dosen')->on('dosens');
-            $table->foreign('id_mahasiswa')->references('id_mahasiswa')->on('mahasiswas');
         });
     }
 

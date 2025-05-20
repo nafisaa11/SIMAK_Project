@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\JadwalKuliahController;
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\KelasController;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\FrsController;
 
@@ -77,7 +78,7 @@ Route::resource('prodi', ProdiController::class);
 Route::resource('mataKuliah', MatakuliahController::class);
 Route::resource('jadwal', JadwalKuliahController::class);
 Route::resource('nilai', NilaiController::class);
-Route::resource('kelases', KelasController::class);
+Route::resource('kelas', KelasController::class);
 
 require __DIR__.'/auth.php';
 // Admin only routes for Dosen (edit, update, destroy)

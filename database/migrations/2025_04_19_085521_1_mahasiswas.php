@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->id('id_mahasiswa');
+            $table->unsignedBigInteger('id_prodi'); 
+            $table->unsignedBigInteger('id_kelas'); 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('nrp')->unique();
-            $table->string('prodi');
-            $table->string('kelas');
             $table->string('no_telp');
             $table->date('tanggal_lahir');
             $table->string('tempat_lahir');

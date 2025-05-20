@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\JadwalKuliah;
 use App\Models\Matkul;
 use App\Models\Dosen;
-use App\Models\Prodi;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 
 class JadwalKuliahController extends Controller
@@ -15,7 +15,7 @@ class JadwalKuliahController extends Controller
      */
     public function index()
     {
-        $jadwals = JadwalKuliah::with(['matkul', 'dosen', 'prodi'])->get();
+        $jadwals = JadwalKuliah::with(['matkul', 'dosen', 'kelas'])->get();
         return view('jadwal.index', compact('jadwals'));
     }
 
@@ -26,8 +26,8 @@ class JadwalKuliahController extends Controller
     {
         $matkuls = Matkul::all();
         $dosens = Dosen::all();
-        $prodies = Prodi::all();
-        return view('jadwal.create', compact('matkuls', 'dosens', 'prodies'));
+        $kelases = Kelas::all();
+        return view('jadwal.create', compact('matkuls', 'dosens', 'kelases'));
     }
 
     /**
@@ -38,10 +38,11 @@ class JadwalKuliahController extends Controller
         $request->validate([
             'id_matkul' => 'required|exists:matkuls,id_matkul',
             'id_dosen'  => 'required|exists:dosens,id_dosen',
-            'id_prodi'  => 'required|exists:prodies,id_prodi',
+            'id_kelas'  => 'required|exists:kelases,id_kelas',
             'hari'      => 'required|string',
             'ruangan'   => 'required|string',
             'kelas'     => 'required|string',
+            'semester'  => 'required|string',
             'jam_awal'  => 'required',
             'jam_akhir' => 'required'
         ]);
@@ -68,8 +69,8 @@ class JadwalKuliahController extends Controller
         $jadwal = JadwalKuliah::findOrFail($id);
         $matkuls = Matkul::all();
         $dosens = Dosen::all();
-        $prodies = Prodi::all();
-        return view('jadwal.edit', compact('jadwal', 'matkuls', 'dosens', 'prodies'));
+        $kelases = Kelas::all();
+        return view('jadwal.edit', compact('jadwal', 'matkuls', 'dosens', 'kelases'));
     }
 
     /**
@@ -80,10 +81,11 @@ class JadwalKuliahController extends Controller
         $request->validate([
             'id_matkul' => 'required|exists:matkuls,id_matkul',
             'id_dosen'  => 'required|exists:dosens,id_dosen',
-            'id_prodi'  => 'required|exists:prodies,id_prodi',
+            'id_kelas'  => 'required|exists:kelases,id_kelas',
             'hari'      => 'required|string',
             'ruangan'   => 'required|string',
             'kelas'    => 'required|string',
+            'semester'  => 'required|string',
             'jam_awal'  => 'required',
             'jam_akhir' => 'required'
         ]);

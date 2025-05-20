@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id('id_jadwal_kuliah');
             $table->unsignedBigInteger('id_matkul'); // Perubahan dari id_matakuliah menjadi id_matkul
             $table->unsignedBigInteger('id_dosen');
-            $table->unsignedBigInteger('id_prodi'); 
+            $table->unsignedBigInteger('id_kelas'); 
             $table->string('hari');
             $table->string('ruangan');
-            $table->string('kelas');
+            $table->string('semester');
             $table->time('jam_awal');
             $table->time('jam_akhir');
             $table->timestamps();

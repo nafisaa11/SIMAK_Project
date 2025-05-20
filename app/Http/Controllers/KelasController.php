@@ -15,8 +15,8 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelases = Kelas::all();
-        return view('kelas.index', compact('kelases', 'dosen', 'prodi'));
+        $kelases = Kelas::with(['matkul', 'dosen', 'prodi'])->withCount('mahasiswa')->get();
+        return view('kelas.index', compact('kelases'));
     }
 
     /**
@@ -27,7 +27,7 @@ class KelasController extends Controller
         $dosens = Dosen::all();
         $prodies = Prodi::all();
         // $mahasiswas = Mahasiswa::all();
-        return view('kelases.create', compact('dosens', 'prodies'));
+        return view('kelas.create', compact('dosens', 'prodies'));
     }
 
     /**
@@ -36,23 +36,24 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_prodi' => 'required|exists:prodi,id_prodi',
+            'id_prodi' => 'required|exists:prodies,id_prodi',
             'id_dosen' => 'required|exists:dosens,id_dosen',
-            'nama_kelas' => 'required|string|max:255',
+            'kelas' => 'required|string|max:255',
+            'angkatan' => 'required|string|max:255', // Uncomment if angkatan is needed
         ]);
 
         $kelas = Kelas::create($request->all());
 
-        // Hitung jumlah mahasiswa berdasarkan prodi dan nama_kelas
+        // Hitung jumlah mahasiswa berdasarkan prodi dan kelas
         $jumlahMahasiswa = Mahasiswa::where('id_prodi', $request->id_prodi)
-            ->where('nama_kelas', $request->nama_kelas)
+            ->where('kelas', $request->kelas)
             ->count();
 
         // Jika kamu punya kolom jumlah_mahasiswa, simpan nilainya:
         $kelas->jumlah_mahasiswa = $jumlahMahasiswa;
         $kelas->save();
 
-        return redirect()->route('kelases.index')->with('success', 'Kelas created successfully.');
+        return redirect()->route('kelas.index')->with('success', 'Kelas created successfully.');
     }
 
     /**
@@ -60,7 +61,7 @@ class KelasController extends Controller
      */
     public function show(String $id_kelas)
     {
-        return view('kelases.show', compact('kelas', 'dosen', 'prodi'));
+        return view('kelas.show', compact('kelas', 'dosen', 'prodi'));
     }
 
     /**
@@ -71,7 +72,7 @@ class KelasController extends Controller
         $dosen = Dosen::all();
         $prodi = Prodi::all();
         // $mahasiswas = Mahasiswa::all();
-        return view('kelases.edit', compact('kelas', 'dosen', 'prodi'));
+        return view('kelas.edit', compact('kelas', 'dosen', 'prodi'));
     }
 
     /**
@@ -80,15 +81,15 @@ class KelasController extends Controller
     public function update(Request $request, String $id_kelas)
     {
         $request->validate([
-            'id_prodi' => 'required|exists:prodi,id_prodi',
+            'id_prodi' => 'required|exists:prodies,id_prodi',
             'id_dosen' => 'required|exists:dosens,id_dosen',
-            'nama_kelas' => 'required|string|max:255',
-            // 'angkatan' => 'required|string|max:255', // Uncomment if angkatan is needed
+            'kelas' => 'required|string|max:255',
+            'angkatan' => 'required|string|max:255', // Uncomment if angkatan is needed
         ]);
 
         $kelas->update($request->all());
 
-        return redirect()->route('kelases.index')->with('success', 'Kelas updated successfully.');
+        return redirect()->route('kelas.index')->with('success', 'Kelas updated successfully.');
     }
 
     /**
@@ -98,6 +99,6 @@ class KelasController extends Controller
     {
         $kelas->delete();
 
-        return redirect()->route('kelases.index')->with('success', 'Kelas deleted successfully.');
+        return redirect()->route('kelas.index')->with('success', 'Kelas deleted successfully.');
     }
 }
