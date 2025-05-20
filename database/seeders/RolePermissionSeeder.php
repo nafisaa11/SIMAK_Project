@@ -20,6 +20,7 @@ class RolePermissionSeeder extends Seeder
         Permission::create(['name' => 'edit-mahasiswa']);
         Permission::create(['name' => 'hapus-mahasiswa']);
         Permission::create(['name' => 'lihat-mahasiswa']);
+        
 
         //create permission for admin to manage dosen
         Permission::create(['name' => 'tambah-dosen']);

@@ -15,7 +15,7 @@ Detail Mahasiswa
         </div>
         <div>
             <span class="font-semibold text-gray-700">Nama:</span>
-            <span class="text-gray-900">{{ $mahasiswa->nama }}</span>
+            <span class="text-gray-900">{{ $mahasiswa->user->name }}</span>
         </div>
         <div>
             <span class="font-semibold text-gray-700">Program Studi:</span>
@@ -31,7 +31,7 @@ Detail Mahasiswa
         </div>
         <div>
             <span class="font-semibold text-gray-700">Email:</span>
-            <span class="text-gray-900">{{ $mahasiswa->email }}</span>
+            <span class="text-gray-900">{{ $mahasiswa->user->email }}</span>
         </div>
         <div>
             <span class="font-semibold text-gray-700">Nomor HP:</span>

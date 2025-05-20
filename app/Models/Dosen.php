@@ -16,7 +16,8 @@ class Dosen extends Model
         'no_telp',
         'alamat',
         'jenis_kelamin',
-        'agama'
+        'agama',
+        'status'
     ];
 
     public function user()

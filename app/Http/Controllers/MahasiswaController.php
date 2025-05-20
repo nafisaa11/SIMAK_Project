@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,44 +20,110 @@ class MahasiswaController extends Controller
         return view('mahasiswa.dashboard', compact('mahasiswa'));
     }
 
-    public function home(){
+    public function home()
+    {
         return view('home');
     }
 
+    /**
+     * Tampilkan form untuk membuat data mahasiswa baru.
+     */
     public function create()
     {
         return view('mahasiswa.create');
     }
 
+    /**
+     * Simpan data mahasiswa baru ke database.
+     */
     public function store(Request $request)
     {
-        // Validasi data yang diterima dari form
         $validatedData = $request->validate([
-            'nama' => 'required|string|max:255',
             'nrp' => 'required|string|max:255|unique:mahasiswas',
             'prodi' => 'required|string|max:255',
             'kelas' => 'required|string|max:255',
-            'no_telp' => 'nullable|string|max:15',
-            'tanggal_lahir' => 'nullable|date',
-            'tempat_lahir' => 'nullable|string|max:255',
-            'jenis_kelamin' => 'nullable|string|max:10',
-            'agama' => 'nullable|string|max:50',
+            'no_telp' => 'required|string|max:15',
+            'tanggal_lahir' => 'required|date',
+            'tempat_lahir' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'agama' => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
         ]);
 
-        // Tambahkan user_id ke data validasi
         $validatedData['user_id'] = Auth::id();
 
-        // Simpan ke database
         Mahasiswa::create($validatedData);
 
-        // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('mahasiswa.dashboard')->with('success', 'Mahasiswa berhasil ditambahkan.');
     }
 
+    /**
+     * Tampilkan detail mahasiswa berdasarkan ID.
+     */
     public function show(string $id)
     {
-        return view('mahasiswa.show', [
-            'mahasiswa' => Mahasiswa::findOrFail($id)
+        $mahasiswa = Mahasiswa::with('user')->findOrFail($id);
+        return view('mahasiswa.show', compact('mahasiswa'));
+    }
+
+    /**
+     * Tampilkan form edit mahasiswa.
+     */
+    public function edit(string $id)
+    {
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        return view('mahasiswa.edit', compact('mahasiswa'));
+    }
+
+    /**
+     * Update data mahasiswa.
+     */
+    public function update(Request $request, string $id)
+    {
+        $mahasiswa = Mahasiswa::with('user')->findOrFail($id);
+
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255', // tambahkan validasi nama
+            'nrp' => 'required|string|max:255|unique:mahasiswas,nrp,' . $mahasiswa->id_mahasiswa . ',id_mahasiswa',
+            'prodi' => 'required|string|max:255',
+            'kelas' => 'required|string|max:255',
+            'no_telp' => 'required|string|max:15',
+            'tanggal_lahir' => 'required|date',
+            'tempat_lahir' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'agama' => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
+            'email' => 'required|email|max:255', // untuk update email user
         ]);
+
+        // Update tabel users (nama & email)
+        $mahasiswa->user->update([
+            'name' => $validatedData['nama'],
+            'email' => $validatedData['email'],
+        ]);
+
+        // Update tabel mahasiswas
+        $mahasiswa->update([
+            'nrp' => $validatedData['nrp'],
+            'prodi' => $validatedData['prodi'],
+            'kelas' => $validatedData['kelas'],
+            'no_telp' => $validatedData['no_telp'],
+            'tanggal_lahir' => $validatedData['tanggal_lahir'],
+            'tempat_lahir' => $validatedData['tempat_lahir'],
+            'jenis_kelamin' => $validatedData['jenis_kelamin'],
+            'agama' => $validatedData['agama'],
+        ]);
+
+        return redirect()->route('mahasiswa.dashboard')->with('success', 'Data mahasiswa berhasil diperbarui.');
+    }
+
+
+    /**
+     * Hapus data mahasiswa.
+     */
+    public function destroy(string $id)
+    {
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswa->delete();
+
+        return redirect()->route('mahasiswa.dashboard')->with('success', 'Mahasiswa berhasil dihapus.');
     }
 }

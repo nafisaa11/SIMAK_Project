@@ -15,7 +15,7 @@ Detail Dosen
         </div>
         <div>
             <span class="font-semibold text-gray-700">Nama:</span>
-            <span class="text-gray-900">{{ $dosen->nama }}</span>
+            <span class="text-gray-900">{{ $dosen->user->name }}</span>
         </div>
         <div>
             <span class="font-semibold text-gray-700">Jenis Kelamin:</span>
@@ -23,7 +23,7 @@ Detail Dosen
         </div>
         <div>
             <span class="font-semibold text-gray-700">Email:</span>
-            <span class="text-gray-900">{{ $dosen->email }}</span>
+            <span class="text-gray-900">{{ $dosen->user->email }}</span>
         </div>
         <div>
             <span class="font-semibold text-gray-700">Nomor HP:</span>

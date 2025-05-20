@@ -14,35 +14,67 @@ class DosenSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create('id_ID'); // Gunakan locale Indonesia untuk data yang lebih realistis
 
-        // Contoh data mahasiswa 1
-        Dosen::create([
-            
-            'id_dosen' => 1,
-            'nama' => 'Dr. Andi Wijaya',
-            'nip' => '1234567890',
-            'email' => 'andiwijaya@example.com',
-            'no_telp' => '081234567890',
-            'alamat' => 'Jl. Raya No. 1, Jakarta',
-            'jenis_kelamin' => 'Laki-laki',
-            'agama' => 'Islam',
-            'user_id' => 1,
-        ]);
+        $dosens =[
 
-        // Anda bisa menambahkan lebih banyak data contoh di sini
-        for ($i = 0; $i < 5; $i++) {
-            Dosen::create([
-                'id_dosen' => $i + 2,
-                'nama' => $faker->name,
-                'nip' => $faker->unique()->numerify('##########'),
-                'email' => $faker->unique()->safeEmail,
-                'no_telp' => $faker->phoneNumber,
-                'alamat' => $faker->address,
-                'jenis_kelamin' => $faker->randomElement(['Laki-laki', 'Perempuan']),
-                'agama' => $faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha']),
-                'user_id' => 1,  // <== atau kamu bisa generate random valid user_id
-            ]);
+            [
+                'user_id' => 1,
+                'nip' => '198001012022031001',
+                'no_telp' => '081234567890',
+                'alamat' => 'Jl. Merdeka No. 123, Jakarta',
+                'status' => 'Dosen wali',
+                'jenis_kelamin' => 'Laki-laki',
+                'agama' => 'Islam',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'user_id' => 2,
+                'nip' => '197512052019042002',
+                'no_telp' => '082345678901',
+                'alamat' => 'Jl. Anggrek No. 45, Bandung',
+                'status' => 'Dosen Biasa',
+                'jenis_kelamin' => 'Perempuan',
+                'agama' => 'Katolik',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'user_id' => 3,
+                'nip' => '197001012018031003',
+                'no_telp' => '083356789012',
+                'alamat' => 'Jl. Raya Ubud No. 99, Bali',
+                'status' => 'Dosen Biasa',
+                'jenis_kelamin' => 'Laki-laki',
+                'agama' => 'Hindu',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'user_id' => 4,
+                'nip' => '198405062020112004',
+                'no_telp' => '084467890123',
+                'alamat' => 'Jl. Kenanga No. 12, Surabaya',
+                'status' => 'Dosen wali',
+                'jenis_kelamin' => 'Perempuan',
+                'agama' => 'Kristen',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'user_id' => 5,
+                'nip' => '198306082021122005',
+                'no_telp' => '085578901234',
+                'alamat' => 'Jl. Mangga No. 77, Yogyakarta',
+                'status' => 'Dosen Biasa',
+                'jenis_kelamin' => 'Laki-laki',
+                'agama' => 'Buddha',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ];
+        foreach ($dosens as $dosen) {
+            Dosen::create($dosen);
         }
     }
 }

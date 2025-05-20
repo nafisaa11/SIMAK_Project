@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -50,6 +51,20 @@ class User extends Authenticatable implements MustVerifyEmail
     public function mahasiswa()
     {
         return $this->hasOne(Mahasiswa::class);
+    }
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            // Tambahkan role otomatis berdasarkan email
+            if (Str::endsWith($user->email, '@student.ac.id')) {
+                $user->assignRole('mahasiswa');
+            } elseif (Str::endsWith($user->email, '@lecturer.ac.id')) {
+                $user->assignRole('dosen');
+            } elseif (Str::endsWith($user->email, '@admin.ac.id')) {
+                $user->assignRole('admin');
+            }
+        });
     }
 
 }

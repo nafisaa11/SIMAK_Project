@@ -18,19 +18,58 @@
                         <th class="px-4 py-3">NAMA</th>
                         <th class="px-4 py-3">PROGRAM STUDI</th>
                         <th class="px-4 py-3">JENIS KELAMIN</th>
-                        {{-- <th class="px-4 py-3">Tindakan</th> --}}
+                        @can('update-status-mahasiswa')
+                            {{-- hanya admin --}}
+                            <th class="px-4 py-3">Tindakan</th>
+                        @endcan
                 </thead>
                 <tbody class="divide-y divide-gray-300">
                     @foreach ($mahasiswa as $mhs)
-                        <tr onclick="window.location='{{ route('mahasiswa.show', $mhs->id_mahasiswa) }}';"class="hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
-                            <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                            <td class="px-4 py-3">{{ $mhs->nrp }}</td>
-                            <td class="px-4 py-3">{{ $mhs->nama }}</td>
-                            <td class="px-4 py-3">{{ $mhs->prodi }}</td>
-                            <td class="px-4 py-3">{{ $mhs->jenis_kelamin }}</td>
+                        <tr class="hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
+                            <td class="px-4 py-3"
+                                onclick="window.location='{{ route('mahasiswa.show', $mhs->id_mahasiswa) }}';">
+                                {{ $loop->iteration }}
+                            </td>
+                            <td class="px-4 py-3"
+                                onclick="window.location='{{ route('mahasiswa.show', $mhs->id_mahasiswa) }}';">
+                                {{ $mhs->nrp }}
+                            </td>
+                            <td class="px-4 py-3"
+                                onclick="window.location='{{ route('mahasiswa.show', $mhs->id_mahasiswa) }}';">
+                                {{ $mhs->user->name }}
+                            </td>
+                            <td class="px-4 py-3"
+                                onclick="window.location='{{ route('mahasiswa.show', $mhs->id_mahasiswa) }}';">
+                                {{ $mhs->prodi }}
+                            </td>
+                            <td class="px-4 py-3"
+                                onclick="window.location='{{ route('mahasiswa.show', $mhs->id_mahasiswa) }}';">
+                                {{ $mhs->jenis_kelamin }}
+                            </td>
+                            <td class="px-4 py-3">
+                                @role('admin')
+                                    <div class="flex space-x-2">
+                                        <a href="{{ route('mahasiswa.edit', $mhs->id_mahasiswa) }}"
+                                            class="bg-yellow-400 hover:bg-yellow-500 text-black p-2 rounded"
+                                            onclick="event.stopPropagation();">
+                                            <i class="ph ph-pencil"></i>
+                                        </a>
+                                        <form action="{{ route('mahasiswa.destroy', $mhs->id_mahasiswa) }}" method="POST"
+                                            onsubmit="event.stopPropagation(); return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="bg-red-600 hover:bg-red-700 text-black p-2 rounded">
+                                                <i class="ph ph-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                @endrole
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
+
+
 
             </table>
         </div>
