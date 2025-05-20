@@ -48,19 +48,56 @@
                 </a>
             </li>
 
-            {{-- <li>
-                <a href="#"
+            <li>
+                <a href="{{ route('prodi.index') }}"
+                    class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
+                        {{ Request::is('prodi*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM3 5h18v12H3V5zm9 6c1.66 0 3-1.34 3-3S13.66 5 12 5 9 6.34 9 8s1.34 3 3 3zm-7 5c0-2 4-3.1 7-3.1 3 0 7 1.1 7 3.1V17H5v-.1z" />
+                    </svg>
+                    Program Studi
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('mataKuliah.index') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
                         {{ Request::is('mataKuliah*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
             <svg class="w-5 h-5 {{ Request::is('mataKuliah*') ? 'text-gray-900' : 'text-white' }}"
                 fill="currentColor" viewBox="0 0 24 24">
                 <path d="M4 6v16h16V6H4zm2 2h12v12H6V8zm8-6v2H10V2h4z" />
             </svg>
-            Mata Kuliah
+                Mata Kuliah
             </a>
             </li>
 
             <li>
+                <a href="{{ route('jadwal.index') }}"
+                    class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
+                        {{ Request::is('jadwal*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
+            <svg class="w-5 h-5 {{ Request::is('jadwal*') ? 'text-gray-900' : 'text-white' }}"
+                fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4 6v16h16V6H4zm2 2h12v12H6V8zm8-6v2H10V2h4z" />
+            </svg>
+                Jadwal Kuliah
+            </a>
+            </li>
+
+            <li>
+                <a href="{{ route('nilai.index') }}"
+                    class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
+                        {{ Request::is('nilai*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
+            <svg class="w-5 h-5 {{ Request::is('nilai*') ? 'text-gray-900' : 'text-white' }}"
+                fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4 6v16h16V6H4zm2 2h12v12H6V8zm8-6v2H10V2h4z" />
+            </svg>
+                Nilai
+            </a>
+            </li>
+
+
+            {{-- <li>
                 <a href="{{ route('frs.index') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
                         {{ Request::is('frs*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">

@@ -11,22 +11,26 @@ class JadwalKuliah extends Model
     protected $fillable = [
         'id_matkul',
         'id_dosen',
+        'id_prodi',
         'hari',
-        'tanggal',
         'ruangan',
         'kelas',
-        'sks',
         'jam_awal',
         'jam_akhir'
     ];
 
     public function matkul()
     {
-        return $this->belongsTo(Matkul::class, 'id_matkul', 'id_matkul');
+        return $this->belongsTo(Matkul::class, 'id_matkul');
     }
 
     public function dosen()
     {
         return $this->belongsTo(Dosen::class, 'id_dosen');
+    }
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class, 'id_prodi', 'id_prodi');
     }
 }

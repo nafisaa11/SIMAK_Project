@@ -19,6 +19,7 @@ class DosenSeeder extends Seeder
         // Contoh data mahasiswa 1
         Dosen::create([
             
+            'id_dosen' => 1,
             'nama' => 'Dr. Andi Wijaya',
             'nip' => '1234567890',
             'email' => 'andiwijaya@example.com',
@@ -32,7 +33,7 @@ class DosenSeeder extends Seeder
         // Anda bisa menambahkan lebih banyak data contoh di sini
         for ($i = 0; $i < 5; $i++) {
             Dosen::create([
-                
+                'id_dosen' => $i + 2,
                 'nama' => $faker->name,
                 'nip' => $faker->unique()->numerify('##########'),
                 'email' => $faker->unique()->safeEmail,
