@@ -6,15 +6,16 @@ use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\JadwalKuliahController;
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\NilaiController;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\FrsController;
 
 
 // Home & Dashboard
-Route::get('/', function () {
-    return view('welcome');
-})->middleware(['auth', 'verified'])->name('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->middleware(['auth', 'verified'])->name('welcome');
 
 Route::get('/home', function () {
     return view('home');
