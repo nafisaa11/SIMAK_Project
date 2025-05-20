@@ -26,9 +26,10 @@
                             class="hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
                             <td class="px-4 py-3">{{ $loop->iteration }}</td>
                             <td class="px-4 py-3">{{ $mhs->nrp }}</td>
-                            <td class="px-4 py-3">{{ $mhs->nama }}</td>
+                            <td class="px-4 py-3">{{ $mhs->user->name }}</td>
                             <td class="px-4 py-3">{{ $mhs->prodi }}</td>
                             <td class="px-4 py-3">{{ $mhs->jenis_kelamin }}</td>
+                            
                         </tr>
                     @endforeach
                 </tbody>

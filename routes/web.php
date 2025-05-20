@@ -20,18 +20,18 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Profile routes
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 // Admin
-Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
-    Route::get('/admin', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
-});
+// Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+//     Route::get('/admin', function () {
+//         return view('admin.dashboard');
+//     })->name('admin.dashboard');
+// });
 
 // Mahasiswa
 Route::middleware(['auth', 'verified', 'role:mahasiswa|dosen|admin'])->group(function () {

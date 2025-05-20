@@ -15,6 +15,7 @@ Data Dosen
                     <th class="px-4 py-3">NIP</th>
                     <th class="px-4 py-3">NAMA</th>
                     <th class="px-4 py-3">ALAMAT</th>
+                    <th class="px-4 py-3">STATUS</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-300">
@@ -23,8 +24,10 @@ Data Dosen
                 class="hover:bg-gray-100 transition-colors duration-200">
                     <td class="px-4 py-3">{{ $loop->iteration }}</td>
                     <td class="px-4 py-3">{{ $item->nip }}</td>
-                    <td class="px-4 py-3">{{ $item->nama }}</td>
+                    <td class="px-4 py-3">{{ $item->user->name }}</td>
                     <td class="px-4 py-3">{{ $item->alamat }}</td>
+                    <td class="px-4 py-3">{{ $item->status }}</td>
+
                     
                 </tr>
                 @endforeach
