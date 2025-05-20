@@ -31,7 +31,12 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        // Cek dan buat data awal jika perlu
+        // Jika admin, langsung ke home
+        if ($user->hasRole('admin')) {
+            return redirect()->route('home');
+        }
+
+        // Jika dosen, cek apakah data dosen sudah ada
         if ($user->hasRole('dosen')) {
             $dosen = Dosen::where('user_id', $user->id)->first();
             if (!$dosen) {
@@ -39,6 +44,7 @@ class AuthenticatedSessionController extends Controller
             }
         }
 
+        // Jika mahasiswa, cek apakah data mahasiswa sudah ada
         if ($user->hasRole('mahasiswa')) {
             $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
             if (!$mahasiswa) {
@@ -46,7 +52,7 @@ class AuthenticatedSessionController extends Controller
             }
         }
 
-        // Semua role diarahkan ke route 'home'
+        // Semua role diarahkan ke home jika data sudah lengkap
         return redirect()->route('home');
     }
 

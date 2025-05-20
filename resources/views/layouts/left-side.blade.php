@@ -48,7 +48,7 @@
                 </a>
             </li>
 
-            {{-- <li>
+            <li>
                 <a href="#"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
                         {{ Request::is('mataKuliah*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
@@ -61,7 +61,7 @@
             </li>
 
             <li>
-                <a href="{{ route('frs.index') }}"
+                <a href="#"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
                         {{ Request::is('frs*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -70,7 +70,7 @@
                     </svg>
                     FRS
                 </a>
-            </li> --}}
+            </li>
 
             <li>
                 <form method="POST" action="{{ route('logout') }}">
