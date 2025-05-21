@@ -10,7 +10,6 @@ class Mahasiswa extends Model
     protected $primaryKey = 'id_mahasiswa';
     protected $fillable = [
         'user_id',
-        'id_prodi',
         'id_kelas',
         'nama',
         'nrp',
@@ -26,11 +25,6 @@ class Mahasiswa extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function prodi()
-    {
-        return $this->belongsTo(Prodi::class, 'id_prodi', 'id_prodi');
     }
 
     public function kelas()

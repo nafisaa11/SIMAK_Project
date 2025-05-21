@@ -23,14 +23,15 @@
                 </div>
                 <div>
                     <label for="prodi" class="block mb-1 text-sm font-medium text-gray-700">Program Studi</label>
-                    <select name="prodi" id="prodi"
-                        class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400"
-                        required>
-                        <option value="">Pilih</option>
-                        <option value="Teknik Informatika">Teknik Informatika</option>
-                        <option value="Sistem Informasi">Sistem Informasi</option>
-                        <!-- Tambahkan lainnya -->
+                    <select name="id_prodi" id="id_prodi" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        <option value="">Pilih Program Studi</option>
+                        @foreach($kelases as $kelas)
+                        <option value="{{ $kelas->id_kelas }}">{{ $kelas->prodi->jenjang }} {{ $kelas->prodi->nama_prodi }}</option>
+                        @endforeach
                     </select>
+                    @error('id_kelas')
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div>
                     <label for="kelas" class="block mb-1 text-sm font-medium text-gray-700">Kelas</label>
@@ -40,6 +41,8 @@
                         <option value="">Pilih</option>
                         <option value="A">A</option>
                         <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
                         <!-- Tambahkan lainnya -->
                     </select>
                 </div>
@@ -76,7 +79,6 @@
                     <input type="email" name="email" id="email"
                         class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400 bg-gray-100"
                         value="{{ Auth::user()->email }}" readonly>
-
                 </div>
                 <div>
                     <label for="tempat_lahir" class="block mb-1 text-sm font-medium text-gray-700">Tempat Lahir</label>
