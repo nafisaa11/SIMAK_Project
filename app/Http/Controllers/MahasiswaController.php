@@ -15,7 +15,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = Mahasiswa::whereHas('user', function ($query) {
             $query->role('mahasiswa'); // pakai helper dari Spatie
-        })->with('user')->get();
+        })->with('user', 'prodi', 'kelas')->get();
 
         return view('mahasiswa.dashboard', compact('mahasiswa'));
     }
@@ -30,7 +30,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        return view('mahasiswa.create');
+        return view('mahasiswa.create', compact('prodies', 'kelases'));
     }
 
     /**
@@ -39,9 +39,9 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'id_prodi' => 'required|exists:prodies,id_prodi',
+            'id_kelas' => 'required|exists:kelases,id_kelas',
             'nrp' => 'required|string|max:255|unique:mahasiswas',
-            'prodi' => 'required|string|max:255',
-            'kelas' => 'required|string|max:255',
             'no_telp' => 'required|string|max:15',
             'tanggal_lahir' => 'required|date',
             'tempat_lahir' => 'required|string|max:255',
@@ -50,6 +50,8 @@ class MahasiswaController extends Controller
         ]);
 
         $validatedData['user_id'] = Auth::id();
+        $validatedData['prodi'] = $request->input('prodi'); // ambil prodi dari request
+        $validatedData['kelas'] = $request->input('kelas'); // ambil kelas dari request
 
         Mahasiswa::create($validatedData);
 
@@ -82,10 +84,10 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::with('user')->findOrFail($id);
 
         $validatedData = $request->validate([
+            'id_prodi' => 'required|exists:prodies,id_prodi',
+            'id_kelas' => 'required|exists:kelases,id_kelas',
             'nama' => 'required|string|max:255', // tambahkan validasi nama
             'nrp' => 'required|string|max:255|unique:mahasiswas,nrp,' . $mahasiswa->id_mahasiswa . ',id_mahasiswa',
-            'prodi' => 'required|string|max:255',
-            'kelas' => 'required|string|max:255',
             'no_telp' => 'required|string|max:15',
             'tanggal_lahir' => 'required|date',
             'tempat_lahir' => 'required|string|max:255',
@@ -100,11 +102,18 @@ class MahasiswaController extends Controller
             'email' => $validatedData['email'],
         ]);
 
+        // Update id_prodi dan id_kelas di tabel mahasiswas
+        $mahasiswa->prodi->update([
+            'nama_prodi' => $validatedData['nama'],
+        ]);
+
+        $mahasiswa->kelas->update([
+            'kelas' => $validatedData['kelas'],
+        ]);
+
         // Update tabel mahasiswas
         $mahasiswa->update([
             'nrp' => $validatedData['nrp'],
-            'prodi' => $validatedData['prodi'],
-            'kelas' => $validatedData['kelas'],
             'no_telp' => $validatedData['no_telp'],
             'tanggal_lahir' => $validatedData['tanggal_lahir'],
             'tempat_lahir' => $validatedData['tempat_lahir'],
@@ -114,7 +123,6 @@ class MahasiswaController extends Controller
 
         return redirect()->route('mahasiswa.dashboard')->with('success', 'Data mahasiswa berhasil diperbarui.');
     }
-
 
     /**
      * Hapus data mahasiswa.
