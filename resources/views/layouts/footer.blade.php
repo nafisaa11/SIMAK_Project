@@ -3,3 +3,5 @@
         <strong>Copyright &copy; 2014-2021 @yield('username').</strong> All rights reserved.
     </div>
 </footer>
+
+

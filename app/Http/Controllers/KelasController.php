@@ -103,4 +103,11 @@ class KelasController extends Controller
 
         return redirect()->route('kelas.index')->with('success', 'Kelas deleted successfully.');
     }
+    
+    public function getByProdi($id_prodi)
+    {
+        $kelas = Kelas::where('id_prodi', $id_prodi)->get();
+        return response()->json($kelas);
+    }
+
 }
