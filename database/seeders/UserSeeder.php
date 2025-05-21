@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $users = [
-            // Dosen (1–5)
+            // Dosen (1–10)
             [
                 'name' => 'Dr. Andi Wijaya',
                 'email' => 'andi.wijaya@lecturer.ac.id',
@@ -56,8 +56,48 @@ class UserSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name' => 'Dr. Clara Setiawan',
+                'email' => 'clara@lecturer.ac.id',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Dr. Rudi Hartono',
+                'email' => 'Rudi@lecturer.ac.id',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Dra. Lestari Indah',
+                'email' => 'lestari@lecturer.ac.id',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Dr. Hendra Prasetyo',
+                'email' => 'hendra@lecturer.ac.id',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Dra. Yuni Astuti',
+                'email' => 'yuni@lecturer.ac.id',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
 
-            // Mahasiswa (6–15)
+            // Mahasiswa (11–20)
             [
                 'name' => 'Ahmad Rafi',
                 'email' => 'ahmad.rafi@student.ac.id',
