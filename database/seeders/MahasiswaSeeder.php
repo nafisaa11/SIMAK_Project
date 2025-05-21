@@ -18,7 +18,7 @@ class MahasiswaSeeder extends Seeder
         $mahasiswas =[
 
             [
-                'user_id' => 6,
+                'user_id' => 11,
                 'id_kelas' => 1,
                 'nrp' => '312350001',
                 'no_telp' => '081212345001',
@@ -30,7 +30,7 @@ class MahasiswaSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 7,
+                'user_id' => 12,
                 'id_kelas' => 2,
                 'nrp' => '312350002',
                 'no_telp' => '081212345002',
@@ -42,7 +42,7 @@ class MahasiswaSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 8,
+                'user_id' => 13,
                 'id_kelas' => 3,
                 'nrp' => '312350003',
                 'no_telp' => '081212345003',
@@ -54,8 +54,8 @@ class MahasiswaSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 9,
-                'id_kelas' => 1,
+                'user_id' => 14,
+                'id_kelas' => 4,
                 'nrp' => '312350004',
                 'no_telp' => '081212345004',
                 'tanggal_lahir' => '2003-04-12',
@@ -66,8 +66,8 @@ class MahasiswaSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 10,
-                'id_kelas' => 1,
+                'user_id' => 15,
+                'id_kelas' => 5,
                 'nrp' => '312350005',
                 'no_telp' => '081212345005',
                 'tanggal_lahir' => '2002-11-11',
@@ -78,8 +78,8 @@ class MahasiswaSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 11,
-                'id_kelas' => 2,
+                'user_id' => 16,
+                'id_kelas' => 1,
                 'nrp' => '312350006',
                 'no_telp' => '081212345006',
                 'tanggal_lahir' => '2003-06-20',
@@ -90,7 +90,7 @@ class MahasiswaSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 12,
+                'user_id' => 17,
                 'id_kelas' => 2,
                 'nrp' => '312350007',
                 'no_telp' => '081212345007',
@@ -102,7 +102,7 @@ class MahasiswaSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 13,
+                'user_id' => 18,
                 'id_kelas' => 3,
                 'nrp' => '312350008',
                 'no_telp' => '081212345008',
@@ -114,8 +114,8 @@ class MahasiswaSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 14,
-                'id_kelas' => 3,
+                'user_id' => 19,
+                'id_kelas' => 4,
                 'nrp' => '312350009',
                 'no_telp' => '081212345009',
                 'tanggal_lahir' => '2003-08-19',
@@ -126,8 +126,8 @@ class MahasiswaSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 15,
-                'id_kelas' => 1,
+                'user_id' => 20,
+                'id_kelas' => 5,
                 'nrp' => '312350010',
                 'no_telp' => '081212345010',
                 'tanggal_lahir' => '2003-02-05',

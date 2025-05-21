@@ -54,7 +54,7 @@ class MahasiswaController extends Controller
         ]);
 
         $validatedData['user_id'] = Auth::id();
-        $validatedData['kelas'] = $request->input('kelas'); // ambil kelas dari request
+        // $validatedData['kelas'] = $request->input('kelas'); // ambil kelas dari request
 
         Mahasiswa::create($validatedData);
 
@@ -67,7 +67,7 @@ class MahasiswaController extends Controller
     public function show(string $id)
     {
         $mahasiswa = Mahasiswa::with('user')->findOrFail($id);
-        return view('mahasiswa.show', compact('mahasiswa'));
+        return view('mahasiswa.show', compact('mahasiswa', 'kelases'));
     }
 
     /**
@@ -75,8 +75,9 @@ class MahasiswaController extends Controller
      */
     public function edit(string $id)
     {
+        $kelases = Kelas::all();
         $mahasiswa = Mahasiswa::findOrFail($id);
-        return view('mahasiswa.edit', compact('mahasiswa'));
+        return view('mahasiswa.edit', compact('mahasiswa', 'kelases'));
     }
 
     /**

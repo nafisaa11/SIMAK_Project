@@ -11,8 +11,8 @@ class Kelas extends Model
     protected $fillable = [
         'id_prodi',
         'id_dosen',
-        'nama_kelas',
-        // 'angkatan',
+        'kelas',
+        'angkatan',
     ];
 
     public function prodi()
@@ -29,4 +29,6 @@ class Kelas extends Model
     {
         return $this->hasMany(Mahasiswa::class, 'id_kelas', 'id_kelas');
     }
+
+
 }

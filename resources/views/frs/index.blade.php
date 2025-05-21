@@ -16,7 +16,7 @@ FRS
         <table class="min-w-full text-sm text-left text-gray-700">
             <thead>
                 <tr class="bg-blue-900 text-white">
-                    <th class="px-4 py-3">NO</th>
+                    <th class="px-4 py-3 text-center">NO</th>
                     <th class="px-4 py-3">KODE MATA KULIAH</th>
                     <th class="px-4 py-3">MATA KULIAH - HARI - JAM</th>
                     <th class="px-4 py-3">DOSEN</th>
@@ -27,7 +27,7 @@ FRS
             <tbody class="divide-y divide-gray-300">
                 @foreach($frses as $frs)
                 <tr class="hover:bg-gray-100 transition-colors duration-200">
-                    <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                    <td class="px-4 py-3 text-center">{{ $loop->iteration }}</td>
                     <td class="px-4 py-3">{{ $frs->kode_matkul ?? '-' }}</td>
                     <td class="px-4 py-3">
                         {{ $frs->nama_matkul }}<br>

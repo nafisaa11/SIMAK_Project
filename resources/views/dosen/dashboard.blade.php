@@ -11,7 +11,7 @@
             <table class="min-w-full text-sm text-left text-gray-700">
                 <thead>
                     <tr class="bg-blue-900 text-white">
-                        <th class="px-4 py-3">NO</th>
+                        <th class="px-4 py- text-center">NO</th>
                         <th class="px-4 py-3">NIP</th>
                         <th class="px-4 py-3">NAMA</th>
                         <th class="px-4 py-3">ALAMAT</th>
@@ -24,7 +24,7 @@
                 <tbody class="divide-y divide-gray-300">
                     @foreach ($dosen as $item)
                         <tr class="hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
-                            <td class="px-4 py-3" onclick="window.location='{{ route('dosen.show', $item->id_dosen) }}';">
+                            <td class="px-4 py-3 text-center" onclick="window.location='{{ route('dosen.show', $item->id_dosen) }}';">
                                 {{ $loop->iteration }}
                             </td>
                             <td class="px-4 py-3" onclick="window.location='{{ route('dosen.show', $item->id_dosen) }}';">
