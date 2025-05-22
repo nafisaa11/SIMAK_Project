@@ -21,7 +21,9 @@ Daftar Kelas
                     <th class="px-6 py-3 text-center">Dosen Wali</th>
                     <th class="px-6 py-3 text-center">Angkatan</th>
                     <th class="px-6 py-3 text-center">Jumlah Mahasiswa</th>
+                    @role('admin|dosen')
                     <th class="px-6 py-3 text-center">Aksi</th>
+                    @endrole
                 </tr>
             </thead>
             <tbody class="text-sm text-gray-700 divide-y divide-gray-200">
@@ -36,7 +38,7 @@ Daftar Kelas
                     <td class="px-6 py-3 text-center">
                             {{ $kelas->mahasiswa_count > 0 ? $kelas->mahasiswa_count : '-' }}
                     </td>
-
+                    @role('admin')
                     <td class="px-4 py-3 text-center align-middle">
                         <div class="flex justify-center items-center space-x-2">
                             <a href="{{ route('kelas.edit', $kelas->id_kelas) }}"
@@ -45,7 +47,20 @@ Daftar Kelas
                             </a>
                         </div>
                     </td>
-
+                    @endrole
+                    @role('dosen')
+                    <td class="px-4 py-3 text-center align-middle">
+                        <div class="flex justify-center items-center space-x-2">
+                            <a href="{{ 
+                                // Route untuk masuk ke halaman daftar mahasiswa di groupby kelas
+                                route('nilai.mahasiswa', $kelas->id_kelas) 
+                                }}"
+                            class="bg-yellow-400 hover:bg-yellow-500 text-black p-2 rounded">
+                                Masukkan Nilai
+                            </a>
+                        </div>
+                    </td>
+                    @endrole
                 </tr>
                 @endforeach
             </tbody>

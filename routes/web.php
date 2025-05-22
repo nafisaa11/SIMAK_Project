@@ -74,11 +74,22 @@ Route::middleware(['auth', 'verified', 'role:dosen|mahasiswa|admin'])->group(fun
     Route::get('/dosen/{id}', [DosenController::class, 'show'])->name('dosen.show');
 });
 
+// Resource routes
 Route::resource('prodi', ProdiController::class);
 Route::resource('mataKuliah', MatakuliahController::class);
 Route::resource('jadwal', JadwalKuliahController::class);
 Route::resource('nilai', NilaiController::class);
 Route::resource('kelas', KelasController::class);
+Route::resource('frs', FRSController::class);
+
+// Route for get Data
+// Untuk dosen melihat daftar mahasiswa berdasarkan kelas
+Route::get('/kelas/{id_kelas}/mahasiswa', [App\Http\Controllers\NilaiController::class, 'showMahasiswaByKelas'])->name('nilai.mahasiswa');
+// route input nilai mahasiswa tertentu
+Route::get('/nilai/input/{id_mahasiswa}', [App\Http\Controllers\NilaiController::class, 'create'])->name('nilai.input');
+Route::get('/nilai/mahasiswa/{id_mahasiswa}', [NilaiController::class, 'index'])->name('nilai.mahasiswa');
+
+
 
 require __DIR__.'/auth.php';
 // Admin only routes for Dosen (edit, update, destroy)

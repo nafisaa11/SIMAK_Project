@@ -48,6 +48,7 @@
                 </a>
             </li>
 
+            @hasanyrole('admin')
             <li>
                 <a href="{{ route('prodi.index') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
@@ -59,7 +60,9 @@
                     Program Studi
                 </a>
             </li>
+            @endhasanyrole
 
+            @hasanyrole('admin')
             <li>
                 <a href="{{ route('mataKuliah.index') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
@@ -71,6 +74,7 @@
                 Mata Kuliah
             </a>
             </li>
+            @endhasanyrole
 
             <li>
                 <a href="{{ route('jadwal.index') }}"
@@ -86,10 +90,10 @@
 
             @hasanyrole('dosen|mahasiswa')
             <li>
-                <a href="{{ route('nilai.index') }}"
+                <a href="{{ route('kelas.index') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
-                        {{ Request::is('nilai*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
-                    <svg class="w-5 h-5 {{ Request::is('nilai*') ? 'text-gray-900' : 'text-white' }}"
+                        {{ Request::is('kelas*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
+                    <svg class="w-5 h-5 {{ Request::is('kelas*') ? 'text-gray-900' : 'text-white' }}"
                         fill="currentColor" viewBox="0 0 24 24">
                         <path d="M4 6v16h16V6H4zm2 2h12v12H6V8zm8-6v2H10V2h4z" />
                     </svg>
@@ -101,7 +105,7 @@
         @endhasanyrole
         
 
-
+            @hasanyrole('admin')
             <li>
                 <a href="{{ route('kelas.index') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
@@ -113,10 +117,11 @@
                     Kelas
                 </a>
             </li>
+            @endhasanyrole
 
             @hasanyrole('dosen|mahasiswa')
             <li>
-                <a href="#"
+                <a href="{{ route('frs.index') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
                         {{ Request::is('frs*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

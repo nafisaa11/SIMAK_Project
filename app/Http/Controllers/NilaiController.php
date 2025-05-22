@@ -6,14 +6,24 @@ use Illuminate\Http\Request;
 use App\Models\Nilai;
 use App\Models\Mahasiswa;
 use App\Models\Matkul;
+use App\Models\Kelas;
+
 
 class NilaiController extends Controller
 {
-    public function index()
+    public function index($id_mahasiswa)
     {
         // Ambil data nilai beserta relasi mahasiswa dan mata kuliah
-        $nilais = Nilai::with(['mahasiswa', 'matkul'])->get();
-        return view('nilai.index', compact('nilais'));
+        // $nilais = Nilai::with(['mahasiswa', 'matkul'])->get();
+        // return view('nilai.index', compact('nilais'));
+
+        $mahasiswa = Mahasiswa::with('user')->findOrFail($id_mahasiswa);
+
+        $nilais = Nilai::with('matkul')
+                    ->where('id_mahasiswa', $id_mahasiswa)
+                    ->get();
+
+        return view('nilai.index', compact('nilais', 'mahasiswa'));
     }
 
     public function create()
@@ -37,10 +47,10 @@ class NilaiController extends Controller
         Nilai::create($validated);
         return redirect()->route('nilai.index')->with('success', 'Nilai berhasil ditambahkan.');
     }
-    
-    
 
-
+    /**
+     * Display the specified resource.
+     */
     public function show($id)
     {
         // Menampilkan nilai dengan relasi mahasiswa dan mata kuliah
@@ -69,5 +79,13 @@ class NilaiController extends Controller
     {
         Nilai::destroy($id);
         return redirect()->route('nilai.index');
+    }
+
+    public function showMahasiswaByKelas($id_kelas)
+    {
+        $kelas = Kelas::with(['mahasiswa.user']) // asumsikan relasi ke user lewat mahasiswa
+                    ->findOrFail($id_kelas);
+
+        return view('nilai.daftar_mahasiswa', compact('kelas'));
     }
 }

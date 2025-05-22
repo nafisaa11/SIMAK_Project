@@ -45,8 +45,8 @@
                                 onclick="window.location='{{ route('mahasiswa.show', $mhs->id_mahasiswa) }}';">
                                 {{ $mhs->jenis_kelamin }}
                             </td>
+                            @role('admin')
                             <td class="px-4 py-3">
-                                @role('admin')
                                     <div class="flex space-x-2">
                                         <a href="{{ route('mahasiswa.edit', $mhs->id_mahasiswa) }}"
                                             class="bg-yellow-400 hover:bg-yellow-500 text-black p-2 rounded"
@@ -62,8 +62,8 @@
                                             </button>
                                         </form>
                                     </div>
+                                </td>
                                 @endrole
-                            </td>
                         </tr>
                     @endforeach
                 </tbody>
