@@ -14,7 +14,7 @@ Tambah Data Dosen
         </div>
         <div>
             <label for="nama" class="block text-gray-700 text-sm font-bold mb-2">Nama Lengkap</label>
-            <input type="text" name="nama" id="nama" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <input type="text" name="nama" id="nama" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ Auth::user()->name }}" readonly>
         </div>
         <div>
             <label for="alamat" class="block text-gray-700 text-sm font-bold mb-2">alamat</label>
@@ -31,7 +31,7 @@ Tambah Data Dosen
         
         <div>
             <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
-            <input type="email" name="email" id="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <input type="email" name="email" id="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="{{ Auth::user()->email }}" readonly>
         </div>
         <div>
             <label for="no_telp" class="block text-gray-700 text-sm font-bold mb-2">Nomor HP</label>

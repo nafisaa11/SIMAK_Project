@@ -44,16 +44,7 @@ class KelasController extends Controller
         // Simpan kelas baru
         $kelas = Kelas::create($request->all());
 
-        // // Hitung jumlah mahasiswa berdasarkan prodi dan kelas
-        $jumlahMahasiswa = Mahasiswa::where('id_prodi', $request->id_prodi)
-            ->where('kelas', $request->kelas)
-            ->count();
-        // $jumlahMahasiswa = Mahasiswa::where('kelas', $request->id_kelas)->count();
-        // // Jika kamu punya kolom jumlah_mahasiswa, simpan nilainya:
-        $kelas->jumlah_mahasiswa = $jumlahMahasiswa;
-        $kelas->save();
 
-        
 
         // Ubah status dosen menjadi 'Dosen wali'
         $dosen = Dosen::find($request->id_dosen);
@@ -64,6 +55,7 @@ class KelasController extends Controller
 
         return redirect()->route('kelas.index')->with('success', 'Kelas berhasil dibuat dan status dosen diperbarui.');
     }
+
 
 
     /**
