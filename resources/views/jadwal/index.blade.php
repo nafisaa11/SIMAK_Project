@@ -34,7 +34,7 @@ Daftar Jadwal Kuliah
                     <td class="px-6 py-3">{{ $jd->hari }}</td>
                     <td class="px-6 py-3">
                         <div class="font-semibold">{{ $jd->matkul->nama_matkul }}</div>
-                        <div>{{ $jd->dosen->nama }}</div>
+                        <div>{{ $jd->dosen->user->name }}</div>
                         <div>{{ $jd->ruangan }}</div>
                     </td>
                     <td class="px-6 py-3">{{ \Carbon\Carbon::parse($jd->jam_awal)->format('H:i') }} sd {{ \Carbon\Carbon::parse($jd->jam_akhir)->format('H:i') }}</td>
