@@ -84,17 +84,22 @@
             </a>
             </li>
 
+            @hasanyrole('dosen|mahasiswa')
             <li>
                 <a href="{{ route('nilai.index') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
                         {{ Request::is('nilai*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
-            <svg class="w-5 h-5 {{ Request::is('nilai*') ? 'text-gray-900' : 'text-white' }}"
-                fill="currentColor" viewBox="0 0 24 24">
-                <path d="M4 6v16h16V6H4zm2 2h12v12H6V8zm8-6v2H10V2h4z" />
-            </svg>
-                Nilai
-            </a>
+                    <svg class="w-5 h-5 {{ Request::is('nilai*') ? 'text-gray-900' : 'text-white' }}"
+                        fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 6v16h16V6H4zm2 2h12v12H6V8zm8-6v2H10V2h4z" />
+                    </svg>
+                    <h3 >
+                        {{ Auth::user()->hasRole('dosen') ? 'Manajemen Nilai' : 'Nilai' }}
+                    </h3>
+                </a>
             </li>
+        @endhasanyrole
+        
 
 
             <li>
@@ -109,6 +114,7 @@
                 </a>
             </li>
 
+            @hasanyrole('dosen|mahasiswa')
             <li>
                 <a href="#"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
@@ -120,6 +126,7 @@
                     FRS
                 </a>
             </li>
+            @endhasanyrole
 
             <li>
                 <form method="POST" action="{{ route('logout') }}">

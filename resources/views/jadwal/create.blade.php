@@ -101,7 +101,7 @@ Tambah Jadwal Kuliah
         @endforeach
     </ul>
 </div>
-
+{{-- 
 <script>
     document.getElementById('id_prodi').addEventListener('change', function () {
         const prodiId = this.value;
@@ -124,6 +124,6 @@ Tambah Jadwal Kuliah
                 kelasSelect.innerHTML = '<option value="">Terjadi kesalahan</option>';
             });
     });
-</script>
+</script> --}}
 @endif
 @endsection
