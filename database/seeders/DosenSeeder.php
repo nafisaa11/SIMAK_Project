@@ -127,6 +127,17 @@ class DosenSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'user_id' => 22,
+                'nip' => '199701012026031018',
+                'no_telp' => '090012345678',
+                'alamat' => 'Jl. Kamboja No. 45, Yogyakarta',
+                'status' => 'Dosen wali',
+                'jenis_kelamin' => 'Perempuan',
+                'agama' => 'Buddha',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
         foreach ($dosens as $dosen) {
             Dosen::create($dosen);

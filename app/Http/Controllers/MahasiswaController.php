@@ -89,27 +89,30 @@ class MahasiswaController extends Controller
 
         $validatedData = $request->validate([
             'id_kelas' => 'required|exists:kelases,id_kelas',
-            'id_user' => 'required|string|max:255', // tambahkan validasi nama
             'nrp' => 'required|string|max:255|unique:mahasiswas,nrp,' . $mahasiswa->id_mahasiswa . ',id_mahasiswa',
             'no_telp' => 'required|string|max:15',
             'tanggal_lahir' => 'required|date',
             'tempat_lahir' => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'agama' => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
         ]);
 
-        // Update tabel users (nama & email)
+        // Update tabel users
         $mahasiswa->user->update([
             'name' => $validatedData['nama'],
             'email' => $validatedData['email'],
         ]);
 
-        $mahasiswa->kelas->update([
-            'kelas' => $validatedData['kelas'],
+        // Update tabel kelases
+        $mahasiswa->kelas()->update([
+            'id_kelas' => $validatedData['id_kelas'],
         ]);
 
         // Update tabel mahasiswas
         $mahasiswa->update([
+            'id_kelas' => $validatedData['id_kelas'],
             'nrp' => $validatedData['nrp'],
             'no_telp' => $validatedData['no_telp'],
             'tanggal_lahir' => $validatedData['tanggal_lahir'],

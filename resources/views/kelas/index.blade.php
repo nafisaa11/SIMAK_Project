@@ -43,15 +43,6 @@ Daftar Kelas
                             class="bg-yellow-400 hover:bg-yellow-500 text-black p-2 rounded">
                                 <i class="ph ph-pencil"></i>
                             </a>
-                            <form action="{{ route('kelas.destroy', $kelas->id_kelas) }}"
-                                method="POST"
-                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white p-2 rounded">
-                                    <i class="ph ph-trash"></i>
-                                </button>
-                            </form>
                         </div>
                     </td>
 
