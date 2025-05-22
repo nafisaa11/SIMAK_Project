@@ -69,8 +69,9 @@ class JadwalKuliahController extends Controller
         $matkuls = Matkul::all();
         $dosens = Dosen::all();
         $kelases = Kelas::all();
+        $prodies = Prodi::all();
         $jadwal = JadwalKuliah::findOrFail($id);
-        return view('jadwal.edit', compact('jadwal', 'matkuls', 'dosens', 'kelases'));
+        return view('jadwal.edit', compact('jadwal', 'matkuls', 'dosens', 'kelases', 'prodies'));
     }
 
     /**
@@ -118,11 +119,12 @@ class JadwalKuliahController extends Controller
         return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil dihapus.');
     }
 
-    public function getKelasByProdi($id_prodi)
+    public function getJadwalByProdi($id)
     {
-        $kelas = Kelas::where('id_prodi', $id_prodi)->get();
-
+        $kelas = Kelas::where('id_prodi', $id)->get();
         return response()->json($kelas);
     }
+
+
 
 }

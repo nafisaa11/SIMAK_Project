@@ -158,5 +158,10 @@ class KelasController extends Controller
         $kelas = Kelas::where('id_prodi', $id_prodi)->get();
         return response()->json($kelas);
     }
-
+    
+    public function getJadwalByProdi($id_prodi)
+    {
+        $kelas = Kelas::where('id_prodi', $id_prodi)->get();
+        return response()->json($kelas);
+    }
 }

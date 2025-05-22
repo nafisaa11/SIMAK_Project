@@ -14,8 +14,8 @@
             <li>
                 <a href="{{ route('home') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
-          {{ Request::is('dashboard') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
-                    <svg class="w-5 h-5 {{ Request::is('dashboard') ? 'text-gray-900' : 'text-white' }}"
+          {{ Request::is('home') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
+                    <svg class="w-5 h-5 {{ Request::is('home') ? 'text-gray-900' : 'text-white' }}"
                         fill="currentColor" viewBox="0 0 24 24">
                         <path d="M3 3h8v8H3V3zm0 10h8v8H3v-8zm10-10h8v8h-8V3zm0 10h8v8h-8v-8z" />
                     </svg>

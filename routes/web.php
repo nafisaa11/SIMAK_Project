@@ -110,7 +110,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/get-kelas-by-prodi/{id_prodi}', [KelasController::class, 'getByProdi']);
-Route::get('/jadwal/kelas/by-prodi/{id_prodi}', [JadwalKuliahController::class, 'getKelasByProdi']);
+Route::get('/get-jadwal-by-prodi/{id_prodi}', [JadwalKuliahController::class, 'getJadwalByProdi']);
+
 
 
 require __DIR__ . '/auth.php';
