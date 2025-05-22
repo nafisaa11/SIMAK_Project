@@ -24,7 +24,7 @@
                 <div>
                     <label for="id_prodi" class="block mb-1 text-sm font-medium text-gray-700">Program Studi</label>
                     <select name="id_prodi" id="id_prodi" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400" required>
-                        <option value="">Pilih Program Studi</option>
+                        <option value="">-- Pilih Program Studi --</option>
                         @foreach($prodies as $prodi)
                             <option value="{{ $prodi->id_prodi }}">{{ $prodi->jenjang }} {{ $prodi->nama_prodi }}</option>
                         @endforeach
@@ -35,7 +35,7 @@
                     <select name="id_kelas" id="id_kelas"
                         class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400"
                         required>
-                        <option value="">Pilih Kelas</option>
+                        <option value="">-- Pilih Kelas --</option>
                         {{-- Akan diisi via AJAX --}}
                     </select>
                 </div>
@@ -49,7 +49,7 @@
                     <select name="jenis_kelamin" id="jenis_kelamin"
                         class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400"
                         required>
-                        <option value="">Pilih</option>
+                        <option value="">-- Pilih --</option>
                         <option value="Laki-laki">Laki-laki</option>
                         <option value="Perempuan">Perempuan</option>
                     </select>
@@ -59,7 +59,7 @@
                     <select name="agama" id="agama"
                         class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400"
                         required>
-                        <option value="">Pilih</option>
+                        <option value="">-- Pilih --</option>
                         <option value="Islam">Islam</option>
                         <option value="Kristen">Kristen</option>
                         <option value="Katolik">Katolik</option>
@@ -85,7 +85,7 @@
                         class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400">
                 </div>
                 <div>
-                    <label for="no_telp" class="block mb-1 text-sm font-medium text-gray-700">Nomer Telepon (aktif)</label>
+                    <label for="no_telp" class="block mb-1 text-sm font-medium text-gray-700">Nomer Telepon (Aktif)</label>
                     <input type="tel" name="no_telp" id="no_telp"
                         class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400">
                 </div>
@@ -108,12 +108,12 @@
         const kelasSelect = document.getElementById('id_kelas');
 
         // Kosongkan dulu pilihan kelas
-        kelasSelect.innerHTML = '<option value="">Loading...</option>';
+        kelasSelect.innerHTML = '<option value="">Mencari kelas...</option>';
 
         fetch(`/get-kelas-by-prodi/${prodiId}`)
             .then(response => response.json())
             .then(data => {
-                let options = '<option value="">Pilih Kelas</option>';
+                let options = '<option value="">-- Pilih Kelas --</option>';
                 data.forEach(kelas => {
                     options += `<option value="${kelas.id_kelas}">${kelas.kelas}</option>`;
                 });
@@ -121,7 +121,7 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                kelasSelect.innerHTML = '<option value="">Terjadi kesalahan</option>';
+                kelasSelect.innerHTML = '<option value="">-- Pilih Prodi Terlebih Dahulu! --</option>';
             });
     });
 </script>
