@@ -27,8 +27,8 @@ class JadwalKuliahController extends Controller
     {
         $matkuls = Matkul::all();
         $dosens = Dosen::all();
-        $prodies = Prodi::all();
         $kelases = Kelas::with('prodi')->get(); // jika masih butuh
+        $prodies = Prodi::all();
         return view('jadwal.create', compact('matkuls', 'dosens', 'kelases', 'prodies'));
     }
 
@@ -43,8 +43,8 @@ class JadwalKuliahController extends Controller
             'id_kelas'  => 'required|exists:kelases,id_kelas',
             'hari'      => 'required|string',
             'ruangan'   => 'required|string',
-            'kelas'     => 'required|string',
-            'semester'  => 'required|string',
+            // 'kelas'     => 'required|string',
+            // 'semester'  => 'required|string',
             'jam_awal'  => 'required',
             'jam_akhir' => 'required'
         ]);
@@ -60,7 +60,7 @@ class JadwalKuliahController extends Controller
     public function show(string $id)
     {
         $jadwal = JadwalKuliah::with(['matkul', 'dosen', 'kelases'])->findOrFail($id);
-        return view('jadwal.show', compact('jadwal' ));
+        return view('jadwal.show', compact('jadwal', 'matkuls', 'dosens', 'kelases'));
     }
 
     /**
@@ -86,8 +86,8 @@ class JadwalKuliahController extends Controller
             'id_kelas'  => 'required|exists:kelases,id_kelas',
             'hari'      => 'required|string',
             'ruangan'   => 'required|string',
-            'kelas'    => 'required|string',
-            'semester'  => 'required|string',
+            // 'kelas'    => 'required|string',
+            // 'semester'  => 'required|string',
             'jam_awal'  => 'required',
             'jam_akhir' => 'required'
         ]);
@@ -109,11 +109,11 @@ class JadwalKuliahController extends Controller
         return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil dihapus.');
     }
 
-    // public function getKelasByProdi($id_prodi)
-    // {
-    //     $kelas = Kelas::where('id_prodi', $id_prodi)->get();
+    public function getKelasByProdi($id_prodi)
+    {
+        $kelas = Kelas::where('id_prodi', $id_prodi)->get();
 
-    //     return response()->json($kelas);
-    // }
+        return response()->json($kelas);
+    }
 
 }
