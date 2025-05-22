@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Data Mata Kuliah
+Daftar Mata Kuliah
 @endsection
 
 @section('content')
@@ -16,20 +16,20 @@ Data Mata Kuliah
         <table class="min-w-full text-sm text-left text-gray-700">
             <thead>
                 <tr class="bg-blue-900 text-white">
-                    <th class="px-4 py-3">NO</th>
-                    <th class="px-4 py-3">KODE MATA KULIAH</th>
+                    <th class="px-4 py-3 text-center">NO</th>
+                    <th class="px-4 py-3 text-center">KODE MATA KULIAH</th>
                     <th class="px-4 py-3">NAMA MATA KULIAH</th>
-                    <th class="px-4 py-3">SKS</th>
+                    <th class="px-4 py-3 text-center">SKS</th>
                     <th class="px-4 py-3">Tindakan</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-300">
                 @foreach($matkuls as $matkul)
                 <tr class="hover:bg-gray-100 transition-colors duration-200">
-                    <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                    <td class="px-4 py-3">{{ $matkul->kode_matkul }}</td>
+                    <td class="px-4 py-3 text-center">{{ $loop->iteration }}</td>
+                    <td class="px-4 py-3 text-center">{{ $matkul->kode_matkul }}</td>
                     <td class="px-4 py-3">{{ $matkul->nama_matkul }}</td>
-                    <td class="px-4 py-3">{{ $matkul->sks }}</td>
+                    <td class="px-4 py-3 text-center">{{ $matkul->sks }}</td>
                     <td class="px-4 py-3">
                         <div class="flex space-x-2">
                             <a href="{{ route('mataKuliah.edit', $matkul->id_matkul) }}" class="bg-yellow-400 hover:bg-yellow-500 text-black p-2 rounded">

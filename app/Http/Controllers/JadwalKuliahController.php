@@ -6,6 +6,7 @@ use App\Models\JadwalKuliah;
 use App\Models\Matkul;
 use App\Models\Dosen;
 use App\Models\Kelas;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 
 class JadwalKuliahController extends Controller
@@ -26,8 +27,9 @@ class JadwalKuliahController extends Controller
     {
         $matkuls = Matkul::all();
         $dosens = Dosen::all();
-        $kelases = Kelas::all();
-        return view('jadwal.create', compact('matkuls', 'dosens', 'kelases'));
+        $prodies = Prodi::all();
+        $kelases = Kelas::with('prodi')->get(); // jika masih butuh
+        return view('jadwal.create', compact('matkuls', 'dosens', 'kelases', 'prodies'));
     }
 
     /**
@@ -57,8 +59,8 @@ class JadwalKuliahController extends Controller
      */
     public function show(string $id)
     {
-        $jadwal = JadwalKuliah::with(['matkul', 'dosen'])->findOrFail($id);
-        return view('jadwal.show', compact('jadwal'));
+        $jadwal = JadwalKuliah::with(['matkul', 'dosen', 'kelases'])->findOrFail($id);
+        return view('jadwal.show', compact('jadwal' ));
     }
 
     /**
@@ -106,4 +108,12 @@ class JadwalKuliahController extends Controller
 
         return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil dihapus.');
     }
+
+    // public function getKelasByProdi($id_prodi)
+    // {
+    //     $kelas = Kelas::where('id_prodi', $id_prodi)->get();
+
+    //     return response()->json($kelas);
+    // }
+
 }

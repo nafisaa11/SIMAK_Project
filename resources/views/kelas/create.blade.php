@@ -44,6 +44,22 @@ Tambah Kelas
             </select>
         </div>
 
+        <div>
+            <label for="angkatan" class="block text-gray-700 text-sm font-bold mb-2">Angkatan</label>
+            <select name="angkatan" id="angkatan" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                <option value="">Pilih Tahun Angkatan</option>
+                @for ($year = date('Y'); $year >= 2023; $year--)
+                    <option value="{{ $year }}" {{ old('angkatan') == $year ? 'selected' : '' }}>
+                        {{ $year }}
+                    </option>
+                @endfor
+            </select>
+            @error('angkatan')
+            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+            @enderror
+        </div>
+
+
         <div class="flex items-center justify-between pt-4">
             <a href="{{ route('kelas.index') }}" class="text-indigo-600 hover:text-indigo-800">Kembali</a>
             <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">

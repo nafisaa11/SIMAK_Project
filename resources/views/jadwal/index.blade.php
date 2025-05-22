@@ -19,7 +19,7 @@ Daftar Jadwal Kuliah
         <table class="min-w-full text-sm text-left text-gray-700">
             <thead class="bg-gray-900 text-white text-sm font-semibold uppercase">
                 <tr class="bg-blue-900 text-white">
-                    <th class="px-6 py-3 text-left">No</th>
+                    <th class="px-6 py-3 text-center">No</th>
                     <th class="px-6 py-3 text-left">Hari</th>
                     <th class="px-6 py-3 text-left">Daftar Jadwal</th>
                     <th class="px-6 py-3 text-left">Jam</th>
@@ -30,7 +30,7 @@ Daftar Jadwal Kuliah
             <tbody class="text-sm text-gray-700 divide-y divide-gray-200">
     @foreach($jadwals as $key => $jd)
     <tr class="hover:bg-gray-100 transition-colors duration-200">
-        <td class="px-6 py-3">{{ $loop->iteration }}</td>
+        <td class="px-6 py-3 text-center">{{ $loop->iteration }}</td>
         <td class="px-6 py-3">{{ $jd->hari }}</td>
         <td class="px-6 py-3">
             <div class="font-semibold">{{ $jd->matkul->nama_matkul }}</div>

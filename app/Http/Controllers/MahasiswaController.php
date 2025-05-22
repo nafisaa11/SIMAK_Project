@@ -32,9 +32,9 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        $kelases = Kelas::all();
-
-        return view('mahasiswa.create', compact('kelases'));
+    $kelases = Kelas::with('prodi')->get(); // jika masih butuh
+    $prodies = Prodi::all(); // Tambahkan ini
+    return view('mahasiswa.create', compact('kelases', 'prodies'));
     }
 
     /**
@@ -44,7 +44,7 @@ class MahasiswaController extends Controller
     {
         $validatedData = $request->validate([
             'id_kelas' => 'required|exists:kelases,id_kelas',
-            'id_user' => 'required|string|max:255', // tambahkan validasi nama
+            // 'id_user' => 'required|string|max:255', // tambahkan validasi nama
             'nrp' => 'required|string|max:255|unique:mahasiswas',
             'no_telp' => 'required|string|max:15',
             'tanggal_lahir' => 'required|date',
@@ -54,7 +54,7 @@ class MahasiswaController extends Controller
         ]);
 
         $validatedData['user_id'] = Auth::id();
-        $validatedData['kelas'] = $request->input('kelas'); // ambil kelas dari request
+        // $validatedData['kelas'] = $request->input('kelas'); // ambil kelas dari request
 
         Mahasiswa::create($validatedData);
 
@@ -67,7 +67,7 @@ class MahasiswaController extends Controller
     public function show(string $id)
     {
         $mahasiswa = Mahasiswa::with('user')->findOrFail($id);
-        return view('mahasiswa.show', compact('mahasiswa'));
+        return view('mahasiswa.show', compact('mahasiswa', 'kelases'));
     }
 
     /**
@@ -75,8 +75,9 @@ class MahasiswaController extends Controller
      */
     public function edit(string $id)
     {
+        $kelases = Kelas::all();
         $mahasiswa = Mahasiswa::findOrFail($id);
-        return view('mahasiswa.edit', compact('mahasiswa'));
+        return view('mahasiswa.edit', compact('mahasiswa', 'kelases'));
     }
 
     /**

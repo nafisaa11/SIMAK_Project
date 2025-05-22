@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Kelas
+Daftar Kelas
 @endsection
 
 @section('content')
@@ -14,32 +14,47 @@ Kelas
     </div>
     <div class="overflow-x-auto p-4">
         <table class="min-w-full table-auto">
-            <thead class="bg-gray-900 text-white text-sm font-semibold uppercase">
-                <tr>
-                    <th class="px-6 py-3 text-left">No</th>
-                    <th class="px-6 py-3 text-left">Kelas</th>
-                    <th class="px-6 py-3 text-left">Dosen Wali</th>
-                    <th class="px-6 py-3 text-left">Jumlah Mahasiswa</th>
-                    <th class="px-6 py-3 text-left">Aksi</th>
+            <thead>
+                 <tr class="bg-blue-900 text-white">
+                    <th class="px-6 py-3 text-center">No</th>
+                    <th class="px-6 py-3 text-center">Kelas</th>
+                    <th class="px-6 py-3 text-center">Dosen Wali</th>
+                    <th class="px-6 py-3 text-center">Angkatan</th>
+                    <th class="px-6 py-3 text-center">Jumlah Mahasiswa</th>
+                    <th class="px-6 py-3 text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody class="text-sm text-gray-700 divide-y divide-gray-200">
                 @foreach($kelases as $key => $kelas)
                 <tr class="hover:bg-gray-100 transition-colors duration-200">
-                    <td class="px-6 py-3">{{ $loop->iteration }}</td>
-                    <td class="px-6 py-3">
-                        {{ $kelas->prodi->kode_prodi }} {{ $kelas->nama_kelas }}
+                    <td class="px-6 py-3 text-center">{{ $loop->iteration }}</td>
+                    <td class="px-6 py-3 text-center">
+                        {{ $kelas->prodi->kode_prodi }} {{ $kelas->kelas }}
                     </td>
-                    <td class="px-6 py-3">{{ $kelas->dosen->nama_dosen}}</td>
-                    <td class="px-6 py-3">{{ $kelas->mahasiswa->count() }}</td>
-                    <td class="px-6 py-3 flex gap-2">
-                        <a href="{{ route('kelas.edit', $kelas->id_kelas) }}" class="text-indigo-600 hover:underline">Edit</a>
-                        <form action="{{ route('kelas.destroy', $kelas->id_kelas) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-600 hover:underline">Hapus</button>
-                        </form>
+                    <td class="px-6 py-3 text-center">{{ $kelas->dosen->user->name }}</td>
+                    <td class="px-6 py-3 text-center">{{ $kelas->angkatan}}</td>
+                    <td class="px-6 py-3 text-center">
+                            {{ $kelas->mahasiswa_count > 0 ? $kelas->mahasiswa_count : '-' }}
                     </td>
+
+                    <td class="px-4 py-3 text-center align-middle">
+                        <div class="flex justify-center items-center space-x-2">
+                            <a href="{{ route('kelas.edit', $kelas->id_kelas) }}"
+                            class="bg-yellow-400 hover:bg-yellow-500 text-black p-2 rounded">
+                                <i class="ph ph-pencil"></i>
+                            </a>
+                            <form action="{{ route('kelas.destroy', $kelas->id_kelas) }}"
+                                method="POST"
+                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white p-2 rounded">
+                                    <i class="ph ph-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+
                 </tr>
                 @endforeach
             </tbody>

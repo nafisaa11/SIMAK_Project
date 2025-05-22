@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Data Program Studi
+Daftar Program Studi
 @endsection
 
 @section('content')
@@ -16,8 +16,8 @@ Data Program Studi
         <table class="min-w-full text-sm text-left text-gray-700">
             <thead>
                 <tr class="bg-blue-900 text-white">
-                    <th class="px-4 py-3">NO</th>
-                    <th class="px-4 py-3">KODE PROGRAM STUDI</th>
+                    <th class="px-4 py-3 text-center">NO</th>
+                    <th class="px-4 py-3 text-center">KODE PROGRAM STUDI</th>
                     <th class="px-4 py-3">PROGRAM STUDI</th>
                     <th class="px-4 py-3">Tindakan</th>
                 </tr>
@@ -25,8 +25,8 @@ Data Program Studi
             <tbody class="divide-y divide-gray-300">
                 @foreach($prodies as $prodi)
                 <tr class="hover:bg-gray-100 transition-colors duration-200">
-                    <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                    <td class="px-4 py-3">{{ $prodi->kode_prodi }}</td>
+                    <td class="px-4 py-3 text-center">{{ $loop->iteration }}</td>
+                    <td class="px-4 py-3 text-center">{{ $prodi->kode_prodi }}</td>
                     <td class="px-4 py-3">{{ $prodi->jenjang }} {{ $prodi->nama_prodi }}</td>
                     <td class="px-4 py-3">
                         <div class="flex space-x-2">
