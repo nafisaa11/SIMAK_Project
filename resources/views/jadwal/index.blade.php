@@ -28,19 +28,19 @@ Daftar Jadwal Kuliah
                 </tr>
             </thead>
             <tbody class="text-sm text-gray-700 divide-y divide-gray-200">
-    @foreach($jadwals as $key => $jd)
-    <tr class="hover:bg-gray-100 transition-colors duration-200">
-        <td class="px-6 py-3 text-center">{{ $loop->iteration }}</td>
-        <td class="px-6 py-3">{{ $jd->hari }}</td>
-        <td class="px-6 py-3">
-            <div class="font-semibold">{{ $jd->matkul->nama_matkul }}</div>
-            <div>{{ $jd->dosen->nama }}</div>
-            <div>{{ $jd->ruangan }}</div>
-        </td>
-        <td class="px-6 py-3">{{ \Carbon\Carbon::parse($jd->jam_awal)->format('H:i') }} sd {{ \Carbon\Carbon::parse($jd->jam_akhir)->format('H:i') }}</td>
-        <td class="px-6 py-3">{{ $jd->prodi->kode_prodi ?? '-' }} {{ $jd->kelas }}</td>
-        <td class="px-6 py-3 flex gap-2">
-            <div class="flex space-x-2">
+                @foreach($jadwals as $key => $jd)
+                <tr class="hover:bg-gray-100 transition-colors duration-200">
+                    <td class="px-6 py-3 text-center">{{ $loop->iteration }}</td>
+                    <td class="px-6 py-3">{{ $jd->hari }}</td>
+                    <td class="px-6 py-3">
+                        <div class="font-semibold">{{ $jd->matkul->nama_matkul }}</div>
+                        <div>{{ $jd->dosen->nama }}</div>
+                        <div>{{ $jd->ruangan }}</div>
+                    </td>
+                    <td class="px-6 py-3">{{ \Carbon\Carbon::parse($jd->jam_awal)->format('H:i') }} sd {{ \Carbon\Carbon::parse($jd->jam_akhir)->format('H:i') }}</td>
+                    <td class="px-6 py-3">{{ $jd->kelas->prodi->kode_prodi ?? '-' }} {{ $jd->kelas->kelas }}</td>
+                    <td class="px-6 py-3 flex gap-2">
+                        <div class="flex space-x-2">
                             <a href="{{ route('jadwal.edit', $jd->id_jadwal_kuliah) }}" class="bg-yellow-400 hover:bg-yellow-500 text-black p-2 rounded">
                                 <i class="ph ph-pencil"></i>
                             </a>
@@ -52,7 +52,7 @@ Daftar Jadwal Kuliah
                                 </button>
                             </form>
                         </div>
-    </tr>
+                    </tr>
     @endforeach
 </tbody>
 
