@@ -85,7 +85,7 @@ Route::resource('frs', FrsController::class);
 
 // Route for get Data
 // Untuk dosen melihat daftar mahasiswa berdasarkan kelas
-Route::get('/kelas/{id_kelas}/mahasiswa', [App\Http\Controllers\NilaiController::class, 'showMahasiswaByKelas'])->name('nilai.mahasiswa');
+Route::get('/kelas/{id_kelas}/mahasiswa', [App\Http\Controllers\NilaiController::class, 'showMahasiswaByKelas'])->name('nilai.kelas');
 // route input nilai mahasiswa tertentu
 Route::get('/nilai/input/{id_mahasiswa}', [App\Http\Controllers\NilaiController::class, 'create'])->name('nilai.input');
 Route::get('/nilai/mahasiswa/{id_mahasiswa}', [NilaiController::class, 'index'])->name('nilai.mahasiswa');
