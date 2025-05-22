@@ -28,22 +28,28 @@ Tambah Jadwal Kuliah
             <select name="id_dosen" id="id_dosen" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                 <option value="">Pilih Dosen</option>
                 @foreach($dosens as $ds)
-                <option value="{{ $ds->id_dosen }}">{{ $ds->nama }}</option>
+                <option value="{{ $ds->id_dosen }}">{{ $ds->user->name }}</option>
                 @endforeach
             </select>
         </div>
 
         <div>
-            <label for="hari" class="block text-gray-700 text-sm font-bold mb-2">Program Studi</label>
-            <select name="id_prodi" id="id_prodi" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <label for="id_prodi" class="block mb-1 text-sm font-medium text-gray-700">Program Studi</label>
+            <select name="id_prodi" id="id_prodi" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400" required>
                 <option value="">Pilih Program Studi</option>
                 @foreach($prodies as $prodi)
-                <option value="{{ $prodi->id_prodi }}">{{ $prodi->jenjang }} {{ $prodi->nama_prodi }} ({{ $prodi->kode_prodi }})</option>
+                    <option value="{{ $prodi->id_prodi }}">{{ $prodi->jenjang }} {{ $prodi->nama_prodi }}</option>
                 @endforeach
             </select>
-            @error('id_prodi')
-            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-            @enderror
+        </div>
+        <div>
+            <label for="id_kelas" class="block mb-1 text-sm font-medium text-gray-700">Kelas</label>
+            <select name="id_kelas" id="id_kelas"
+                class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400"
+                required>
+                <option value="">Pilih Kelas</option>
+                {{-- Akan diisi via AJAX --}}
+            </select>
         </div>
 
         <div>
@@ -62,17 +68,6 @@ Tambah Jadwal Kuliah
         <div>
             <label for="ruangan" class="block text-gray-700 text-sm font-bold mb-2">Ruangan</label>
             <input type="text" name="ruangan" id="ruangan" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-        </div>
-
-        <div>
-            <label for="kelas" class="block text-gray-700 text-sm font-bold mb-2">Kelas</label>
-            <select name="kelas" id="kelas" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                <option value="">Pilih Kelas</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-            </select>
         </div>
 
         <div class="flex space-x-4">
@@ -106,5 +101,29 @@ Tambah Jadwal Kuliah
         @endforeach
     </ul>
 </div>
+
+<script>
+    document.getElementById('id_prodi').addEventListener('change', function () {
+        const prodiId = this.value;
+        const kelasSelect = document.getElementById('id_kelas');
+
+        // Kosongkan dulu pilihan kelas
+        kelasSelect.innerHTML = '<option value="">Loading...</option>';
+
+        fetch(`/get-kelas-by-prodi/${prodiId}`)
+            .then(response => response.json())
+            .then(data => {
+                let options = '<option value="">Pilih Kelas</option>';
+                data.forEach(kelas => {
+                    options += `<option value="${kelas.id_kelas}">${kelas.kelas}</option>`;
+                });
+                kelasSelect.innerHTML = options;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                kelasSelect.innerHTML = '<option value="">Terjadi kesalahan</option>';
+            });
+    });
+</script>
 @endif
 @endsection

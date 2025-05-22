@@ -79,7 +79,7 @@ class KelasController extends Controller
      */
     public function update(Request $request, String $id_kelas)
     {
-        $request->validate([
+        $validated = $request->validate([
             'id_prodi' => 'required|exists:prodies,id_prodi',
             'id_dosen' => 'required|exists:dosens,id_dosen',
             'kelas' => 'required|string|max:255',

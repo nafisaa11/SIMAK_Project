@@ -18,10 +18,9 @@
                         <th class="px-4 py-3">NAMA</th>
                         <th class="px-4 py-3">KELAS</th>
                         <th class="px-4 py-3">JENIS KELAMIN</th>
-                        @can('update-status-mahasiswa')
-                            {{-- hanya admin --}}
-                            <th class="px-4 py-3">Tindakan</th>
-                        @endcan
+                        @role('admin')
+                            <th class="px-4 py-3">TINDAKAN</th>
+                        @endrole
                 </thead>
                 <tbody class="divide-y divide-gray-300">
                     @foreach ($mahasiswa as $mhs)
@@ -40,7 +39,7 @@
                             </td>
                             <td class="px-4 py-3"
                                 onclick="window.location='{{ route('mahasiswa.show', $mhs->id_mahasiswa) }}';">
-                                {{ $mhs->kelas->prodi->kode_prodi}} {{ $mhs->kelas->kelas}}
+                                {{ $mhs->kelas->prodi->kode_prodi }} {{ $mhs->kelas->kelas }}
                             </td>
                             <td class="px-4 py-3"
                                 onclick="window.location='{{ route('mahasiswa.show', $mhs->id_mahasiswa) }}';">

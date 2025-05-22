@@ -11,7 +11,7 @@ class JadwalKuliah extends Model
     protected $fillable = [
         'id_matkul',
         'id_dosen',
-        'id_prodi',
+        'id_kelas',
         'hari',
         'ruangan',
         'kelas',
@@ -30,8 +30,8 @@ class JadwalKuliah extends Model
         return $this->belongsTo(Dosen::class, 'id_dosen');
     }
 
-    public function prodi()
+    public function kelas()
     {
-        return $this->belongsTo(Prodi::class, 'id_prodi', 'id_prodi');
+        return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
     }
 }
