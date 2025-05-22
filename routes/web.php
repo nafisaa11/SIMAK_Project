@@ -98,8 +98,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/kelas/by-prodi/{id}', [App\Http\Controllers\KelasController::class, 'getByProdi']);
 Route::get('/get-kelas-by-prodi/{id_prodi}', [KelasController::class, 'getByProdi']);
+Route::get('/jadwal/kelas/by-prodi/{id_prodi}', [JadwalKuliahController::class, 'getKelasByProdi']);
 
 
 require __DIR__ . '/auth.php';

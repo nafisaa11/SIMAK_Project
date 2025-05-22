@@ -43,8 +43,6 @@ class JadwalKuliahController extends Controller
             'id_kelas'  => 'required|exists:kelases,id_kelas',
             'hari'      => 'required|string',
             'ruangan'   => 'required|string',
-            // 'kelas'     => 'required|string',
-            // 'semester'  => 'required|string',
             'jam_awal'  => 'required',
             'jam_akhir' => 'required'
         ]);
@@ -59,7 +57,7 @@ class JadwalKuliahController extends Controller
      */
     public function show(string $id)
     {
-        $jadwal = JadwalKuliah::with(['matkul', 'dosen', 'kelases'])->findOrFail($id);
+        $jadwal = JadwalKuliah::with(['matkul', 'dosen', 'kelas'])->findOrFail($id);
         return view('jadwal.show', compact('jadwal', 'matkuls', 'dosens', 'kelases'));
     }
 
@@ -68,10 +66,10 @@ class JadwalKuliahController extends Controller
      */
     public function edit(string $id)
     {
-        $jadwal = JadwalKuliah::findOrFail($id);
         $matkuls = Matkul::all();
         $dosens = Dosen::all();
         $kelases = Kelas::all();
+        $jadwal = JadwalKuliah::findOrFail($id);
         return view('jadwal.edit', compact('jadwal', 'matkuls', 'dosens', 'kelases'));
     }
 
@@ -80,20 +78,31 @@ class JadwalKuliahController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'id_matkul' => 'required|exists:matkuls,id_matkul',
             'id_dosen'  => 'required|exists:dosens,id_dosen',
             'id_kelas'  => 'required|exists:kelases,id_kelas',
             'hari'      => 'required|string',
             'ruangan'   => 'required|string',
-            // 'kelas'    => 'required|string',
-            // 'semester'  => 'required|string',
             'jam_awal'  => 'required',
             'jam_akhir' => 'required'
         ]);
 
+        // Update tabel kelases
+        // $mahasiswa->kelas()->update([
+        //     'id_kelas' => $validatedData['id_kelas'],
+        // ]);
+
         $jadwal = JadwalKuliah::findOrFail($id);
-        $jadwal->update($request->all());
+        $jadwal->update([
+            'id_matkul' => $validatedData['id_matkul'],
+            'id_dosen'  => $validatedData['id_dosen'],
+            'id_kelas'  => $validatedData['id_kelas'],
+            'hari'      => $validatedData['hari'],
+            'ruangan'   => $validatedData['ruangan'],
+            'jam_awal'  => $validatedData['jam_awal'],
+            'jam_akhir' => $validatedData['jam_akhir']
+        ]);
 
         return redirect()->route('jadwal.index')->with('success', 'Jadwal berhasil diperbarui.');
     }

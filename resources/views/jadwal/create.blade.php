@@ -36,7 +36,7 @@ Tambah Jadwal Kuliah
         <div>
             <label for="id_prodi" class="block mb-1 text-sm font-medium text-gray-700">Program Studi</label>
             <select name="id_prodi" id="id_prodi" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400" required>
-                <option value="">Pilih Program Studi</option>
+                <option value="">-- Pilih Program Studi --</option>
                 @foreach($prodies as $prodi)
                     <option value="{{ $prodi->id_prodi }}">{{ $prodi->jenjang }} {{ $prodi->nama_prodi }}</option>
                 @endforeach
@@ -47,7 +47,7 @@ Tambah Jadwal Kuliah
             <select name="id_kelas" id="id_kelas"
                 class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400"
                 required>
-                <option value="">Pilih Kelas</option>
+                <option value="">-- Pilih Kelas --</option>
                 {{-- Akan diisi via AJAX --}}
             </select>
         </div>
@@ -101,19 +101,19 @@ Tambah Jadwal Kuliah
         @endforeach
     </ul>
 </div>
-{{-- 
+
 <script>
     document.getElementById('id_prodi').addEventListener('change', function () {
         const prodiId = this.value;
         const kelasSelect = document.getElementById('id_kelas');
 
         // Kosongkan dulu pilihan kelas
-        kelasSelect.innerHTML = '<option value="">Loading...</option>';
+        kelasSelect.innerHTML = '<option value="">Mencari kelas...</option>';
 
-        fetch(`/get-kelas-by-prodi/${prodiId}`)
+        fetch(`/jadwal/kelas/by-prodi/${prodiId}`)
             .then(response => response.json())
             .then(data => {
-                let options = '<option value="">Pilih Kelas</option>';
+                let options = '<option value="">-- Pilih Kelas --</option>';
                 data.forEach(kelas => {
                     options += `<option value="${kelas.id_kelas}">${kelas.kelas}</option>`;
                 });
@@ -121,9 +121,9 @@ Tambah Jadwal Kuliah
             })
             .catch(error => {
                 console.error('Error:', error);
-                kelasSelect.innerHTML = '<option value="">Terjadi kesalahan</option>';
+                kelasSelect.innerHTML = '<option value="">-- Pilih Prodi Terlebih Dahulu! --</option>';
             });
     });
-</script> --}}
+</script>
 @endif
 @endsection

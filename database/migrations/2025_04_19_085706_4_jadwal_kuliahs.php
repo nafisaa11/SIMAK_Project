@@ -17,8 +17,6 @@ return new class extends Migration {
             $table->unsignedBigInteger('id_kelas');
             $table->string('hari');
             $table->string('ruangan');
-            $table->enum('semester', [1, 2, 3, 4, 5, 6, 7, 8])->default(1);
-
             $table->time('jam_awal');
             $table->time('jam_akhir');
             $table->timestamps();

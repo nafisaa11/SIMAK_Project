@@ -32,7 +32,7 @@ Edit Jadwal Kuliah
                 <option value="">Pilih Dosen</option>
                 @foreach($dosens as $ds)
                 <option value="{{ $ds->id_dosen }}" {{ $jadwal->id_dosen == $ds->id_dosen ? 'selected' : '' }}>
-                    {{ $ds->nama }}
+                    {{ $ds->user->name }}
                 </option>
                 @endforeach
             </select>
@@ -42,16 +42,30 @@ Edit Jadwal Kuliah
         </div>
 
         <div>
-            <label for="id_prodi" class="block text-gray-700 text-sm font-bold mb-2">Program Studi</label>
-            <select name="id_prodi" id="id_prodi" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <label for="id_kelas" class="block text-gray-700 text-sm font-bold mb-2">Program Studi</label>
+            <select name="id_kelas" id="id_kelas" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                 <option value="">Pilih Program Studi</option>
-                @foreach($prodies as $prodi)
-                <option value="{{ $prodi->id_prodi }}" {{ $jadwal->id_prodi == $prodi->id_prodi ? 'selected' : '' }}>
-                    {{ $prodi->nama_prodi }} ({{ $prodi->kode_prodi }})
+                @foreach($kelases as $kelas)
+                <option value="{{ $kelas->id_kelas }}" {{ $jadwal->id_kelas == $kelas->id_kelas ? 'selected' : '' }}>
+                    {{ $kelas->prodi->nama_prodi }} ({{ $kelas->prodi->kode_prodi }})
                 </option>
                 @endforeach
             </select>
-            @error('id_prodi')
+            @error('id_kelas')
+            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label for="kelas" class="block text-gray-700 text-sm font-bold mb-2">Kelas</label>
+            <select name="kelas" id="kelas" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            @foreach(['A', 'B', 'C', 'D'] as $kelas)
+                <option value="{{ $kelas }}" {{ $jadwal->kelas == $kelas ? 'selected' : '' }}>
+                    {{ $kelas }}
+                </option>
+            @endforeach
+            </select>
+            @error('kelas')
             <p class="text-red-500 text-xs italic">{{ $message }}</p>
             @enderror
         </div>
@@ -77,21 +91,7 @@ Edit Jadwal Kuliah
             @error('ruangan')
             <p class="text-red-500 text-xs italic">{{ $message }}</p>
             @enderror
-        </div>
-
-        <div>
-            <label for="kelas" class="block text-gray-700 text-sm font-bold mb-2">Kelas</label>
-            <select name="kelas" id="kelas" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-            @foreach(['A', 'B', 'C', 'D'] as $kelas)
-                <option value="{{ $kelas }}" {{ $jadwal->kelas == $kelas ? 'selected' : '' }}>
-                    {{ $kelas }}
-                </option>
-            @endforeach
-            </select>
-            @error('kelas')
-            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-            @enderror
-        </div>
+        </div> 
 
         <div class="flex space-x-4">
             <div class="w-1/2">

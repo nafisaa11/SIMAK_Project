@@ -44,7 +44,6 @@ class MahasiswaController extends Controller
     {
         $validatedData = $request->validate([
             'id_kelas' => 'required|exists:kelases,id_kelas',
-            // 'id_user' => 'required|string|max:255', // tambahkan validasi nama
             'nrp' => 'required|string|max:255|unique:mahasiswas',
             'no_telp' => 'required|string|max:15',
             'tanggal_lahir' => 'required|date',
