@@ -80,14 +80,15 @@ class KelasController extends Controller
      */
     public function update(Request $request, String $id_kelas)
     {
-        $request->validate([
+        $validated = $request->validate([
             'id_prodi' => 'required|exists:prodies,id_prodi',
             'id_dosen' => 'required|exists:dosens,id_dosen',
             'kelas' => 'required|string|max:255',
             'angkatan' => 'required|string|max:255', // Uncomment if angkatan is needed
         ]);
 
-        $kelas->update($request->all());
+        $kelas = Kelas::findOrFail($id_kelas);
+        $kelas->update($validated);
 
         return redirect()->route('kelas.index')->with('success', 'Kelas updated successfully.');
     }
@@ -97,6 +98,7 @@ class KelasController extends Controller
      */
     public function destroy(String $id_kelas)
     {
+        $kelas = Kelas::findOrFail($id_kelas);
         $kelas->delete();
 
         return redirect()->route('kelas.index')->with('success', 'Kelas deleted successfully.');

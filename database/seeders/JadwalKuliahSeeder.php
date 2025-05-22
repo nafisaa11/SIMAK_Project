@@ -16,38 +16,34 @@ class JadwalKuliahSeeder extends Seeder
         // Cek data dari tabel matkuls dan dosens
         $matkuls = DB::table('matkuls')->get();
         $dosens = DB::table('dosens')->get();
-        
+
         // Jika tabel matkuls dan dosens kosong, tidak bisa membuat jadwal
         if ($matkuls->isEmpty() || $dosens->isEmpty()) {
             $this->command->info('Tabel matkuls atau dosens kosong. Silakan jalankan seeder matkuls dan dosens terlebih dahulu.');
             return;
         }
-        
+
         // Contoh data jadwal kuliah
         $jadwal_kuliahs = [
             [
-                'id_matkul' => $matkuls[0]->id_matkul,
-                'id_dosen' => $dosens[0]->id_dosen,
-                'id_prodi' => '1',
+                'id_matkul' => 1,
+                'id_dosen' => 1,
+                'id_kelas' => 1,
                 'hari' => 'Senin',
-                'tanggal' => Carbon::now()->format('Y-m-d'),
                 'ruangan' => 'A101',
-                'kelas' => 'A',
-                'sks' => 3,
+                'semester' => 1,
                 'jam_awal' => '08:00:00',
                 'jam_akhir' => '10:30:00',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'id_matkul' => $matkuls[0]->id_matkul, 
-                'id_dosen' => $dosens[0]->id_dosen,
-                'id_prodi' => '1',
-                'hari' => 'Rabu',
-                'tanggal' => Carbon::now()->addDays(2)->format('Y-m-d'),
+                'id_matkul' => 1,
+                'id_dosen' => 1,
+                'id_kelas' => 1,
+                'hari' => 'Senin',
                 'ruangan' => 'B203',
-                'kelas' => 'B',
-                'sks' => 3,
+                'semester' => 1,
                 'jam_awal' => '13:00:00',
                 'jam_akhir' => '15:30:00',
                 'created_at' => Carbon::now(),
@@ -55,10 +51,10 @@ class JadwalKuliahSeeder extends Seeder
             ],
             // Tambahkan jadwal lain sesuai kebutuhan
         ];
-        
+
         // Insert data ke database
         DB::table('jadwal_kuliahs')->insert($jadwal_kuliahs);
-        
+
         $this->command->info('Data jadwal kuliah berhasil ditambahkan!');
     }
 }

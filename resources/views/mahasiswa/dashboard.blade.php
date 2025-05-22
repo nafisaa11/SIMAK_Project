@@ -16,7 +16,7 @@
                         <th class="px-4 py-3">NO</th>
                         <th class="px-4 py-3">NRP</th>
                         <th class="px-4 py-3">NAMA</th>
-                        <th class="px-4 py-3">PROGRAM STUDI</th>
+                        <th class="px-4 py-3">KELAS</th>
                         <th class="px-4 py-3">JENIS KELAMIN</th>
                         @can('update-status-mahasiswa')
                             {{-- hanya admin --}}
@@ -40,7 +40,7 @@
                             </td>
                             <td class="px-4 py-3"
                                 onclick="window.location='{{ route('mahasiswa.show', $mhs->id_mahasiswa) }}';">
-                                {{ $mhs->prodi }}
+                                {{ $mhs->kelas->kelas }}
                             </td>
                             <td class="px-4 py-3"
                                 onclick="window.location='{{ route('mahasiswa.show', $mhs->id_mahasiswa) }}';">
