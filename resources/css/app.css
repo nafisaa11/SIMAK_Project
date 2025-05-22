@@ -1,3 +1,204 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.loading-page {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f2f5;
+    font-family: Arial, sans-serif;
+}
+
+.loading-container {
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+.loading-container.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+.book {
+    width: 120px;
+    height: 90px;
+    position: relative;
+    margin: 0 auto 20px;
+    perspective: 400px;
+}
+
+.book-cover {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #002F71, #003a8c);
+    border-radius: 4px;
+    position: absolute;
+    transform-origin: left center;
+    animation: openBook 3s infinite ease-in-out;
+    box-shadow: 0 4px 15px rgba(0, 47, 113, 0.3);
+    border: 2px solid #001a40;
+    z-index: 15;
+}
+
+.book-cover::before {
+    content: 'SIMAK';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #FCC823;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+}
+
+.book-cover::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 0 4px 4px 0;
+    top: 0;
+    left: 0;
+    border: 1px solid #e0e0e0;
+    box-shadow: inset 2px 0 10px rgba(0, 47, 113, 0.1);
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.pages {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-origin: left center;
+}
+
+.page {
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    background: #ffffff;
+    border-radius: 0 4px 4px 0;
+    left: 5%;
+    top: 2.5%;
+    transform-origin: left center;
+    box-shadow: 2px 0 10px rgba(0, 47, 113, 0.2);
+    border: 1px solid #e0e0e0;
+}
+
+.page::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    height: 2px;
+    background: #002F71;
+    opacity: 0.3;
+    box-shadow:
+        0 8px 0 rgba(0, 47, 113, 0.2),
+        0 16px 0 rgba(0, 47, 113, 0.2),
+        0 24px 0 rgba(0, 47, 113, 0.2);
+}
+
+.page:nth-child(1) {
+    animation: flipPage1 3s infinite ease-in-out;
+    z-index: 10;
+}
+.page:nth-child(2) {
+    animation: flipPage2 3s infinite ease-in-out;
+    z-index: 9;
+    animation-delay: 0.2s;
+}
+.page:nth-child(3) {
+    animation: flipPage3 3s infinite ease-in-out;
+    z-index: 8;
+    animation-delay: 0.4s;
+}
+.page:nth-child(4) {
+    animation: flipPage4 3s infinite ease-in-out;
+    z-index: 7;
+    animation-delay: 0.6s;
+}
+.page:nth-child(5) {
+    animation: flipPage5 3s infinite ease-in-out;
+    z-index: 6;
+    animation-delay: 0.8s;
+}
+
+.back-cover {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #002F71, #003a8c);
+    border-radius: 4px;
+    position: absolute;
+    transform-origin: right center;
+    box-shadow: 0 4px 15px rgba(0, 47, 113, 0.3);
+    border: 2px solid #001a40;
+    z-index: 1;
+}
+
+@keyframes openBook {
+    0%, 10% { transform: rotateY(0deg); }
+    15%, 85% { transform: rotateY(-180deg); }
+    90%, 100% { transform: rotateY(0deg); }
+}
+
+@keyframes flipPage1 {
+    0%, 20% { transform: rotateY(0deg); }
+    30%, 40% { transform: rotateY(-180deg); }
+    50%, 100% { transform: rotateY(0deg); }
+}
+@keyframes flipPage2 {
+    0%, 25% { transform: rotateY(0deg); }
+    35%, 45% { transform: rotateY(-180deg); }
+    55%, 100% { transform: rotateY(0deg); }
+}
+@keyframes flipPage3 {
+    0%, 30% { transform: rotateY(0deg); }
+    40%, 50% { transform: rotateY(-180deg); }
+    60%, 100% { transform: rotateY(0deg); }
+}
+@keyframes flipPage4 {
+    0%, 35% { transform: rotateY(0deg); }
+    45%, 55% { transform: rotateY(-180deg); }
+    65%, 100% { transform: rotateY(0deg); }
+}
+@keyframes flipPage5 {
+    0%, 40% { transform: rotateY(0deg); }
+    50%, 60% { transform: rotateY(-180deg); }
+    70%, 100% { transform: rotateY(0deg); }
+}
+
+.loading-text {
+    color: #002F71;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 20px;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+.dots::after {
+    content: '';
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60% { content: '..'; }
+    80%, 100% { content: '...'; }
+}
