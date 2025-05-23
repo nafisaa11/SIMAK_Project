@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('layouts.master')
 
 @section('title')
 Edit Nilai
@@ -10,19 +10,6 @@ Edit Nilai
     <form action="{{ route('nilai.update', $nilai->id_nilai) }}" method="POST" class="space-y-4">
         @csrf
         @method('PUT')
-
-        <div>
-            <label for="id_mahasiswa" class="block text-gray-700 text-sm font-bold mb-2">Nama Mahasiswa</label>
-            <select name="id_mahasiswa" id="id_mahasiswa" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-                <option value="">Pilih Mahasiswa</option>
-                @foreach($mahasiswas as $mhs)
-                <option value="{{ $mhs->id_mahasiswa }}" {{ $mhs->id_mahasiswa == $nilai->id_mahasiswa ? 'selected' : '' }}>
-                    {{ $mhs->nama }} - {{ $mhs->npm }}
-                </option>
-                @endforeach
-            </select>
-        </div>
-
         <div>
             <label for="id_matkul" class="block text-gray-700 text-sm font-bold mb-2">Mata Kuliah</label>
             <select name="id_matkul" id="id_matkul" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
@@ -47,11 +34,6 @@ Edit Nilai
             </select>
         </div>
 
-        <div>
-            <label for="nilai_huruf" class="block text-gray-700 text-sm font-bold mb-2">Nilai Huruf</label>
-            <input type="text" name="nilai_huruf" id="nilai_huruf" maxlength="2" value="{{ $nilai->nilai_huruf }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
-        </div>
-
         <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             Update Nilai
         </button>
@@ -65,26 +47,26 @@ Edit Nilai
         const nilai = parseFloat(this.value);
         const nilaiHuruf = document.getElementById('nilai_huruf');
 
-        if (nilai === 4) {
+        if (nilai >= 86 && nilai <= 100) {
             nilaiHuruf.value = 'A';
-        } else if (nilai === 3.75) {
+        } else if (nilai >= 81 && nilai <= 85) {
             nilaiHuruf.value = 'AB';
-        } else if (nilai >= 3.5) {
+        } else if (nilai >= 76 && nilai <= 80) {
             nilaiHuruf.value = 'A-';
-        } else if (nilai >= 3.25) {
+        } else if (nilai >= 71 && nilai <= 75) {
             nilaiHuruf.value = 'B+';
-        } else if (nilai >= 3) {
+        } else if (nilai >= 66 && nilai <= 70) {
             nilaiHuruf.value = 'B';
-        } else if (nilai >= 2.75) {
+        } else if (nilai >= 61 && nilai <= 65) {
             nilaiHuruf.value = 'B-';
-        } else if (nilai >= 2.5) {
-            nilaiHuruf.value = 'C+';
-        } else if (nilai >= 2) {
+        } else if (nilai >= 56 && nilai <= 60) {
             nilaiHuruf.value = 'C';
-        } else if (nilai >= 1) {
+        } else if (nilai >= 41 && nilai <= 100) {
             nilaiHuruf.value = 'D';
-        } else {
+        } else if (nilai >= 0 && nilai <= 41) {
             nilaiHuruf.value = 'E';
+        } else {
+            nilaiHuruf.value = 'Tidak Teridentifikasi';
         }
     });
 </script>

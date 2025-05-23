@@ -13,8 +13,6 @@ return new class extends Migration
             $table->unsignedBigInteger('id_mahasiswa');
             $table->unsignedBigInteger('id_jadwal_kuliah');
             $table->integer('nilai_angka');
-            $table->string('nilai_huruf');
-            $table->decimal('ips');
             $table->timestamps();
 
             // Foreign Key ke mahasiswa dan matakuliah

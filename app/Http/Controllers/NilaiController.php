@@ -32,20 +32,34 @@ public function index($id_mahasiswa)
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'id_mahasiswa' => 'required|exists:mahasiswas,id_mahasiswa',
-            'id_jadwal_kuliah' => 'required|exists:jadwal_kuliahs,id_jadwal_kuliah',
-            'nilai_angka' => 'required|numeric',
-            'nilai_huruf' => 'required|string|max:2',
-            'ips' => 'required|numeric',
-        ]);
+{
+    $validated = $request->validate([
+        'id_mahasiswa' => 'required|exists:mahasiswas,id_mahasiswa',
+        'id_jadwal_kuliah' => 'required|exists:jadwal_kuliahs,id_jadwal_kuliah',
+        'nilai_angka' => 'required|numeric|min:0|max:100',
+        'ips' => 'required|numeric',
+    ]);
 
-        Nilai::create($validated);
+    // Konversi nilai huruf
+    $angka = $validated['nilai_angka'];
+    if ($angka >= 86) $huruf = 'A';
+    elseif ($angka >= 81) $huruf = 'AB';
+    elseif ($angka >= 76) $huruf = 'A-';
+    elseif ($angka >= 71) $huruf = 'B+';
+    elseif ($angka >= 66) $huruf = 'B';
+    elseif ($angka >= 61) $huruf = 'B-';
+    elseif ($angka >= 56) $huruf = 'C';
+    elseif ($angka >= 41) $huruf = 'D';
+    else $huruf = 'E';
 
-        return redirect()->route('nilai.index', $validated['id_mahasiswa'])
-                         ->with('success', 'Nilai berhasil ditambahkan.');
-    }
+    $validated['nilai_huruf'] = $huruf;
+
+    Nilai::create($validated);
+
+    return redirect()->route('nilai.index', $validated['id_mahasiswa'])
+                     ->with('success', 'Nilai berhasil ditambahkan.');
+}
+
 
     public function show($id)
     {
@@ -68,8 +82,6 @@ public function index($id_mahasiswa)
             'id_mahasiswa' => 'required|exists:mahasiswas,id_mahasiswa',
             'id_jadwal_kuliah' => 'required|exists:jadwal_kuliahs,id_jadwal_kuliah',
             'nilai_angka' => 'required|numeric',
-            'nilai_huruf' => 'required|string|max:2',
-            'ips' => 'required|numeric',
         ]);
 
         $nilai = Nilai::findOrFail($id);
