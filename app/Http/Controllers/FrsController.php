@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Frs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class FrsController extends Controller
@@ -11,11 +12,29 @@ class FrsController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // FrsController.php
     public function index()
     {
-        $frses = Frs::with('mahasiswa', 'jadwal', 'nilai', 'dosen')->get();
-        return view('frs.index', compact('frses'));
+        $user = Auth::user();
+    
+        // Ambil mahasiswa dari user yang login
+        $mahasiswa = $user->mahasiswa;
+    
+        if (!$mahasiswa) {
+            return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan');
+        }
+    
+        // Ambil FRS yang berkaitan dengan mahasiswa ini
+        $frses = Frs::with(['nilai.mahasiswa.user', 'nilai.mahasiswa.kelas', 'nilai.jadwal'])
+                    ->whereHas('nilai', function ($query) use ($mahasiswa) {
+                        $query->where('id_mahasiswa', $mahasiswa->id_mahasiswa);
+                    })
+                    ->get();
+    
+        return view('frs.index', compact('frses', 'mahasiswa'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.

@@ -14,9 +14,10 @@ class Nilai extends Model
 
     protected $fillable = [
         'id_mahasiswa',
-        'id_matkul',
+        'id_jadwal_kuliah',
         'nilai_angka',
         'nilai_huruf',
+        'ips',
     ];
 
     // Mengambil nrp, nama, kelas, prodi mahasiswa
@@ -24,9 +25,10 @@ class Nilai extends Model
     {
         return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa');
     }
+    
 
-    public function matkul()
+    public function jadwal()
     {
-        return $this->belongsTo(Matkul::class, 'id_matkul');
+        return $this->belongsTo(JadwalKuliah::class, 'id_jadwal_kuliah');
     }
 }
