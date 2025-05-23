@@ -23,6 +23,7 @@ class Nilai extends Model
     {
         return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa');
     }
+    
 
     public function jadwal()
     {

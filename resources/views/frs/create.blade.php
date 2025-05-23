@@ -14,7 +14,7 @@ Tambah FRS
             <select name="id_mahasiswa" id="id_mahasiswa" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                 <option value="">Pilih Mahasiswa</option>
                 @foreach($jadwal_kuliahs as $jadwal)
-                <option value="{{ $jadwal->id_jadwal_kuliah }}">{{ $jadwal->nama_matkul }} - {{ $jadwal-> }}</option>
+                <option value="{{ $jadwal->id_jadwal_kuliah }}">{{ $jadwal->nama_matkul }} - {{ $jadwal->nama_matkul}}</option>
                 @endforeach
             </select>
         </div>

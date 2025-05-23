@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DosenController;
+use App\Http\Controllers\FrsController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\ProfileController;
@@ -84,7 +85,7 @@ Route::resource('mataKuliah', MatakuliahController::class);
 Route::resource('jadwal', JadwalKuliahController::class);
 Route::resource('nilai', NilaiController::class);
 Route::resource('kelas', KelasController::class);
-Route::resource('frs', FRSController::class);
+Route::resource('frs', FrsController::class);
 
 // Route for get Data
 // Untuk dosen melihat daftar mahasiswa berdasarkan kelas

@@ -24,12 +24,20 @@ class Mahasiswa extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
 
     public function kelas()
     {
         return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
     }
+
+    public function nilais()
+    {
+        return $this->hasMany(Nilai::class, 'id_mahasiswa', 'id_mahasiswa');
+    }
+
+ 
 
 }
