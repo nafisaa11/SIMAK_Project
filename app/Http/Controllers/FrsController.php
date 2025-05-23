@@ -21,15 +21,10 @@ class FrsController extends Controller
             return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan');
         }
 
-        $frses = Frs::with([
-            'nilai.jadwal.matakuliah',
-            'nilai.jadwal.dosen',
-            'nilai.mahasiswa.kelas',
-        ])
-            ->whereHas('nilai', function ($query) use ($mahasiswa) {
-                $query->where('id_mahasiswa', $mahasiswa->id_mahasiswa);
-            })
+        $frses = Frs::with('nilai.jadwal.matakuliah', 'nilai.jadwal.dosen')
+            ->whereHas('nilai', fn($query) => $query->where('id_mahasiswa', $mahasiswa->id_mahasiswa))
             ->get();
+
 
         $jadwalKuliahs = JadwalKuliah::with(['matkul', 'dosen', 'kelas'])->get();
 

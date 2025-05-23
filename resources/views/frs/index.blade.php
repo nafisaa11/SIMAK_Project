@@ -52,26 +52,23 @@
             </thead>
             <tbody class="divide-y divide-gray-300">
                 @foreach ($frses as $frs)
-                    @php
-                        $jadwal = $frs->nilai->jadwal ?? null;
-                        $matakuliah = $jadwal->matkul ?? null;
-                        $dosen = $jadwal->dosen ?? null;
-                        $kelas = $frs->nilai->mahasiswa->kelas ?? null;
-                    @endphp
-                    <tr class="hover:bg-gray-100 transition-colors duration-200">
-                        <td class="px-4 py-3 text-center">{{ $loop->iteration }}</td>
-                        <td class="px-4 py-3">{{ $matakuliah->kode_matkul ?? '-' }}</td>
-                        <td class="px-4 py-3">
-                            {{ $matakuliah->nama_matkul ?? '-' }}<br>
-                            Hari: {{ $jadwal->hari ?? '-' }}<br>
-                            Jam: {{ $jadwal->jam_awal ?? '-' }} - {{ $jadwal->jam_akhir ?? '-' }}
-                        </td>
-                        <td class="px-4 py-3">{{ $dosen->nama_dosen ?? '-' }}</td>
-                        <td class="px-4 py-3">{{ $matakuliah->sks ?? '-' }}</td>
-                        <td class="px-4 py-3">{{ $kelas->kelas ?? '-' }}</td>
-                        <td class="px-4 py-3">{{ $frs->disetujui ?? 'Belum Disetujui' }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ $frs->tahun_ajaran }}</td>
+                    <td>{{ $frs->semester }}</td>
+                    <td>{{ $frs->jadwal->matakuliah->nama_matkul ?? '-' }}</td>
+                    <td>{{ $frs->jadwal->dosen->nama_dosen ?? '-' }}</td>
+                    <td>{{ $frs->disetujui }}</td>
+                    <td>
+                        <a href="{{ route('frs.edit', $frs->id_frs) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{{ route('frs.destroy', $frs->id_frs) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
                 @endforeach
+                
             </tbody>
         </table>
     </div>
