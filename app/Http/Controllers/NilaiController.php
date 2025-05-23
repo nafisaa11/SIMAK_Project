@@ -13,52 +13,67 @@ class NilaiController extends Controller
 public function index($id_mahasiswa)
 {
     $mahasiswa = Mahasiswa::with('user', 'kelas.prodi', 'kelas.dosen.user')->findOrFail($id_mahasiswa);
+    $jadwalKuliah = JadwalKuliah::whereHas('kelas.mahasiswa', function ($query) use ($id_mahasiswa) {
+    $query->where('id_mahasiswa', $id_mahasiswa);
+    })->get();
 
     $nilais = Nilai::with('jadwal')
                 ->where('id_mahasiswa', $id_mahasiswa)
                 ->get();
 
-    $jadwal_kuliahs = $mahasiswa->kelas->jadwalKuliah; // Pastikan relasi ini ada
+    $jadwal_kuliahs = $jadwalKuliah; // Pastikan relasi ini ada
 
     return view('nilai.index', compact('mahasiswa', 'nilais', 'jadwal_kuliahs'));
 }
 
-    public function create()
-    {
-        $mahasiswas = Mahasiswa::all();
-        $jadwal_kuliahs = JadwalKuliah::all(); 
+    public function create(Request $request)
+{
+    $id_mahasiswa = $request->query('id_mahasiswa');
+    $id_jadwal_kuliah = $request->query('id_jadwal_kuliah');
 
-        return view('nilai.create', compact('mahasiswas', 'jadwal_kuliahs'));
-    }
+    // Ambil data mahasiswa dan jadwal kuliah jika dibutuhkan di form
+    $mahasiswa = Mahasiswa::with('user')->findOrFail($id_mahasiswa);
+    $jadwal = JadwalKuliah::with('matkul')->findOrFail($id_jadwal_kuliah);
+
+    return view('nilai.create', compact('id_mahasiswa', 'id_jadwal_kuliah', 'mahasiswa', 'jadwal'));
+}
+
 
     public function store(Request $request)
 {
-    $validated = $request->validate([
+    $request->validate([
         'id_mahasiswa' => 'required|exists:mahasiswas,id_mahasiswa',
         'id_jadwal_kuliah' => 'required|exists:jadwal_kuliahs,id_jadwal_kuliah',
         'nilai_angka' => 'required|numeric|min:0|max:100',
-        'ips' => 'required|numeric',
     ]);
 
-    // Konversi nilai huruf
-    $angka = $validated['nilai_angka'];
-    if ($angka >= 86) $huruf = 'A';
-    elseif ($angka >= 81) $huruf = 'AB';
-    elseif ($angka >= 76) $huruf = 'A-';
-    elseif ($angka >= 71) $huruf = 'B+';
-    elseif ($angka >= 66) $huruf = 'B';
-    elseif ($angka >= 61) $huruf = 'B-';
-    elseif ($angka >= 56) $huruf = 'C';
-    elseif ($angka >= 41) $huruf = 'D';
-    else $huruf = 'E';
+    $nilai_angka = $request->input('nilai_angka');
 
-    $validated['nilai_huruf'] = $huruf;
+    // Konversi ke nilai huruf
+    $nilai_huruf = match (true) {
+        $nilai_angka >= 86 => 'A',
+        $nilai_angka >= 81 => 'AB',
+        $nilai_angka >= 76 => 'A-',
+        $nilai_angka >= 71 => 'B+',
+        $nilai_angka >= 66 => 'B',
+        $nilai_angka >= 61 => 'B-',
+        $nilai_angka >= 56 => 'C',
+        $nilai_angka >= 41 => 'D',
+        $nilai_angka >= 0  => 'E',
+        default => 'Tidak Teridentifikasi',
+    };
 
-    Nilai::create($validated);
+    Nilai::create([
+        'id_mahasiswa' => $request->id_mahasiswa,
+        'id_jadwal_kuliah' => $request->id_jadwal_kuliah,
+        'nilai_angka' => $nilai_angka,
+        'nilai_huruf' => $nilai_huruf,
+    ]);
 
-    return redirect()->route('nilai.index', $validated['id_mahasiswa'])
-                     ->with('success', 'Nilai berhasil ditambahkan.');
+    return redirect()->route('nilai.index', ['id_mahasiswa' => $request->id_mahasiswa])
+        ->with('success', 'Nilai berhasil disimpan.');
 }
+
 
 
     public function show($id)
