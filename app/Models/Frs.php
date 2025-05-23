@@ -14,10 +14,12 @@ class Frs extends Model
         'disetujui'
     ];
 
+    // Di dalam model Frs.php
     public function nilai()
     {
-        return $this->belongsTo(Nilai::class, 'id_nilai');
+        return $this->belongsTo(Nilai::class, 'id_nilai', 'id_nilai');
     }
+
 
     // Hapus relasi mahasiswa dan jadwalKuliah yang salah
 }

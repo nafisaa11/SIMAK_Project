@@ -15,9 +15,7 @@ class Nilai extends Model
     protected $fillable = [
         'id_mahasiswa',
         'id_jadwal_kuliah',
-        'nilai_angka',
-        'nilai_huruf',
-        'ips',
+        'nilai_angka',   
     ];
 
     // Mengambil nrp, nama, kelas, prodi mahasiswa
