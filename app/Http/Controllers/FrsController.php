@@ -151,6 +151,15 @@ class FrsController extends Controller
             } catch (\Exception $e) {
                 return back()->with('error', $e->getMessage());
             }
-        } 
+        }
+        
+    // Menampilkan daftar mahasiswa dalam kelas tertentu (untuk dosen)
+    public function showMahasiswaByKelas($id_kelas)
+    {
+        $kelas = Kelas::with(['mahasiswa.user']) // asumsikan relasi ke user lewat mahasiswa
+                    ->findOrFail($id_kelas);
+
+        return view('frs.daftar_mahasiswa', compact('kelas'));
+    }
     
 }

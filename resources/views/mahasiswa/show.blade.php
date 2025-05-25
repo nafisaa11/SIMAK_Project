@@ -23,7 +23,7 @@ Detail Mahasiswa
         </div>
         <div>
             <span class="font-semibold text-gray-700">Kelas:</span>
-            <span class="text-gray-900">{{ $mahasiswa->kelas }}</span>
+            <span class="text-gray-900">{{ $mahasiswa->kelas->prodi->jenjang }} {{ $mahasiswa->kelas->prodi->nama_prodi }} {{ $mahasiswa->kelas->kelas }} </span>
         </div>
         <div>
             <span class="font-semibold text-gray-700">Jenis Kelamin:</span>

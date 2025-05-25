@@ -65,6 +65,7 @@ class MahasiswaController extends Controller
      */
     public function show(string $id)
     {
+        $kelases = Kelas::all(); // Ambil semua kelas untuk ditampilkan di view
         $mahasiswa = Mahasiswa::with('user')->findOrFail($id);
         return view('mahasiswa.show', compact('mahasiswa', 'kelases'));
     }

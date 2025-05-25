@@ -97,16 +97,16 @@
         <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full p-6">
             <h2 class="text-xl font-bold mb-4">Pilih Jadwal Kuliah</h2>
             <!-- Pesan sukses atau error -->
-@if(session('success'))
-    <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
-        {{ session('success') }}
-    </div>
-@endif
-@if(session('error'))
-    <div class="bg-red-100 text-red-800 p-3 rounded mb-4">
-        {{ session('error') }}
-    </div>
-@endif
+            @if(session('success'))
+                <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="bg-red-100 text-red-800 p-3 rounded mb-4">
+                    {{ session('error') }}
+                </div>
+            @endif
 
             <form action="{{ route('frs.store') }}" method="POST" onsubmit="console.log('Form submitted')">
 
