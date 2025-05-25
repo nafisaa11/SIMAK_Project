@@ -101,22 +101,6 @@
             </li>
             @endhasanyrole
 
-            {{-- @hasanyrole('mahasiswa')
-            <li>
-                <a href="{{ route('nilai.index') }}"
-                    class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
-                        {{ Request::is('nilai*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="32" fill="currentcolor" viewBox="0 0 256 256">
-                        <path d="M240,192h-8V56a16,16,0,0,0-16-16H40A16,16,0,0,0,24,56V192H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM40,56H216V192H200V168a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8v24H72V88H184v48a8,8,0,0,0,16,0V80a8,8,0,0,0-8-8H64a8,8,0,0,0-8,8V192H40ZM184,192H128V176h56Z"></path>
-                    </svg>
-                    <h3>
-                        {{ Auth::user()->hasRole('dosen') ? 'Manajemen Nilai' : 'Nilai' }}
-                    </h3>
-                </a>
-            </li>
-            @endhasanyrole --}}
-
-
             @hasanyrole('admin')
             <li>
                 <a href="{{ route('kelas.index') }}"
