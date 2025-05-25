@@ -92,65 +92,84 @@
 </div>
 
 <!-- MODAL PILIH JADWAL KULIAH -->
-<div id="frsModal" class="fixed z-10 inset-0 overflow-y-auto hidden bg-black bg-opacity-40">
-    <div class="flex items-center justify-center min-h-screen px-4">
-        <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full p-6">
-            <h2 class="text-xl font-bold mb-4">Pilih Jadwal Kuliah</h2>
-            <!-- Pesan sukses atau error -->
-@if(session('success'))
-    <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
-        {{ session('success') }}
-    </div>
-@endif
-@if(session('error'))
-    <div class="bg-red-100 text-red-800 p-3 rounded mb-4">
-        {{ session('error') }}
-    </div>
-@endif
+<div id="frsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
+        <!-- HEADER -->
+        <div class="flex justify-between items-center px-6 py-4 border-b bg-gray-100">
+            <h2 class="text-xl font-bold text-gray-800">Pilih Jadwal Kuliah</h2>
+            <button onclick="toggleModal()" class="text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
+        </div>
 
-            <form action="{{ route('frs.store') }}" method="POST" onsubmit="console.log('Form submitted')">
-
-                @csrf
-                <table class="table-auto w-full text-sm text-left text-gray-600">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="p-2 text-center">Pilih</th>
-                            <th class="p-2">Kode MK</th>
-                            <th class="p-2">Nama MK - Hari - Jam</th>
-                            <th class="p-2">Dosen</th>
-                            <th class="p-2 text-center">SKS</th>
-                            <th class="p-2">Kelas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($jadwalKuliahs as $jadwal)
-                            <tr>
-                                <td class="p-2 text-center">
-                                    <input type="radio" name="id_jadwal_kuliah" value="{{ $jadwal->id_jadwal_kuliah }}" required>
-                                </td>
-                                <td class="p-2">{{ $jadwal->matkul->kode_matkul }}</td>
-                                <td class="p-2">{{ $jadwal->matkul->nama_matkul }} - {{ $jadwal->hari }} - {{ $jadwal->jam_awal }} - {{ $jadwal->jam_akhir }}</td>
-                                <td class="p-2">{{ $jadwal->dosen->user->name }}</td>
-                                <td class="p-2 text-center">{{ $jadwal->matkul->sks }}</td>
-                                <td class="p-2">{{ $jadwal->kelas->prodi->kode_prodi }} {{ $jadwal->kelas->kelas }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="text-right mt-4">
-                    <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
-                        Tambah FRS
-                    </button>
-                    <button type="button" onclick="toggleModal()" class="ml-2 text-gray-600">Batal</button>
+        <!-- ISI YANG SCROLLABLE -->
+        <div class="overflow-y-auto px-6 py-4 space-y-4 max-h-[calc(90vh-120px)]"> {{-- dikurangi header/footer --}}
+            <!-- ALERT -->
+            @if(session('success'))
+                <div class="bg-green-100 text-green-800 p-3 rounded">
+                    {{ session('success') }}
                 </div>
-            </form>
-            @error('id_jadwal_kuliah')
-    <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
-@enderror
+            @endif
+            @if(session('error'))
+                <div class="bg-red-100 text-red-800 p-3 rounded">
+                    {{ session('error') }}
+                </div>
+            @endif
 
+            <!-- FORM -->
+            <form action="{{ route('frs.store') }}" method="POST" class="space-y-4">
+                @csrf
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-sm text-left text-gray-700">
+                        <thead class="bg-gray-100 text-sm font-semibold uppercase">
+                            <tr>
+                                <th class="p-3 text-center">Pilih</th>
+                                <th class="p-3">Kode MK</th>
+                                <th class="p-3">Mata Kuliah - Hari - Jam</th>
+                                <th class="p-3">Dosen</th>
+                                <th class="p-3 text-center">SKS</th>
+                                <th class="p-3">Kelas</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            @foreach($jadwalKuliahs as $jadwal)
+                                <tr class="hover:bg-gray-50">
+                                    <td class="p-3 text-center">
+                                        <input type="radio" name="id_jadwal_kuliah" value="{{ $jadwal->id_jadwal_kuliah }}" required class="accent-blue-600">
+                                    </td>
+                                    <td class="p-3">{{ $jadwal->matkul->kode_matkul }}</td>
+                                    <td class="p-3">
+                                        {{ $jadwal->matkul->nama_matkul }}<br>
+                                        {{ $jadwal->hari }} | {{ $jadwal->jam_awal }} - {{ $jadwal->jam_akhir }}
+                                    </td>
+                                    <td class="p-3">{{ $jadwal->dosen->user->name }}</td>
+                                    <td class="p-3 text-center">{{ $jadwal->matkul->sks }}</td>
+                                    <td class="p-3">{{ $jadwal->kelas->prodi->kode_prodi }} {{ $jadwal->kelas->kelas }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                @error('id_jadwal_kuliah')
+                    <div class="text-red-600 text-sm">{{ $message }}</div>
+                @enderror
+            </form>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="flex justify-end items-center gap-3 px-6 mb-6 border-t bg-gray-50 ">
+            <button form="frsForm" type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+                Tambah FRS
+            </button>
+            <button type="button" onclick="toggleModal()" class="text-gray-600 hover:text-red-500">
+                Batal
+            </button>
+            
         </div>
     </div>
 </div>
+
+
 
 <!-- SCRIPT MODAL -->
 <script>

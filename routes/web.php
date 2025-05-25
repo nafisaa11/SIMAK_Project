@@ -17,9 +17,7 @@ use App\Http\Controllers\NilaiController;
 // ----------------------
 
 Route::get('/home', fn() => view('home'))->middleware(['auth', 'verified'])->name('home');
-// ----------------------
-// Mahasiswa Routes
-// ----------------------
+
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // Role: mahasiswa, dosen, admin
@@ -36,12 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/mahasiswa/{id}', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
         Route::delete('/mahasiswa/{id}', [MahasiswaController::class, 'destroy'])->name('mahasiswa.destroy');
     });
-});
 
-// ----------------------
-// Dosen Routes
-// ----------------------
-Route::middleware(['auth', 'verified'])->group(function () {
 
     // Role: dosen, mahasiswa, admin
     Route::middleware('role:dosen|mahasiswa|admin')->group(function () {
@@ -66,6 +59,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     });
 });
+
+
 
 // ----------------------
 // Nilai Routes

@@ -6,8 +6,10 @@ use App\Models\JadwalKuliah;
 use App\Models\Matkul;
 use App\Models\Dosen;
 use App\Models\Kelas;
+use App\Models\Mahasiswa;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JadwalKuliahController extends Controller
 {
@@ -16,7 +18,30 @@ class JadwalKuliahController extends Controller
      */
     public function index()
     {
-        $jadwals = JadwalKuliah::with(['matkul', 'dosen', 'kelas'])->get();
+        $user = Auth::user();
+    
+        // Jika mahasiswa, filter berdasarkan mahasiswa yang login dan hanya FRS yang disetujui
+        if ($user->hasRole('mahasiswa')) {
+            $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
+    
+            if (!$mahasiswa) {
+                return redirect()->route('mahasiswa.create')->with('error', 'Data mahasiswa belum lengkap.');
+            }
+    
+            // Ambil semua nilai milik mahasiswa ini yang FRS-nya disetujui
+            $jadwals = JadwalKuliah::whereHas('nilais', function ($query) use ($mahasiswa) {
+                $query->where('id_mahasiswa', $mahasiswa->id_mahasiswa)
+                    ->whereHas('frs', function ($q) {
+                        $q->where('disetujui', 'disetujui');
+                    });
+            })
+            ->with(['matkul', 'dosen.user', 'kelas.prodi'])
+            ->get();
+        } else {
+            // Untuk admin/dosen: tampilkan semua jadwal
+            $jadwals = JadwalKuliah::with(['matkul', 'dosen.user', 'kelas.prodi'])->get();
+        }
+    
         return view('jadwal.index', compact('jadwals'));
     }
 

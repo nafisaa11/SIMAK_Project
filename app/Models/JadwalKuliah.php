@@ -32,4 +32,12 @@ class JadwalKuliah extends Model
     {
         return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
     }
+
+    // app/Models/JadwalKuliah.php
+
+    public function nilais()
+    {
+        return $this->hasMany(\App\Models\Nilai::class, 'id_jadwal_kuliah');
+    }
+
 }
