@@ -84,7 +84,7 @@
                 </a>
             </li>
 
-            @hasanyrole('dosen')
+            @hasanyrole('dosen|mahasiswa')
             <li>
                 <a href="{{ route('kelas.index') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
@@ -99,7 +99,7 @@
             </li>
             @endhasanyrole
 
-            @hasanyrole('mahasiswa')
+            {{-- @hasanyrole('mahasiswa')
             <li>
                 <a href="{{ route('nilai.index') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
@@ -112,7 +112,7 @@
                     </h3>
                 </a>
             </li>
-            @endhasanyrole
+            @endhasanyrole --}}
 
 
             @hasanyrole('admin')

@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id('id_nilai');
             $table->unsignedBigInteger('id_mahasiswa');
             $table->unsignedBigInteger('id_jadwal_kuliah');
-            $table->integer('nilai_angka');
+            $table->double('nilai_angka')->nullable();
             $table->timestamps();
 
             // Foreign Key ke mahasiswa dan matakuliah
@@ -23,6 +23,8 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('nilais');
+        Schema::table('nilais', function (Blueprint $table) {
+            $table->double('nilai_angka')->nullable(false)->change();
+        });
     }
 };

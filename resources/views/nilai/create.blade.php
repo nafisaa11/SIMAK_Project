@@ -9,8 +9,8 @@ Masukkan Nilai Mahasiswa
     <h2 class="text-xl font-semibold text-gray-700 mb-4">Masukkan Nilai Mahasiswa</h2>
     <form action="{{ route('nilai.store') }}" method="post" class="space-y-4">
         @csrf
-        {{-- <input type="hidden" name="id_jadwal_kuliah" value="{{ $jadwal_kuliahs->id_jadwal_kuliah }}">
-        <input type="hidden" name="id_mahasiswa" value="{{ $mahasiswas->id_mahasiswa }}"> --}}
+        <input type="hidden" name="id_jadwal_kuliah" value="{{ $jadwal->id_jadwal_kuliah }}">
+        <input type="hidden" name="id_mahasiswa" value="{{ $mahasiswa->id_mahasiswa }}">
 
         <div>
             <label for="nilai_angka" class="block text-gray-700 text-sm font-bold mb-2">Nilai Angka</label>

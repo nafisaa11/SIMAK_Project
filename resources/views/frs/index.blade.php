@@ -41,6 +41,9 @@
         <table class="min-w-full text-sm text-left text-gray-700">
             <thead>
                 <tr class="bg-blue-900 text-white">
+                    @role('mahasiswa')
+                        <th class="px-4 py-3 text-center">Tindakan</th>
+                    @endrole
                     <th class="px-4 py-3 text-center">NO</th>
                     <th class="px-4 py-3">KODE MATA KULIAH</th>
                     <th class="px-4 py-3">MATA KULIAH - HARI - JAM</th>
@@ -59,6 +62,16 @@
                         $kelas = $frs->nilai->mahasiswa->kelas ?? null;
                     @endphp
                     <tr class="hover:bg-gray-100 transition-colors duration-200">
+                        <td class="px-4 py-3 text-center">
+                            <form action="{{ route('frs.destroy', $frs->id_frs) }}" method="POST"
+                                onsubmit="event.stopPropagation(); return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white p-2 rounded">
+                                        <i class="ph ph-trash"></i>
+                                    </button>
+                            </form>
+                        </td>
                         <td class="px-4 py-3 text-center">{{ $loop->iteration }}</td>
                         <td class="px-4 py-3">{{ $matakuliah->kode_matkul ?? '-' }}</td>
                         <td class="px-4 py-3">
@@ -72,6 +85,7 @@
                         <td class="px-4 py-3">{{ $frs->disetujui ?? 'Belum Disetujui' }}</td>
                     </tr>
                 @endforeach
+                
             </tbody>
         </table>
     </div>
@@ -104,7 +118,7 @@
                             <th class="p-2">Kode MK</th>
                             <th class="p-2">Nama MK - Hari - Jam</th>
                             <th class="p-2">Dosen</th>
-                            <th class="p-2">SKS</th>
+                            <th class="p-2 text-center">SKS</th>
                             <th class="p-2">Kelas</th>
                         </tr>
                     </thead>
@@ -117,7 +131,7 @@
                                 <td class="p-2">{{ $jadwal->matkul->kode_matkul }}</td>
                                 <td class="p-2">{{ $jadwal->matkul->nama_matkul }} - {{ $jadwal->hari }} - {{ $jadwal->jam_awal }} - {{ $jadwal->jam_akhir }}</td>
                                 <td class="p-2">{{ $jadwal->dosen->user->name }}</td>
-                                <td class="p-2">{{ $jadwal->matkul->sks }}</td>
+                                <td class="p-2 text-center">{{ $jadwal->matkul->sks }}</td>
                                 <td class="p-2">{{ $jadwal->kelas->prodi->kode_prodi }} {{ $jadwal->kelas->kelas }}</td>
                             </tr>
                         @endforeach

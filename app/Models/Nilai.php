@@ -29,4 +29,21 @@ class Nilai extends Model
     {
         return $this->belongsTo(JadwalKuliah::class, 'id_jadwal_kuliah');
     }
+
+    public function getNilaiHurufAttribute()
+    {
+        $nilai = $this->nilai_angka;
+
+        return match (true) {
+            $nilai >= 86 => 'A',
+            $nilai >= 81 => 'AB',
+            $nilai >= 76 => 'A-',
+            $nilai >= 71 => 'B+',
+            $nilai >= 66 => 'B',
+            $nilai >= 61 => 'B-',
+            $nilai >= 56 => 'C',
+            $nilai >= 41 => 'D',
+            default => 'E',
+        };
+    }
 }

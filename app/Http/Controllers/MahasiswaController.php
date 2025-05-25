@@ -95,7 +95,6 @@ class MahasiswaController extends Controller
             'tempat_lahir' => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'agama' => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
-            'nama' => 'required|string|max:255',
             'email' => 'required|email|max:255',
         ]);
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Frs;
-use App\Models\Jadwal;
 use App\Models\JadwalKuliah;
 use App\Models\Nilai;
 use App\Models\Dosen;
@@ -24,15 +23,10 @@ class FrsController extends Controller
             return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan');
         }
 
-        $frses = Frs::with([
-            'nilai.jadwal.matakuliah',
-            'nilai.jadwal.dosen',
-            'nilai.mahasiswa.kelas',
-        ])
-            ->whereHas('nilai', function ($query) use ($mahasiswa) {
-                $query->where('id_mahasiswa', $mahasiswa->id_mahasiswa);
-            })
+        $frses = Frs::with('nilai.jadwal.matkul', 'nilai.jadwal.dosen')
+            ->whereHas('nilai', fn($query) => $query->where('id_mahasiswa', $mahasiswa->id_mahasiswa))
             ->get();
+
 
         $jadwalKuliahs = JadwalKuliah::with(['matkul', 'dosen', 'kelas'])->get();
 
@@ -74,7 +68,7 @@ class FrsController extends Controller
                 'id_nilai' => $nilai->id_nilai,
                 'tahun_ajaran' => date('Y'), // Atau bisa ditarik dari form jika tersedia
                 // 'semester' => $mahasiswa->semester ?? 1,
-                'disetujui' => false,
+                'disetujui' => 'Belum Disetujui',
             ]);
 
             return redirect()->route('frs.index')->with('success', 'FRS berhasil ditambahkan');
@@ -105,7 +99,7 @@ class FrsController extends Controller
             'id_nilai' => 'required|exists:nilais,id_nilai',
             'id_jadwal_kuliah' => 'required|exists:jadwal_kuliahs,id_jadwal_kuliah',
             'tahun_ajaran' => 'required|string',
-            'disetujui' => 'required|boolean',
+            'disetujui' => 'required|in:Belum Disetujui,Tidak Disetujui,Disetujui',
             // 'semester' => 'required|integer|min:1|max:8',
         ]);
 
@@ -119,11 +113,16 @@ class FrsController extends Controller
 
     public function destroy(Frs $frs)
     {
-        try {
-            $frs->delete();
-            return redirect()->route('frs.index')->with('success', 'FRS berhasil dihapus');
-        } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
+        if ($frs->nilai->mahasiswa->user->user_id !== Auth::user()->user_id) {
+            return back()->with('error', 'Anda tidak memiliki akses untuk menghapus FRS ini');
         }
-    }
+
+            try {
+                $frs->delete();
+                return redirect()->route('frs.index')->with('success', 'FRS berhasil dihapus');
+            } catch (\Exception $e) {
+                return back()->with('error', $e->getMessage());
+            }
+        } 
+    
 }
