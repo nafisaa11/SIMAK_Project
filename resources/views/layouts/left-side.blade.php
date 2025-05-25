@@ -84,7 +84,8 @@
                 </a>
             </li>
 
-            {{-- @hasanyrole('dosen|mahasiswa')
+            @hasanyrole('dosen|mahasiswa')
+            @if (Auth::user()->hasRole('dosen') || Auth::user()->mahasiswa)
             <li>
                 <a href="{{  Auth::user()->hasRole('dosen') 
             ? route('kelas.index') 
@@ -99,7 +100,8 @@
                     </h3>
                 </a>
             </li>
-            @endhasanyrole --}}
+            @endif
+            @endhasanyrole
 
             @hasanyrole('admin')
             <li>
@@ -141,20 +143,18 @@
             @endhasanyrole
 
             <li>
-                <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('logout') }}" class="w-full" onsubmit="return confirm('Apakah Anda yakin ingin logout?')">
                     @csrf
                     <button type="submit"
-                        class="flex items-center gap-3 w-full text-left px-3 py-2 rounded transition duration-200 hover:bg-gray-800">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M16 13v-2H7V8l-5 4 5 4v-3h9zm2-10H6c-1.1 0-2 .9-2 2v6h2V5h12v14H6v-6H4v6c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" />
+                        class="flex items-center gap-3 w-full text-left px-4 py-3 text-red-400 rounded-lg transition-all duration-200 hover:bg-red-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                         </svg>
-                        Logout
+                        <span class="font-semibold">Keluar / Logout</span>
                     </button>
                 </form>
             </li>
-
-
         </ul>
     </nav>
 </aside>

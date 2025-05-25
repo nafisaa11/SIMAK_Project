@@ -8,31 +8,36 @@
         <div class="flex justify-between items-start px-6 py-4 border-b border-gray-200 bg-gray-50">
             <!-- Informasi Mahasiswa -->
             <div>
-                <table class="text-sm">
-                    <tr>
-                        <td class="font-semibold pr-2">Nama</td>
-                        <td>: {{ $mahasiswa?->user?->name ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <td class="font-semibold pr-2">NRP</td>
-                        <td>: {{ $mahasiswa?->nrp ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <td class="font-semibold pr-2">Kelas</td>
-                        <td>: {{ $mahasiswa?->kelas?->prodi?->kode_prodi ?? '-' }} {{ $mahasiswa?->kelas?->kelas ?? '-' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="font-semibold pr-2">Semester</td>
-                        <td>: Bentar Dlu</td>
-                    </tr>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th class="px-3 py-1 text-left">Nama</th>
+                            <td class="px-3 py-1 text-left">:</td>
+                            <td class="px-3 py-1 text-left">{{ $mahasiswa->user->name}}</td>
+                        </tr>
+                        <tr>
+                            <th class="px-3 py-1 text-left">NRP</th>
+                            <td class="px-3 py-1 text-left">:</td>
+                            <td class="px-3 py-1 text-left">{{ $mahasiswa->nrp }}</td>
+                        </tr>
+                        <tr>
+                            <th class="px-3 py-1 text-left">Kelas</th>
+                            <td class="px-3 py-1 text-left">:</td>
+                            <td class="px-3 py-1 text-left">{{ $mahasiswa->kelas->prodi->jenjang }} {{ $mahasiswa->kelas->prodi->nama_prodi }} {{ $mahasiswa->kelas->kelas }}</td>
+                        </tr>
+                        <tr>
+                            <th class="px-3 py-1 text-left">Dosen Wali</th>
+                            <td class="px-3 py-1 text-left">:</td>
+                            <td class="px-3 py-1 text-left">{{ $mahasiswa->kelas->dosen->user->name }}</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
 
             @role('mahasiswa')
                 <!-- Tombol Tambah FRS -->
                 <div>
-                    <button onclick="toggleModal()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    <button onclick="toggleModal()" class="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-4 rounded">
                         Tambah FRS
                     </button>
                 </div>
@@ -89,19 +94,53 @@
                             <td class="px-4 py-3 text-center">{{ $kelas->kelas ?? '-' }}</td>
                             <td class="px-4 py-3">
                                 @role('dosen')
-                                    <form action="{{ route('frs.updatePersetujuan', $frs->id_frs) }}" method="POST">
+                                    <form action="{{ route('frs.updatePersetujuan', $frs->id_frs) }}" method="POST"
+                                        id="form-persetujuan-{{ $frs->id_frs }}">
                                         @csrf
                                         @method('PATCH')
-                                        <!-- Form fields untuk status_persetujuan dan catatan -->
-                                        <select name="disetujui">
-                                            <option value="Belum Disetujui">Belum Disetujui</option>
-                                            <option value="Disetujui">Disetujui</option>
-                                            <option value="Tidak Disetujui">Tidak Disetujui</option>
+                                        <select name="disetujui" onchange="this.form.submit()" 
+                                            class="w-full px-3 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors
+                                            @if($frs->disetujui == 'Disetujui') 
+                                                bg-green-50 border-green-300 text-green-800
+                                            @elseif($frs->disetujui == 'Tidak Disetujui') 
+                                                bg-red-50 border-red-300 text-red-800
+                                            @else 
+                                                bg-yellow-50 border-yellow-300 text-yellow-800
+                                            @endif">
+                                            <option value="Belum Disetujui" {{ $frs->disetujui == 'Belum Disetujui' ? 'selected' : '' }}>
+                                                Belum Disetujui
+                                            </option>
+                                            <option value="Disetujui" {{ $frs->disetujui == 'Disetujui' ? 'selected' : '' }}>
+                                                Disetujui
+                                            </option>
+                                            <option value="Tidak Disetujui" {{ $frs->disetujui == 'Tidak Disetujui' ? 'selected' : '' }}>
+                                                Tidak Disetujui
+                                            </option>
                                         </select>
                                     </form>
                                 @else
-                                    {{ $frs->disetujui == 'Disetujui' ? 'Disetujui' : 
-                                    ($frs->disetujui == 'Tidak Disetujui' ? 'Tidak Disetujui' : 'Belum Disetujui') }}
+                                    @if($frs->disetujui == 'Disetujui')
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                            </svg>
+                                            Disetujui
+                                        </span>
+                                    @elseif($frs->disetujui == 'Tidak Disetujui')
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                            </svg>
+                                            Tidak Disetujui
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                            </svg>
+                                            Belum Disetujui
+                                        </span>
+                                    @endif
                                 @endrole
                             </td>
 

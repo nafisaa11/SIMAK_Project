@@ -104,26 +104,31 @@
         </form>
         <script>
     document.getElementById('id_prodi').addEventListener('change', function () {
-        const prodiId = this.value;
-        const kelasSelect = document.getElementById('id_kelas');
+    const id_prodi = this.value;
+    const kelasSelect = document.getElementById('id_kelas');
 
-        // Kosongkan dulu pilihan kelas
-        kelasSelect.innerHTML = '<option value="">Mencari kelas...</option>';
+    if (!id_prodi) {
+        kelasSelect.innerHTML = '<option value="">-- Pilih Kelas --</option>';
+        return;
+    }
 
-        fetch(/get-kelas-by-prodi/${prodiId})
-            .then(response => response.json())
-            .then(data => {
-                let options = '<option value="">-- Pilih Kelas --</option>';
-                data.forEach(kelas => {
-                    options += <option value="${kelas.id_kelas}">${kelas.kelas}</option>;
-                });
-                kelasSelect.innerHTML = options;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                kelasSelect.innerHTML = '<option value="">-- Pilih Prodi Terlebih Dahulu! --</option>';
+    kelasSelect.innerHTML = '<option value="">Mencari kelas...</option>';
+
+    fetch(`/get-kelas-by-prodi/${id_prodi}`)
+        .then(response => response.json())
+        .then(data => {
+            let options = '<option value="">-- Pilih Kelas --</option>';
+            data.forEach(kelas => {
+                options += `<option value="${kelas.id_kelas}">${kelas.kelas}</option>`;
             });
-    });
+            kelasSelect.innerHTML = options;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            kelasSelect.innerHTML = '<option value="">-- Gagal memuat kelas --</option>';
+        });
+});
+
 </script>
 
     </div>
