@@ -73,10 +73,8 @@ Route::get('/kelas/mahasiswa/{id_kelas}', [NilaiController::class, 'showMahasisw
 // Route menampilkan daftar nilai berdasarkan mahasiswa (custom index dengan parameter)
 Route::get('/nilai/mahasiswa/{id_mahasiswa}', [NilaiController::class, 'index'])->name('nilai.index.byMahasiswa');
 
-// // Menampilkan daftar mahasiswa dalam kelas tertentu (untuk dosen)
-// Route::get('/kelas/mahasiswa/{id_kelas}', [FrsController::class, 'showMahasiswaByKelas'])->name('frs.kelas');
-// // Route menampilkan daftar frs berdasarkan mahasiswa (custom index dengan parameter)
-// Route::get('/frs/mahasiswa/{id_mahasiswa}', [FrsController::class, 'index'])->name('frs.index.byMahasiswa');
+// Form input nilai untuk mahasiswa
+Route::patch('/frs/{id}/persetujuan', [FrsController::class, 'updatePersetujuan'])->name('frs.updatePersetujuan');
 
 // Route form input nilai dengan query params
 Route::get('/nilai/input', [NilaiController::class, 'create'])->name('nilai.create');

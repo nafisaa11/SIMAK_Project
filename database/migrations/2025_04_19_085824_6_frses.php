@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('frses', function (Blueprint $table) {
             $table->id('id_frs');
             $table->unsignedBigInteger('id_nilai');
-            $table->integer('tahun_ajaran');
             $table->enum('disetujui', ['Belum Disetujui', 'Tidak Disetujui', 'Disetujui'])->default('Belum Disetujui');
             $table->timestamps();
 

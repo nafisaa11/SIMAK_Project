@@ -19,6 +19,7 @@ Daftar Mata Kuliah
                     <th class="px-4 py-3 text-center">NO</th>
                     <th class="px-4 py-3 text-center">KODE MATA KULIAH</th>
                     <th class="px-4 py-3">NAMA MATA KULIAH</th>
+                    <th class="px-4 py-3">SEMESTER</th>
                     <th class="px-4 py-3 text-center">SKS</th>
                     <th class="px-4 py-3">Tindakan</th>
                 </tr>
@@ -29,6 +30,7 @@ Daftar Mata Kuliah
                     <td class="px-4 py-3 text-center">{{ $loop->iteration }}</td>
                     <td class="px-4 py-3 text-center">{{ $matkul->kode_matkul }}</td>
                     <td class="px-4 py-3">{{ $matkul->nama_matkul }}</td>
+                    <td class="px-4 py-3">{{ $matkul->semester }}</td>
                     <td class="px-4 py-3 text-center">{{ $matkul->sks }}</td>
                     <td class="px-4 py-3">
                         <div class="flex space-x-2">

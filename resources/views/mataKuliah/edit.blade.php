@@ -22,6 +22,11 @@ Edit Mata Kuliah
         </div>
 
         <div>
+            <label for="semester" class="block text-gray-700 text-sm font-bold mb-2">Mata Kuliah Semester</label>
+            <input type="text" name="semester" id="semester" step="0.01" value="{{ $matkul->semester}}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        </div>
+
+        <div>
             <label for="sks" class="block text-gray-700 text-sm font-bold mb-2">Jumlah SKS</label>
             <input type="number" name="sks" id="sks" maxlength="2" value="{{ $matkul->sks }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
         </div>

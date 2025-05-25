@@ -10,7 +10,6 @@ class Frs extends Model
     protected $primaryKey = 'id_frs';
     protected $fillable = [
         'id_nilai',
-        'tahun_ajaran',
         'disetujui'
     ];
 

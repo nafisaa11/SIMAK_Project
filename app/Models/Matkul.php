@@ -8,7 +8,7 @@ class Matkul extends Model
 {
     protected $table = 'matkuls';
     protected $primaryKey = 'id_matkul';
-    protected $fillable = ['kode_matkul', 'nama_matkul', 'sks'];
+    protected $fillable = ['kode_matkul', 'nama_matkul', 'semester','sks'];
 
     
 }

@@ -33,12 +33,14 @@ class MataKuliahController extends Controller
         $request->validate([
             'kode_matkul' => 'string',
             'nama_matkul' => 'string',
+            'semester' => 'numeric|min:1|max:8',
             'sks' => 'numeric|min:1|max:4',
         ]);
 
         Matkul::create([
             'kode_matkul' => $request->kode_matkul,
             'nama_matkul' => $request->nama_matkul,
+            'semester' => $request->semester,
             'sks' => $request->sks,
         ]);
         return redirect()->route('mataKuliah.index');
@@ -70,12 +72,14 @@ class MataKuliahController extends Controller
         $request->validate([
             'kode_matkul' => 'string',
             'nama_matkul' => 'string',
+            'semester' => 'numeric|min:1|max:8',
             'sks' => 'numeric|max:4',
         ]);
 
         Matkul::where('id_matkul', $id_matkul)->update([
             'kode_matkul' => $request->kode_matkul,
             'nama_matkul' => $request->nama_matkul,
+            'semester' => $request->semester,
             'sks' => $request->sks,
         ]);
         return redirect()->route('mataKuliah.index');
