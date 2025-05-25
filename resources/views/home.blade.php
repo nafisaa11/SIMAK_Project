@@ -100,19 +100,19 @@
 
 
                                 </div>
-                                    <p class="text-gray-600 mb-6">
-                                        @if (Auth::user()->hasRole('admin'))
+                                <p class="text-gray-600 mb-6">
+                                    @if (Auth::user()->hasRole('admin'))
                                         Kelola, update, dan perbarui data mahasiswa yang terdaftar
                                         di
                                         sistem. Termasuk informasi pribadi dan akademik.
-                                        @elseif(Auth::user()->hasRole('dosen'))
+                                    @elseif(Auth::user()->hasRole('dosen'))
                                         Melihat daftar data mahasiswa
-                                        @elseif(Auth::user()->hasRole('mahasiswa'))
+                                    @elseif(Auth::user()->hasRole('mahasiswa'))
                                         Melihat daftar mahasiswa
-                                        @else
-                                            Akses Tidak Diketahui
-                                        @endif
-                                    </p>
+                                    @else
+                                        Akses Tidak Diketahui
+                                    @endif
+                                </p>
                                 <div class="flex justify-between items-center pt-4 border-t border-gray-100">
                                     <span class="text-sm text-gray-500">
                                         <!-- Terakhir diupdate: {{ date('d M Y') }} -->
@@ -148,13 +148,17 @@
                                         {{ Auth::user()->hasRole('admin') ? 'Manajemen Dosen' : 'Daftar Dosen' }}
                                     </h3>
                                 </div>
-                                <p class="text-gray-600 mb-6">Kelola data dosen aktif, termasuk informasi kontak, jadwal
-                                    mengajar, dan riwayat akademik lengkap.</p>
+                                <p class="text-gray-600 mb-6">
+                                    {{ Auth::user()->hasRole('admin')
+                                        ? 'Kelola data dosen aktif, termasuk informasi kontak, jadwal
+                                                                        mengajar, dan riwayat akademik lengkap.'
+                                        : 'Daftar Dosen' }}
+                                </p>
                                 <div class="flex justify-between items-center pt-4 border-t border-gray-100">
                                     <span class="text-sm text-gray-500">
                                         <!-- Terakhir diupdate: {{ date('d M Y') }} -->
                                     </span>
-                                    <a href="#"
+                                    <a href="{{ route('dosen.dashboard') }}"
                                         class="flex items-center text-green-600 hover:text-green-800 font-medium">
                                         Lihat Data
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none"
@@ -185,14 +189,21 @@
                                             {{ Auth::user()->hasRole('dosen') ? 'Manajemen nilai' : 'Nilai' }}
                                         </h3>
                                     </div>
-                                    <p class="text-gray-600 mb-6">Input, kelola, dan review data nilai mahasiswa untuk
-                                        evaluasi
-                                        akademik. Termasuk analisis performa semester.</p>
+                                    <p class="text-gray-600 mb-6"></p>
+                                    <p class="text-gray-600 mb-6">
+                                        {{ Auth::user()->hasRole('dosen')
+                                            ? 'Input, kelola, dan review data nilai mahasiswa untuk
+                                                                                evaluasi
+                                                                                akademik. Termasuk analisis performa semester.'
+                                            : 'Nilai' }}
+                                    </p>
                                     <div class="flex justify-between items-center pt-4 border-t border-gray-100">
                                         <span class="text-sm text-gray-500">
                                             <!-- Terakhir diupdate: {{ date('d M Y') }} -->
                                         </span>
-                                        <a href="#"
+                                        <a href="{{ Auth::user()->hasRole('dosen')
+                                            ? route('kelas.index')
+                                            : route('nilai.index.byMahasiswa', Auth::user()->mahasiswa->id_mahasiswa) }}"
                                             class="flex items-center text-yellow-600 hover:text-yellow-800 font-medium">
                                             Lihat Data
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none"
@@ -207,6 +218,7 @@
                         @endif
 
                         <!-- Menu Card 4 - Mata Kuliah -->
+                        @hasanyrole('dosen|admin')
                         <div
                             class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                             <div class="h-2 bg-purple-500"></div>
@@ -223,13 +235,15 @@
                                         {{ Auth::user()->hasRole('admin') ? 'Manajemen Mata Kuliah' : 'Mata Kuliah' }}
                                     </h3>
                                 </div>
-                                <p class="text-gray-600 mb-6">Kelola daftar mata kuliah, jadwal, ruangan, dan informasi
-                                    pengajar untuk semester ini.</p>
+                                    <p class="text-gray-600 mb-6">
+                                        {{ Auth::user()->hasRole('admin') ? 'Kelola daftar mata kuliah, jadwal, ruangan, dan informasi
+                                    pengajar untuk semester ini.' : 'Melihat daftar mata kuliah' }}
+                                    </p>
                                 <div class="flex justify-between items-center pt-4 border-t border-gray-100">
                                     <span class="text-sm text-gray-500">
                                         <!-- Terakhir diupdate: {{ date('d M Y') }} -->
                                     </span>
-                                    <a href="#"
+                                    <a href="{{ route('mataKuliah.index') }}"
                                         class="flex items-center text-purple-600 hover:text-purple-800 font-medium">
                                         Lihat Data
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none"
@@ -241,6 +255,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endhasanyrole
 
                         <!-- Menu Card 5 - Jadwal -->
                         <div
@@ -259,8 +274,10 @@
                                         {{ Auth::user()->hasRole('admin') ? 'Manajemen Jadwal Kuliah' : 'Jadwal Kuliah' }}
                                     </h3>
                                 </div>
-                                <p class="text-gray-600 mb-6">Atur dan kelola jadwal kuliah, termasuk pengaturan ruangan,
-                                    waktu dan manajemen konflik jadwal.</p>
+                                    <p class="text-gray-600 mb-6">
+                                        {{ Auth::user()->hasRole('admin') ? 'Atur dan kelola jadwal kuliah, termasuk pengaturan ruangan,
+                                    waktu dan manajemen konflik jadwal.' : 'Melihat daftar jadwal' }}
+                                    </p>
                                 <div class="flex justify-between items-center pt-4 border-t border-gray-100">
                                     <span class="text-sm text-gray-500">
                                         <!-- Terakhir diupdate: {{ date('d M Y') }} -->
@@ -279,6 +296,7 @@
                         </div>
 
                         <!-- Menu Card 6 - FRS -->
+                        @hasanyrole('dosen|mahasiswa')
                         <div
                             class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                             <div class="h-2 bg-indigo-500"></div>
@@ -292,9 +310,7 @@
                                         </svg>
                                     </div>
                                     <h3 class="text-xl font-semibold text-gray-800">
-                                        @if (Auth::user()->hasRole('admin'))
-                                            Manajemen FRS
-                                        @elseif(Auth::user()->hasRole('dosen'))
+                                        @if (Auth::user()->hasRole('dosen'))
                                             Persetujuan FRS
                                         @elseif(Auth::user()->hasRole('mahasiswa'))
                                             FRS
@@ -303,13 +319,20 @@
                                         @endif
                                     </h3>
                                 </div>
-                                <p class="text-gray-600 mb-6">Kelola data FRS MBKM ,Formulir Rencana Studi (FRS) Online Per
-                                    Semester. </p>
+                                    <p class="text-gray-600 mb-6">
+                                        @if (Auth::user()->hasRole('dosen'))
+                                            Memberikan Persetujuan FRS
+                                        @elseif(Auth::user()->hasRole('mahasiswa'))
+                                            Melakukan FRS
+                                        @else
+                                            Akses Tidak Diketahui
+                                        @endif
+                                    </p>
                                 <div class="flex justify-between items-center pt-4 border-t border-gray-100">
                                     <span class="text-sm text-gray-500">
                                         <!-- Terakhir diupdate: {{ date('d M Y') }} -->
                                     </span>
-                                    <a href="#"
+                                    <a href="{{ route('frs.index') }}"
                                         class="flex items-center text-red-600 hover:text-red-800 font-medium">
                                         Lihat Data
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none"
@@ -321,6 +344,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endhasanyrole
                     </div>
                 </section>
             </div>
