@@ -63,7 +63,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/frs', [FrsController::class, 'index'])->name('frs.index');
         Route::get('/frs/create', [FrsController::class, 'create'])->name('frs.create');
         Route::post('/frs/store', [FrsController::class, 'store'])->name('frs.store');
-        Route::get('/frs/destroy', [FrsController::class, 'destroy'])->name('frs.destroy');
+        Route::delete('/frs/{frs}', [FrsController::class, 'destroy'])->name('frs.destroy');
+
     });
 });
 
