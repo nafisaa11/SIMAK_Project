@@ -6,6 +6,9 @@ use App\Models\Frs;
 use App\Models\Jadwal;
 use App\Models\JadwalKuliah;
 use App\Models\Nilai;
+use App\Models\Dosen;
+use App\Models\Mahasiswa;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -70,7 +73,7 @@ class FrsController extends Controller
                 'id_jadwal_kuliah' => $jadwal->id_jadwal_kuliah,
                 'id_nilai' => $nilai->id_nilai,
                 'tahun_ajaran' => date('Y'), // Atau bisa ditarik dari form jika tersedia
-                'semester' => $mahasiswa->semester ?? 1,
+                // 'semester' => $mahasiswa->semester ?? 1,
                 'disetujui' => false,
             ]);
 
@@ -103,7 +106,7 @@ class FrsController extends Controller
             'id_jadwal_kuliah' => 'required|exists:jadwal_kuliahs,id_jadwal_kuliah',
             'tahun_ajaran' => 'required|string',
             'disetujui' => 'required|boolean',
-            'semester' => 'required|integer|min:1|max:8',
+            // 'semester' => 'required|integer|min:1|max:8',
         ]);
 
         try {

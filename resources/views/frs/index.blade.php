@@ -19,11 +19,11 @@
                 </tr>
                 <tr>
                     <td class="font-semibold pr-2">Kelas</td>
-                    <td>: {{ $mahasiswa?->kelas?->kelas ?? '-' }}</td>
+                    <td>: {{ $mahasiswa?->kelas?->prodi?->kode_prodi ?? '-' }} {{ $mahasiswa?->kelas?->kelas ?? '-' }}</td>
                 </tr>
                 <tr>
-                    <td class="font-semibold pr-2">Prodi</td>
-                    <td>: {{ $mahasiswa?->kelas?->prodi->jenjang }} {{ $mahasiswa?->kelas?->prodi->nama_prodi }}</td>
+                    <td class="font-semibold pr-2">Semester</td>
+                    <td>: Bentar Dlu</td>
                 </tr>
             </table>
         </div>
@@ -54,8 +54,8 @@
                 @foreach ($frses as $frs)
                     @php
                         $jadwal = $frs->nilai->jadwal ?? null;
-                        $matakuliah = $jadwal->matkul ?? null;
-                        $dosen = $jadwal->dosen ?? null;
+                        $matakuliah = $frs->nilai->jadwal->matkul ?? null;
+                        $dosen = $frs->nilai->jadwal->dosen->user ?? null;
                         $kelas = $frs->nilai->mahasiswa->kelas ?? null;
                     @endphp
                     <tr class="hover:bg-gray-100 transition-colors duration-200">
@@ -66,7 +66,7 @@
                             Hari: {{ $jadwal->hari ?? '-' }}<br>
                             Jam: {{ $jadwal->jam_awal ?? '-' }} - {{ $jadwal->jam_akhir ?? '-' }}
                         </td>
-                        <td class="px-4 py-3">{{ $dosen->nama_dosen ?? '-' }}</td>
+                        <td class="px-4 py-3">{{ $dosen->name ?? '-' }}</td>
                         <td class="px-4 py-3">{{ $matakuliah->sks ?? '-' }}</td>
                         <td class="px-4 py-3">{{ $kelas->kelas ?? '-' }}</td>
                         <td class="px-4 py-3">{{ $frs->disetujui ?? 'Belum Disetujui' }}</td>
@@ -82,7 +82,20 @@
     <div class="flex items-center justify-center min-h-screen px-4">
         <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full p-6">
             <h2 class="text-xl font-bold mb-4">Pilih Jadwal Kuliah</h2>
-            <form action="{{ route('frs.store') }}" method="POST">
+            <!-- Pesan sukses atau error -->
+@if(session('success'))
+    <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
+        {{ session('success') }}
+    </div>
+@endif
+@if(session('error'))
+    <div class="bg-red-100 text-red-800 p-3 rounded mb-4">
+        {{ session('error') }}
+    </div>
+@endif
+
+            <form action="{{ route('frs.store') }}" method="POST" onsubmit="console.log('Form submitted')">
+
                 @csrf
                 <table class="table-auto w-full text-sm text-left text-gray-600">
                     <thead>
@@ -103,20 +116,24 @@
                                 </td>
                                 <td class="p-2">{{ $jadwal->matkul->kode_matkul }}</td>
                                 <td class="p-2">{{ $jadwal->matkul->nama_matkul }} - {{ $jadwal->hari }} - {{ $jadwal->jam_awal }} - {{ $jadwal->jam_akhir }}</td>
-                                <td class="p-2">{{ $jadwal->dosen->nama_dosen }}</td>
+                                <td class="p-2">{{ $jadwal->dosen->user->name }}</td>
                                 <td class="p-2">{{ $jadwal->matkul->sks }}</td>
-                                <td class="p-2">{{ $jadwal->kelas->nama_kelas }}</td>
+                                <td class="p-2">{{ $jadwal->kelas->prodi->kode_prodi }} {{ $jadwal->kelas->kelas }}</td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
                 <div class="text-right mt-4">
                     <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
-                        Simpan FRS
+                        Tambah FRS
                     </button>
                     <button type="button" onclick="toggleModal()" class="ml-2 text-gray-600">Batal</button>
                 </div>
             </form>
+            @error('id_jadwal_kuliah')
+    <div class="text-red-600 text-sm mt-1">{{ $message }}</div>
+@enderror
+
         </div>
     </div>
 </div>
