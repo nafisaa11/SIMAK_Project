@@ -108,7 +108,7 @@
     </div>
 @endif
 
-            <form action="{{ route('frs.store') }}" method="POST" onsubmit="console.log('Form submitted')">
+            <form action="#" method="POST" onsubmit="console.log('Form submitted')">
 
                 @csrf
                 <table class="table-auto w-full text-sm text-left text-gray-600">

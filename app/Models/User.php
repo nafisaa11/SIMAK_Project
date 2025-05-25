@@ -53,6 +53,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Mahasiswa::class);
     }
 
+    public function dosen()
+    {
+        return $this->hasOne(Dosen::class);
+    }
+
     protected static function booted()
     {
         static::created(function ($user) {
