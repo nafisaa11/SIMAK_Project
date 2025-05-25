@@ -6,11 +6,13 @@ Daftar Jadwal Kuliah
 
 @section('content')
 <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    @role('admin')
     <div class="flex justify-between items-center px-6 py-4 border-b border-gray-200 bg-gray-50">
         <a href="{{ route('jadwal.create') }}"  class="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-4 rounded">
             Tambah Jadwal
         </a>
     </div>
+    @endrole
     <div class="overflow-x-auto p-4">
         @if(session('success'))
         <div class="mb-4 bg-green-100 text-green-800 p-3 rounded">{{ session('success') }}</div>

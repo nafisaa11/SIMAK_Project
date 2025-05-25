@@ -113,9 +113,6 @@ class FrsController extends Controller
 
     public function destroy(Frs $frs)
     {
-        if ($frs->nilai->mahasiswa->user->user_id !== Auth::user()->user_id) {
-            return back()->with('error', 'Anda tidak memiliki akses untuk menghapus FRS ini');
-        }
 
             try {
                 $frs->delete();
