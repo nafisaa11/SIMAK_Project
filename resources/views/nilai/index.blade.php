@@ -41,7 +41,9 @@ Nilai
                     <th class="px-6 py-3 text-center">SKS</th>
                     <th class="px-6 py-3 text-center">NILAI ANGKA</th>
                     <th class="px-6 py-3 text-center">NILAI HURUF</th>
+                    @role('dosen')
                     <th class="px-6 py-3 text-left">AKSI</th>
+                    @endrole
                 </tr>
             </thead>
             <tbody class="text-sm text-gray-700 divide-y divide-gray-200">
@@ -64,6 +66,7 @@ Nilai
                         <td class="px-6 py-3 text-center">{{ $jadwal->matkul->sks }}</td>
                         <td class="px-6 py-3 text-center">{{ $nilai->nilai_angka ?? '-' }}</td>
                         <td class="px-6 py-3 text-center">{{ $nilai->nilai_huruf ?? '-' }}</td>
+                        @role('dosen')
                         <td class="px-6 py-3 flex gap-2">
                             @if($nilai)
                                 <a href="{{ route('nilai.edit', $nilai->id_nilai) }}" class="text-yellow-600 hover:underline">Edit</a>
@@ -76,6 +79,7 @@ Nilai
                                 <a href="{{ route('nilai.create') }}?id_mahasiswa={{ $mahasiswa->id_mahasiswa }}&id_jadwal_kuliah={{ $jadwal->id_jadwal_kuliah }}" class="text-blue-600 hover:underline">Input</a>
                             @endif
                         </td>
+                        @endrole
                     </tr>
                 @endforeach
 

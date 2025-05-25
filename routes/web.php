@@ -69,7 +69,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // Menampilkan daftar mahasiswa dalam kelas tertentu (untuk dosen)
 Route::get('/kelas/mahasiswa/{id_kelas}', [NilaiController::class, 'showMahasiswaByKelas'])->name('nilai.kelas');
 // Route menampilkan daftar nilai berdasarkan mahasiswa (custom index dengan parameter)
-Route::get('/nilai/mahasiswa/{id_mahasiswa}', [NilaiController::class, 'index'])->name('nilai.index.byMahasiswa');;
+Route::get('/nilai/mahasiswa/{id_mahasiswa}', [NilaiController::class, 'index'])->name('nilai.index.byMahasiswa');
+
+// // Menampilkan daftar mahasiswa dalam kelas tertentu (untuk dosen)
+// Route::get('/kelas/mahasiswa/{id_kelas}', [FrsController::class, 'showMahasiswaByKelas'])->name('frs.kelas');
+// // Route menampilkan daftar frs berdasarkan mahasiswa (custom index dengan parameter)
+// Route::get('/frs/mahasiswa/{id_mahasiswa}', [FrsController::class, 'index'])->name('frs.index.byMahasiswa');
 
 // Route form input nilai dengan query params
 Route::get('/nilai/input', [NilaiController::class, 'create'])->name('nilai.create');
@@ -88,9 +93,6 @@ Route::resource('kelas', KelasController::class);
 // ----------------------
 Route::get('/get-kelas-by-prodi/{id_prodi}', [KelasController::class, 'getByProdi']);
 Route::get('/get-jadwal-by-prodi/{id_prodi}', [JadwalKuliahController::class, 'getJadwalByProdi']);
-
-
-
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
