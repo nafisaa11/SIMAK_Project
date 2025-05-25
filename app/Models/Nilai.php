@@ -30,6 +30,11 @@ class Nilai extends Model
         return $this->belongsTo(JadwalKuliah::class, 'id_jadwal_kuliah');
     }
 
+    public function frs()
+    {
+        return $this->hasOne(Frs::class, 'id_nilai');
+    }
+
     public function getNilaiHurufAttribute()
     {
         $nilai = $this->nilai_angka;
