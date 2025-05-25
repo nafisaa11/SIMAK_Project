@@ -88,7 +88,57 @@ Nilai
                     <th class="px-6 py-3 text-center">Jumlah</th>
                     <td class="px-6 py-3 text-center">{{ $totalSks }}</td>
                     <td class="px-6 py-3 text-center">{{ $totalNilaiAngka }}</td>
-                    <td class="px-6 py-3 text-center">-</td>
+                    <td class="px-6 py-3 text-center"></td>
+                    <td></td>
+                </tr>
+
+                @php
+                    $totalSks = 0;
+                    $totalNilaiAngka = 0;
+                    $totalBobotKaliSks = 0;
+                @endphp
+
+                @foreach($jadwal_kuliahs as $index => $jadwal)
+                    @php  
+                        $nilai = $nilais->firstWhere('id_jadwal_kuliah', $jadwal->id_jadwal_kuliah);
+                        $sks = $jadwal->matkul->sks;
+                        $totalSks += $sks;
+
+                        if ($nilai && is_numeric($nilai->nilai_angka)) {
+                            $totalNilaiAngka += $nilai->nilai_angka;
+
+                            // Hitung bobot dari nilai huruf
+                            $bobot = match ($nilai->nilai_huruf) {
+                                'A' => 4.00,
+                                'A-' => 3.75,
+                                'AB' => 3.50,
+                                'B+' => 3.25,
+                                'B' => 3.00,
+                                'BC' => 2.50,
+                                'C' => 2.00,
+                                'D' => 1.00,
+                                'E' => 0.00,
+                                default => 0.00,
+                            };
+
+                            $totalBobotKaliSks += $bobot * $sks;
+                        }
+                    @endphp
+
+                    <!-- existing row -->
+                @endforeach
+
+                @php
+                    $ips = $totalSks > 0 ? number_format($totalBobotKaliSks / $totalSks, 2) : '-';
+                @endphp
+
+                <!-- Tambahkan baris IPS -->
+                <tr class="bg-gray-100 font-semibold">
+                    <td></td>
+                    <th class="px-6 py-3 text-center">IPS</th>
+                    <td class="px-6 py-3 text-center"></td>
+                    <td class="px-6 py-3 text-center"></td>
+                    <td class="px-6 py-3 text-center">{{ $ips }}</td>
                     <td></td>
                 </tr>
 

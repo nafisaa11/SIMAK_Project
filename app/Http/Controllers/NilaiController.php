@@ -22,7 +22,7 @@ class NilaiController extends Controller
         return view('nilai.index', compact('mahasiswa', 'nilais', 'jadwal_kuliahs'));
     }
 
-    // Form input nilai (menggunakan query params)
+    // Form input nilai (menggunakan query params) - Keep for backward compatibility
     public function create(Request $request)
     {
         $id_mahasiswa = $request->query('id_mahasiswa');
@@ -37,25 +37,49 @@ class NilaiController extends Controller
     // Simpan nilai ke database
     public function store(Request $request)
     {
-        $request->validate([
-            'id_mahasiswa' => 'required|exists:mahasiswas,id_mahasiswa',
-            'id_jadwal_kuliah' => 'required|exists:jadwal_kuliahs,id_jadwal_kuliah',
-            'nilai_angka' => 'required|numeric|min:0|max:100',
-        ]);
+            $request->validate([
+                'id_mahasiswa' => 'required|exists:mahasiswas,id_mahasiswa',
+                'id_jadwal_kuliah' => 'required|exists:jadwal_kuliahs,id_jadwal_kuliah',
+                'nilai_angka' => 'required|numeric|min:0|max:100',
+            ]);
 
-        $nilai_angka = $request->input('nilai_angka');
+            $nilai_angka = $request->input('nilai_angka');
 
-        Nilai::create([
-            'id_mahasiswa' => $request->id_mahasiswa,
-            'id_jadwal_kuliah' => $request->id_jadwal_kuliah,
-            'nilai_angka' => $nilai_angka,
-        ]);
+            // Check if nilai already exists for this mahasiswa and jadwal
+            $existingNilai = Nilai::where('id_mahasiswa', $request->id_mahasiswa)
+                                 ->where('id_jadwal_kuliah', $request->id_jadwal_kuliah)
+                                 ->first();
 
-        return redirect()->route('nilai.index.byMahasiswa', ['id_mahasiswa' => $request->id_mahasiswa])
-            ->with('success', 'Nilai berhasil disimpan.');
+            if ($existingNilai) {
+                if ($request->ajax()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Nilai untuk mata kuliah ini sudah ada.',
+                        'errors' => ['nilai_angka' => ['Nilai untuk mata kuliah ini sudah ada.']]
+                    ], 422);
+                }
+                return redirect()->back()->withErrors(['nilai_angka' => 'Nilai untuk mata kuliah ini sudah ada.']);
+            }
+
+            Nilai::create([
+                'id_mahasiswa' => $request->id_mahasiswa,
+                'id_jadwal_kuliah' => $request->id_jadwal_kuliah,
+                'nilai_angka' => $nilai_angka,
+            ]);
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Nilai berhasil disimpan.'
+                ]);
+            }
+
+            return redirect()->route('nilai.index.byMahasiswa', ['id_mahasiswa' => $request->id_mahasiswa])
+                ->with('success', 'Nilai berhasil disimpan.');
+
     }
 
-    // Form edit nilai
+    // Form edit nilai - Keep for backward compatibility
     public function edit($id_nilai)
     {
         $nilai = Nilai::findOrFail($id_nilai);
@@ -68,27 +92,34 @@ class NilaiController extends Controller
     // Update nilai ke database
     public function update(Request $request, $id_nilai)
     {
-        $request->validate([
-            'nilai_angka' => 'required|numeric|min:0|max:100',
-        ]);
+            $request->validate([
+                'nilai_angka' => 'required|numeric|min:0|max:100',
+            ]);
 
-        $nilai = Nilai::findOrFail($id_nilai);
-        $nilai->nilai_angka = $request->nilai_angka;
-        $nilai->save();
+            $nilai = Nilai::findOrFail($id_nilai);
+            $nilai->nilai_angka = $request->nilai_angka;
+            $nilai->save();
 
-        return redirect()->route('nilai.index.byMahasiswa', ['id_mahasiswa' => $nilai->id_mahasiswa])
-            ->with('success', 'Nilai berhasil diperbarui.');
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Nilai berhasil diperbarui.'
+                ]);
+            }
+
+            return redirect()->route('nilai.index.byMahasiswa', ['id_mahasiswa' => $nilai->id_mahasiswa])
+                ->with('success', 'Nilai berhasil diperbarui.');
     }
 
     // Hapus nilai
     public function destroy($id_nilai)
     {
-        $nilai = Nilai::findOrFail($id_nilai);
-        $id_mahasiswa = $nilai->id_mahasiswa;
-        $nilai->delete();
+            $nilai = Nilai::findOrFail($id_nilai);
+            $id_mahasiswa = $nilai->id_mahasiswa;
+            $nilai->delete();
 
-        return redirect()->route('nilai.index.byMahasiswa', ['id_mahasiswa' => $id_mahasiswa])
-            ->with('success', 'Nilai berhasil dihapus.');
+            return redirect()->route('nilai.index.byMahasiswa', ['id_mahasiswa' => $id_mahasiswa])
+                ->with('success', 'Nilai berhasil dihapus.');
     }
 
     // Menampilkan daftar mahasiswa dalam kelas tertentu (untuk dosen)
@@ -98,5 +129,25 @@ class NilaiController extends Controller
                     ->findOrFail($id_kelas);
 
         return view('nilai.daftar_mahasiswa', compact('kelas'));
+    }
+
+    // API endpoint untuk mendapatkan data nilai (optional, untuk future enhancement)
+    public function getNilaiData($id_mahasiswa)
+    {
+            $mahasiswa = Mahasiswa::with('user', 'kelas.prodi', 'kelas.dosen.user')->findOrFail($id_mahasiswa);
+            $jadwal_kuliahs = JadwalKuliah::whereHas('kelas.mahasiswa', function ($query) use ($id_mahasiswa) {
+                $query->where('id_mahasiswa', $id_mahasiswa);
+            })->with('matkul')->get();
+            $nilais = Nilai::where('id_mahasiswa', $id_mahasiswa)->get();
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'mahasiswa' => $mahasiswa,
+                    'jadwal_kuliahs' => $jadwal_kuliahs,
+                    'nilais' => $nilais
+                ]
+            ]);
+        
     }
 }

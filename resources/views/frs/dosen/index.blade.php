@@ -6,7 +6,6 @@
 <div class="bg-white rounded-lg shadow-md overflow-hidden">
     <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
         <h2 class="text-xl font-semibold text-gray-700">Daftar Mahasiswa Bimbingan</h2>
-        <a href="{{ route('home') }}" class="text-sm text-blue-600 hover:underline">Kembali</a>
     </div>
 
     <!-- Info Kelas yang Diwali -->
@@ -15,9 +14,7 @@
             <h3 class="font-semibold text-blue-800 mb-2">Kelas yang Anda Wali:</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                 @foreach($kelasWali as $kelas)
-                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
-                        {{ $kelas->nama_kelas }}
-                    </span>
+                        {{ $kelas->prodi->jenjang }} {{ $kelas->prodi->nama_prodi }} {{ $kelas->kelas }}
                 @endforeach
             </div>
         </div>
@@ -43,7 +40,7 @@
                     <td class="px-6 py-3 text-left">{{ $mhs->user->name }}</td>
                     <td class="px-6 py-3 text-left">
                         <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">
-                            {{ $mhs->kelas->nama_kelas }}
+                            {{ $mhs->kelas->prodi->jenjang }} {{ $mhs->kelas->prodi->nama_prodi }} {{ $mhs->kelas->kelas }}
                         </span> 
                     </td>
                     <td class="px-6 py-3 text-center">Semester {{ $mhs->semester }}</td>
