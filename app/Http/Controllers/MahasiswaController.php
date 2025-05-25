@@ -11,15 +11,43 @@ use Illuminate\Support\Facades\Auth;
 class MahasiswaController extends Controller
 {
     /**
-     * Tampilkan daftar mahasiswa.
+     * Tampilkan daftar mahasiswa dengan opsi filter.
      */
-        public function index()
+    public function index(Request $request)
     {
-        $mahasiswa = Mahasiswa::whereHas('user', function ($query) {
-            $query->role('mahasiswa'); // pakai helper dari Spatie
-        })->with('user', 'kelas')->get();
+        // Ambil semua Program Studi dan Kelas untuk dropdown filter
+        // Memuat relasi 'prodi' untuk Kelas agar bisa menampilkan nama prodi di dropdown Kelas
+        $prodis = Prodi::all();
+        $kelasList = Kelas::with('prodi')->get();
 
-        return view('mahasiswa.dashboard', compact('mahasiswa'));
+        // Mulai query untuk mahasiswa
+        // Pastikan eager loading untuk relasi 'user' dan 'kelas.prodi'
+        $query = Mahasiswa::with(['user', 'kelas.prodi']);
+
+        // Terapkan filter berdasarkan input dari request
+        if ($request->filled('prodi_id')) {
+            $prodiId = $request->input('prodi_id');
+            $query->whereHas('kelas.prodi', function ($q) use ($prodiId) {
+                $q->where('id_prodi', $prodiId);
+            });
+        }
+
+        if ($request->filled('kelas_id')) {
+            $kelasId = $request->input('kelas_id');
+            $query->where('id_kelas', $kelasId);
+        }
+
+        // Jika Anda ingin memfilter hanya mahasiswa dengan role 'mahasiswa' dari tabel users,
+        // pastikan relasi 'user' di model Mahasiswa sudah benar dan uncomment baris ini.
+        // $query->whereHas('user', function ($q) {
+        //     $q->role('mahasiswa'); // Asumsi Anda menggunakan Spatie Laravel-Permission
+        // });
+
+        // Ambil data mahasiswa yang sudah difilter
+        $mahasiswa = $query->get();
+
+        // Mengembalikan view 'mahasiswa.index' dengan data yang dibutuhkan
+        return view('mahasiswa.dashboard', compact('mahasiswa', 'prodis', 'kelasList'));
     }
 
     public function home()
@@ -32,9 +60,9 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-    $kelases = Kelas::with('prodi')->get(); // jika masih butuh
-    $prodies = Prodi::all(); // Tambahkan ini
-    return view('mahasiswa.create', compact('kelases', 'prodies'));
+        $kelases = Kelas::with('prodi')->get();
+        $prodies = Prodi::all();
+        return view('mahasiswa.create', compact('kelases', 'prodies'));
     }
 
     /**
@@ -53,11 +81,10 @@ class MahasiswaController extends Controller
         ]);
 
         $validatedData['user_id'] = Auth::id();
-        // $validatedData['kelas'] = $request->input('kelas'); // ambil kelas dari request
 
         Mahasiswa::create($validatedData);
 
-        return redirect()->route('mahasiswa.dashboard')->with('success', 'Mahasiswa berhasil ditambahkan.');
+        return redirect()->route('mahasiswa.dashboard')->with('success', 'Mahasiswa berhasil ditambahkan.'); // Mengarahkan ke index
     }
 
     /**
@@ -65,8 +92,8 @@ class MahasiswaController extends Controller
      */
     public function show(string $id)
     {
-        $kelases = Kelas::all(); // Ambil semua kelas untuk ditampilkan di view
-        $mahasiswa = Mahasiswa::with('user')->findOrFail($id);
+        $kelases = Kelas::all();
+        $mahasiswa = Mahasiswa::with('user', 'kelas.prodi')->findOrFail($id); // Eager load kelas.prodi
         return view('mahasiswa.show', compact('mahasiswa', 'kelases'));
     }
 
@@ -75,8 +102,8 @@ class MahasiswaController extends Controller
      */
     public function edit(string $id)
     {
-        $kelases = Kelas::all();
-        $prodies = Prodi::all(); // Tambahkan ini
+        $kelases = Kelas::with('prodi')->get(); // Load prodi untuk kelas
+        $prodies = Prodi::all();
         $mahasiswa = Mahasiswa::findOrFail($id);
         return view('mahasiswa.edit', compact('mahasiswa', 'kelases', 'prodies'));
     }
@@ -97,17 +124,13 @@ class MahasiswaController extends Controller
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'agama' => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
             'email' => 'required|email|max:255',
+            'nama' => 'required|string|max:255', // Tambahkan validasi untuk nama
         ]);
 
         // Update tabel users
         $mahasiswa->user->update([
             'name' => $validatedData['nama'],
             'email' => $validatedData['email'],
-        ]);
-
-        // Update tabel kelases
-        $mahasiswa->kelas()->update([
-            'id_kelas' => $validatedData['id_kelas'],
         ]);
 
         // Update tabel mahasiswas
@@ -121,7 +144,7 @@ class MahasiswaController extends Controller
             'agama' => $validatedData['agama'],
         ]);
 
-        return redirect()->route('mahasiswa.dashboard')->with('success', 'Data mahasiswa berhasil diperbarui.');
+        return redirect()->route('mahasiswa.dashboard')->with('success', 'Data mahasiswa berhasil diperbarui.'); // Mengarahkan ke index
     }
 
     /**
@@ -132,6 +155,6 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::findOrFail($id);
         $mahasiswa->delete();
 
-        return redirect()->route('mahasiswa.dashboard')->with('success', 'Mahasiswa berhasil dihapus.');
+        return redirect()->route('mahasiswa.dashboard')->with('success', 'Mahasiswa berhasil dihapus.'); // Mengarahkan ke index
     }
 }
