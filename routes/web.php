@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\FrsController;
@@ -14,10 +15,8 @@ use App\Http\Controllers\NilaiController;
 // ----------------------
 // Dashboard & Home
 // ----------------------
-Route::get('/', fn() => view('dashboard'))->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/dashboard', fn() => view('dashboard'))->middleware(['auth', 'verified']);
-Route::get('/home', fn() => view('home'))->middleware(['auth', 'verified'])->name('home');
 
+Route::get('/home', fn() => view('home'))->middleware(['auth', 'verified'])->name('home');
 // ----------------------
 // Mahasiswa Routes
 // ----------------------
@@ -100,15 +99,12 @@ Route::resource('kelas', KelasController::class);
 Route::get('/get-kelas-by-prodi/{id_prodi}', [KelasController::class, 'getByProdi']);
 Route::get('/get-jadwal-by-prodi/{id_prodi}', [JadwalKuliahController::class, 'getJadwalByProdi']);
 
-// ----------------------
-// Profile
-// ----------------------
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
+
+
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('logout');
 // ----------------------
 // Auth Routes
 // ----------------------
