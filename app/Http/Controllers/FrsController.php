@@ -239,40 +239,45 @@ class FrsController extends Controller
     public function updatePersetujuan(Request $request, $id)
     {
         $user = Auth::user();
-
+    
+        // Validasi role dosen
         if (!$user->hasRole('dosen')) {
             return redirect()->back()->with('error', 'Akses tidak diizinkan.');
         }
-
+    
+        // Validasi input
         $request->validate([
             'disetujui' => 'required|in:Belum Disetujui,Disetujui,Tidak Disetujui',
         ]);
-
+    
         try {
             $frs = Frs::findOrFail($id);
-
-            // Pastikan mahasiswa ada di kelas yang diasuh dosen ini
             $dosen = $user->dosen;
-
-            // Asumsi ada relasi untuk mendapatkan mahasiswa dari FRS
-            $mahasiswa = $frs->nilai->mahasiswa; // Menggunakan relasi nilai->mahasiswa
-
+    
+            // Validasi akses dosen - pastikan mahasiswa ada di kelas yang diasuh dosen ini
+            $mahasiswa = $frs->nilai->mahasiswa;
+            
             if ($mahasiswa->kelas->id_dosen != $dosen->id_dosen) {
                 return redirect()->back()->with('error', 'Anda tidak memiliki akses untuk menyetujui FRS ini.');
             }
-
+    
+            // Update status persetujuan
             $frs->update([
                 'disetujui' => $request->disetujui,
             ]);
-
-            $status = $request->disetujui == 'Disetujui' ? 'disetujui' : (
-                $request->disetujui == 'Tidak Disetujui' ? 'ditolak' : 'menunggu'
-            );
-
-            return redirect()->back()->with('success', "FRS berhasil {$status}.");
-
+    
+            // Pesan sukses yang lebih informatif
+            $messages = [
+                'Disetujui' => 'FRS berhasil disetujui.',
+                'Tidak Disetujui' => 'FRS berhasil ditolak.',
+                'Belum Disetujui' => 'Status FRS dikembalikan ke belum disetujui.'
+            ];
+    
+            return redirect()->back()->with('success', $messages[$request->disetujui]);
+    
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            \Log::error('Error updating FRS approval: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui status persetujuan.');
         }
     }
 

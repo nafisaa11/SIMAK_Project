@@ -46,7 +46,7 @@
                     <td class="px-6 py-3 text-center">Semester {{ $mhs->semester }}</td>
                     <td class="px-6 py-3 text-center">
                         <a href="{{ route('frs.index.byMahasiswa', $mhs->id_mahasiswa) }}" 
-                           class="text-sm bg-yellow-500 text-blue-900 px-3 py-1 rounded hover:bg-yellow-600">
+                           class="text-sm bg-yellow-500 text-black px-3 py-1 rounded hover:bg-yellow-600">
                             Lihat FRS
                         </a>
                     </td>
