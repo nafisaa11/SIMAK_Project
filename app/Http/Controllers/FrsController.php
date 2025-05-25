@@ -89,7 +89,7 @@ class FrsController extends Controller
                                        ->where('id_kelas', $mahasiswa->id_kelas)
                                        ->get();
             
-            return view('frs.mahasiswa.index', compact('mahasiswa', 'frses', 'jadwalKuliahs'));
+            return view('frs.index', compact('mahasiswa', 'frses', 'jadwalKuliahs'));
         }
         
         // Jika user adalah dosen, pastikan mahasiswa tersebut ada di kelas yang diasuh
