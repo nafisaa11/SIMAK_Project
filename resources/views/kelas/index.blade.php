@@ -9,11 +9,12 @@ Daftar Kelas
     <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
         <h2 class="text-xl font-semibold text-gray-700">Data Kelas</h2>
         @role('admin')
-        <a href="{{ route('kelas.create') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm px-4 py-2 rounded">
+        <a href="{{ route('kelas.create') }}"  class="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-4 rounded">
             Tambah Kelas
         </a>
         @endrole
     </div>
+    
     <div class="overflow-x-auto p-4">
         <table class="min-w-full table-auto">
             <thead>

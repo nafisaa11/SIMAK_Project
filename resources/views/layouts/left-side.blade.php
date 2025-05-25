@@ -84,7 +84,7 @@
                 </a>
             </li>
 
-            @hasanyrole('dosen|mahasiswa')
+            {{-- @hasanyrole('dosen|mahasiswa')
             <li>
                 <a href="{{  Auth::user()->hasRole('dosen') 
             ? route('kelas.index') 
@@ -99,7 +99,7 @@
                     </h3>
                 </a>
             </li>
-            @endhasanyrole
+            @endhasanyrole --}}
 
             @hasanyrole('admin')
             <li>

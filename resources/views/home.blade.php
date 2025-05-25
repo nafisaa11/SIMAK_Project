@@ -20,7 +20,7 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <p class="text-sm text-gray-500 uppercase tracking-wider">Total Mahasiswa</p>
-                            {{-- <h3 class="text-3xl font-bold text-gray-800 mt-1">{{ number_format($totalMahasiswa) }}</h3> --}}
+                            <h3 class="text-3xl font-bold text-gray-800 mt-1">{{ number_format($totalMahasiswa) }}</h3>
                         </div>
                         <div class="bg-blue-100 p-3 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none"
@@ -37,7 +37,7 @@
                     <div class=" flex justify-between items-center">
                         <div>
                             <p class="text-sm text-gray-500 uppercase tracking-wider">Total Dosen</p>
-                            {{-- <h3 class="text-3xl font-bold text-gray-800 mt-1">{{ number_format($totalDosen) }}</h3> --}}
+                            <h3 class="text-3xl font-bold text-gray-800 mt-1">{{ number_format($totalDosen) }}</h3>
                         </div>
                         <div class="bg-green-100 p-3 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none"
@@ -54,7 +54,7 @@
                     <div class=" flex justify-between items-center">
                         <div>
                             <p class="text-sm text-gray-500 uppercase tracking-wider">Total Mata Kuliah</p>
-                            {{-- <h3 class="text-3xl font-bold text-gray-800 mt-1">{{ number_format($totalMatkul) }}</h3> --}}
+                            <h3 class="text-3xl font-bold text-gray-800 mt-1">{{ number_format($totalMatkul) }}</h3>
                         </div>
                         <div class="bg-purple-100 p-3 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none"

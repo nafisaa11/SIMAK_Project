@@ -11,12 +11,14 @@ use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\JadwalKuliahController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\HomeController;
 
 // ----------------------
 // Dashboard & Home
 // ----------------------
-
-Route::get('/home', fn() => view('home'))->middleware(['auth', 'verified'])->name('home');
+Route::get('/', fn() => view('dashboard'))->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', fn() => view('dashboard'))->middleware(['auth', 'verified']);
+Route::get('/home', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
