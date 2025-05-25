@@ -10,18 +10,12 @@ use App\Models\JadwalKuliah;
 class NilaiController extends Controller
 {
     // Custom index: menampilkan nilai mahasiswa tertentu
-    
     public function index($id_mahasiswa)
     {
-        // Ambil data mahasiswa beserta relasi yang diperlukan
         $mahasiswa = Mahasiswa::with('user', 'kelas.prodi', 'kelas.dosen.user')->findOrFail($id_mahasiswa);
-
-        // Ambil jadwal kuliah mahasiswa
         $jadwal_kuliahs = JadwalKuliah::whereHas('kelas.mahasiswa', function ($query) use ($id_mahasiswa) {
             $query->where('id_mahasiswa', $id_mahasiswa);
         })->get();
-
-        // Ambil nilai mahasiswa tersebut
         $nilais = Nilai::where('id_mahasiswa', $id_mahasiswa)->get();
 
         return view('nilai.index', compact('mahasiswa', 'nilais', 'jadwal_kuliahs'));
@@ -50,19 +44,49 @@ class NilaiController extends Controller
 
         $nilai_angka = $request->input('nilai_angka');
 
-       
-
         Nilai::create([
             'id_mahasiswa' => $request->id_mahasiswa,
             'id_jadwal_kuliah' => $request->id_jadwal_kuliah,
             'nilai_angka' => $nilai_angka,
         ]);
 
-        // Redirect ke halaman index nilai mahasiswa yang sama (custom route)
         return redirect()->route('nilai.index.byMahasiswa', ['id_mahasiswa' => $request->id_mahasiswa])
             ->with('success', 'Nilai berhasil disimpan.');
     }
 
-    
-    // ... method lain seperti edit, update, destroy bisa kamu sesuaikan seperti contoh tadi
+    // Form edit nilai
+    public function edit($id_nilai)
+    {
+        $nilai = Nilai::findOrFail($id_nilai);
+        $mahasiswa = Mahasiswa::with('user')->findOrFail($nilai->id_mahasiswa);
+        $jadwal = JadwalKuliah::with('matkul')->findOrFail($nilai->id_jadwal_kuliah);
+
+        return view('nilai.edit', compact('nilai', 'mahasiswa', 'jadwal'));
+    }
+
+    // Update nilai ke database
+    public function update(Request $request, $id_nilai)
+    {
+        $request->validate([
+            'nilai_angka' => 'required|numeric|min:0|max:100',
+        ]);
+
+        $nilai = Nilai::findOrFail($id_nilai);
+        $nilai->nilai_angka = $request->nilai_angka;
+        $nilai->save();
+
+        return redirect()->route('nilai.index.byMahasiswa', ['id_mahasiswa' => $nilai->id_mahasiswa])
+            ->with('success', 'Nilai berhasil diperbarui.');
+    }
+
+    // Hapus nilai
+    public function destroy($id_nilai)
+    {
+        $nilai = Nilai::findOrFail($id_nilai);
+        $id_mahasiswa = $nilai->id_mahasiswa;
+        $nilai->delete();
+
+        return redirect()->route('nilai.index.byMahasiswa', ['id_mahasiswa' => $id_mahasiswa])
+            ->with('success', 'Nilai berhasil dihapus.');
+    }
 }

@@ -17,21 +17,52 @@ class FrsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $mahasiswa = $user->mahasiswa;
 
-        if (!$mahasiswa) {
-            return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan');
+        // Variabel ini diinisialisasi untuk menghindari error "Undefined variable"
+        // jika suatu role tidak membutuhkannya, namun di view tetap di-compact
+        $jadwalKuliahs = collect(); // Inisialisasi sebagai collection kosong by default
+
+        // Cek jika pengguna adalah mahasiswa
+        if ($user->hasRole('mahasiswa')) {
+            $mahasiswa = $user->mahasiswa;
+
+            if (!$mahasiswa) {
+                return redirect()->back()->with('error', 'Data mahasiswa tidak ditemukan untuk akun Anda.');
+            }
+
+            $frses = Frs::with('nilai.jadwal.matkul', 'nilai.jadwal.dosen')
+                ->whereHas('nilai', fn($query) => $query->where('id_mahasiswa', $mahasiswa->id_mahasiswa))
+                ->get();
+
+            $jadwalKuliahs = JadwalKuliah::with(['matkul', 'dosen', 'kelas'])->get(); // Definisi di sini
+
+            return view('frs.index', compact('frses', 'mahasiswa', 'jadwalKuliahs'));
+
+            // Cek jika pengguna adalah dosen
+        } elseif ($user->hasRole('dosen')) {
+            $dosen = $user->dosen;
+
+            if (!$dosen) {
+                return redirect()->back()->with('error', 'Data dosen tidak ditemukan untuk akun Anda.');
+            }
+
+            $frses = Frs::with(['nilai.jadwal.matkul', 'nilai.jadwal.mahasiswa'])
+                ->whereHas('nilai.jadwal', function ($query) use ($dosen) {
+                    $query->where('id_dosen', $dosen->id_dosen);
+                })
+                ->get();
+
+            // Jika dosen juga memerlukan jadwalKuliahs, definisikan di sini
+            $jadwalKuliahs = JadwalKuliah::with(['matkul', 'dosen', 'kelas'])->get(); // Definisi untuk dosen
+
+            return view('frs.index', compact('frses', 'dosen', 'jadwalKuliahs')); // Tambahkan jadwalKuliahs
         }
 
-        $frses = Frs::with('nilai.jadwal.matkul', 'nilai.jadwal.dosen')
-            ->whereHas('nilai', fn($query) => $query->where('id_mahasiswa', $mahasiswa->id_mahasiswa))
-            ->get();
-
-
-        $jadwalKuliahs = JadwalKuliah::with(['matkul', 'dosen', 'kelas'])->get();
-
-        return view('frs.index', compact('frses', 'mahasiswa', 'jadwalKuliahs'));
+        // Jika tidak memiliki role yang diizinkan (misal admin, atau role tidak terdefinisi)
+        return redirect()->back()->with('error', 'Anda tidak memiliki akses ke halaman FRS ini.');
     }
+
+
 
     public function create()
     {

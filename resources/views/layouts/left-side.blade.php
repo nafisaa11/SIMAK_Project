@@ -84,7 +84,7 @@
                 </a>
             </li>
 
-            @hasanyrole('dosen|mahasiswa')
+            @hasanyrole('dosen')
             <li>
                 <a href="{{ route('kelas.index') }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200

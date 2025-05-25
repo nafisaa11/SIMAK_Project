@@ -58,6 +58,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/dosen/{id}', [DosenController::class, 'update'])->name('dosen.update');
         Route::delete('/dosen/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy');
     });
+
+    Route::middleware('role:mahasiswa|dosen')->group(function () {
+        Route::get('/frs', [FrsController::class, 'index'])->name('frs.index');
+
+    });
 });
 
 // ----------------------
@@ -81,7 +86,6 @@ Route::resource('prodi', ProdiController::class);
 Route::resource('mataKuliah', MatakuliahController::class);
 Route::resource('jadwal', JadwalKuliahController::class);
 Route::resource('kelas', KelasController::class);
-Route::resource('frs', FrsController::class);
 
 // ----------------------
 // Data Fetch AJAX
