@@ -100,14 +100,24 @@
 
 
                                 </div>
-                                <p class="text-gray-600 mb-6">Kelola, update, dan perbarui data mahasiswa yang terdaftar
-                                    di
-                                    sistem. Termasuk informasi pribadi dan akademik.</p>
+                                    <p class="text-gray-600 mb-6">
+                                        @if (Auth::user()->hasRole('admin'))
+                                        Kelola, update, dan perbarui data mahasiswa yang terdaftar
+                                        di
+                                        sistem. Termasuk informasi pribadi dan akademik.
+                                        @elseif(Auth::user()->hasRole('dosen'))
+                                        Melihat daftar data mahasiswa
+                                        @elseif(Auth::user()->hasRole('mahasiswa'))
+                                        Melihat daftar mahasiswa
+                                        @else
+                                            Akses Tidak Diketahui
+                                        @endif
+                                    </p>
                                 <div class="flex justify-between items-center pt-4 border-t border-gray-100">
                                     <span class="text-sm text-gray-500">
                                         <!-- Terakhir diupdate: {{ date('d M Y') }} -->
                                     </span>
-                                    <a href="#"
+                                    <a href="{{ route('mahasiswa.dashboard') }}"
                                         class="flex items-center text-blue-600 hover:text-blue-800 font-medium">
                                         Lihat Data
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none"
