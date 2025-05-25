@@ -84,9 +84,11 @@
                 </a>
             </li>
 
-            @hasanyrole('dosen')
+            @hasanyrole('dosen|mahasiswa')
             <li>
-                <a href="{{ route('kelas.index') }}"
+                <a href="{{  Auth::user()->hasRole('dosen') 
+            ? route('kelas.index') 
+            : route('nilai.index.byMahasiswa', Auth::user()->mahasiswa->id_mahasiswa) }}"
                     class="flex items-center gap-3 px-3 py-2 rounded transition duration-200
                         {{ Request::is('kelas*') ? 'bg-white text-gray-900 font-semibold' : 'hover:bg-gray-800' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="32" fill="currentcolor" viewBox="0 0 256 256">
