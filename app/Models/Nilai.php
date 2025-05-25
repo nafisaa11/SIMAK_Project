@@ -41,14 +41,31 @@ class Nilai extends Model
 
         return match (true) {
             $nilai >= 86 => 'A',
-            $nilai >= 81 => 'AB',
-            $nilai >= 76 => 'A-',
+            $nilai >= 81 => 'A-',
+            $nilai >= 76 => 'AB',
             $nilai >= 71 => 'B+',
             $nilai >= 66 => 'B',
-            $nilai >= 61 => 'B-',
+            $nilai >= 61 => 'BC',
             $nilai >= 56 => 'C',
             $nilai >= 41 => 'D',
             default => 'E',
         };
     }
+
+    public function getBobot()
+    {
+        return match ($this->nilai_huruf) {
+            'A'  => 4.00,
+            'A-' => 3.75,
+            'AB' => 3.50,
+            'B+' => 3.25,
+            'B'  => 3.00,
+            'BC' => 2.50,
+            'C'  => 2.00,
+            'D'  => 1.00,
+            'E'  => 0.00,
+            default => 0.00,
+        };
+    }
+
 }
