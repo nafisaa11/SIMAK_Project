@@ -85,6 +85,7 @@
             </li>
 
             @hasanyrole('dosen|mahasiswa')
+            @if (Auth::user()->hasRole('dosen') || Auth::user()->mahasiswa)
             <li>
                 <a href="{{  Auth::user()->hasRole('dosen') 
             ? route('kelas.index') 
@@ -99,6 +100,7 @@
                     </h3>
                 </a>
             </li>
+            @endif
             @endhasanyrole
 
             @hasanyrole('admin')
