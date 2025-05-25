@@ -5,20 +5,20 @@
 @section('content')
 <div class="bg-white rounded-lg shadow-md overflow-hidden">
     <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
-        <h2 class="text-xl font-semibold text-gray-700">Daftar Mahasiswa Bimbingan</h2>
+        @foreach($kelasWali as $kelas)
+            <h2 class="text-xl font-semibold text-gray-700">Daftar Mahasiswa {{ $kelas->prodi->jenjang }} {{ $kelas->prodi->nama_prodi }} {{ $kelas->kelas }}</h2>
+        @endforeach
     </div>
-
+{{-- 
     <!-- Info Kelas yang Diwali -->
     @if($kelasWali->count() > 0)
         <div class="m-6 p-4 bg-blue-50 rounded-lg">
             <h3 class="font-semibold text-blue-800 mb-2">Kelas yang Anda Wali:</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                @foreach($kelasWali as $kelas)
-                        {{ $kelas->prodi->jenjang }} {{ $kelas->prodi->nama_prodi }} {{ $kelas->kelas }}
-                @endforeach
+
             </div>
         </div>
-    @endif
+    @endif --}}
 
     <div class="overflow-x-auto p-4">
         <table class="min-w-full table-auto">
