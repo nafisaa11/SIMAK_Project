@@ -56,9 +56,9 @@ Daftar Kelas
                             <a href="{{ 
                                 // Route untuk masuk ke halaman daftar mahasiswa di groupby kelas
                                 route('nilai.kelas', $kelas->id_kelas) 
-                                }}"
+                                }}" 
                             class="bg-yellow-400 hover:bg-yellow-500 text-black p-2 rounded">
-                                Masukkan Nilai
+                                Pilih Kelas
                             </a>
                         </div>
                     </td>

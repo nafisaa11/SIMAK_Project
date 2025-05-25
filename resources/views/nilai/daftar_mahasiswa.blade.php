@@ -26,7 +26,7 @@
                     <td class="px-6 py-3 text-left">{{ $mhs->nrp }}</td>
                     <td class="px-6 py-3 text-left">{{ $mhs->user->name }}</td>
                     <td class="px-6 py-3 text-center">
-                        <a href="{{  route('nilai.mahasiswa',  $mhs->id_mahasiswa) }}" class="text-sm bg-yellow-500 text-blue-900 px-3 py-1 rounded hover:bg-yellow-600">Input Nilai</a>
+                        <a href="{{  route('nilai.index.byMahasiswa',  $mhs->id_mahasiswa) }}" class="text-sm bg-yellow-500 text-blue-900 px-3 py-1 rounded hover:bg-yellow-600">Input Nilai</a>
                     </td>
                 </tr>
                 @empty

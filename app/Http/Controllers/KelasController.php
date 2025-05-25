@@ -56,8 +56,6 @@ class KelasController extends Controller
         return redirect()->route('kelas.index')->with('success', 'Kelas berhasil dibuat dan status dosen diperbarui.');
     }
 
-
-
     /**
      * Display the specified resource.
      */

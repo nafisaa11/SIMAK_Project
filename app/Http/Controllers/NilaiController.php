@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Nilai;
 use App\Models\Mahasiswa;
 use App\Models\JadwalKuliah;
+use App\Models\Kelas;
 
 class NilaiController extends Controller
 {
@@ -88,5 +89,14 @@ class NilaiController extends Controller
 
         return redirect()->route('nilai.index.byMahasiswa', ['id_mahasiswa' => $id_mahasiswa])
             ->with('success', 'Nilai berhasil dihapus.');
+    }
+
+    // Menampilkan daftar mahasiswa dalam kelas tertentu (untuk dosen)
+    public function showMahasiswaByKelas($id_kelas)
+    {
+        $kelas = Kelas::with(['mahasiswa.user']) // asumsikan relasi ke user lewat mahasiswa
+                    ->findOrFail($id_kelas);
+
+        return view('nilai.daftar_mahasiswa', compact('kelas'));
     }
 }

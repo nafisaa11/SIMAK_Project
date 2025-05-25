@@ -61,7 +61,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware('role:mahasiswa|dosen')->group(function () {
         Route::get('/frs', [FrsController::class, 'index'])->name('frs.index');
-
+        Route::get('/frs/create', [FrsController::class, 'create'])->name('frs.create');
+        Route::post('/frs/store', [FrsController::class, 'store'])->name('frs.store');
+        Route::get('/frs/destroy', [FrsController::class, 'destroy'])->name('frs.destroy');
     });
 });
 
@@ -70,8 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // ----------------------
 
 // Menampilkan daftar mahasiswa dalam kelas tertentu (untuk dosen)
-Route::get('/nilai/{id_kelas}/mahasiswa', [NilaiController::class, 'index'])->name('nilai.kelas');
-
+Route::get('/kelas/mahasiswa/{id_kelas}', [NilaiController::class, 'showMahasiswaByKelas'])->name('nilai.kelas');
 // Route menampilkan daftar nilai berdasarkan mahasiswa (custom index dengan parameter)
 Route::get('/nilai/mahasiswa/{id_mahasiswa}', [NilaiController::class, 'index'])->name('nilai.index.byMahasiswa');;
 
