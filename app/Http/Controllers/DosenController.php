@@ -41,20 +41,21 @@ class DosenController extends Controller
     {
         $validatedData = $request->validate([
             'nip' => 'required|string|max:255|unique:dosens,nip',
-            'no_telp' => 'required|string|max:15',
+            'no_telp' => 'nullable|string|max:15',
             'alamat' => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'agama' => 'required|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
         ]);
-    
+
         $validatedData['user_id'] = Auth::id();
         $validatedData['status'] = 'Dosen Biasa';
-    
+
         Dosen::create($validatedData);
-    
+
         return redirect()->route('dosen.dashboard')->with('success', 'Data dosen berhasil ditambahkan.');
     }
-    
+
+
 
     /**
      * Tampilkan detail dosen.
