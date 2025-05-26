@@ -39,18 +39,18 @@
         </style>
     </head>
     <body class="bg-gray-100 min-h-screen flex flex-col">
-    <div class="flex flex-col flex-1 ml-64 px-6">
+        <div class="flex flex-col flex-1 ml-64 px-6">
+        {{-- @if (Auth::user()->hasRole('dosen') || Auth::user()->mahasiswa) --}}
         @include('layouts.header')
-
-        <div class="flex flex-1 my-6">
+        <div class="flex flex-1 my-6 py-6">
             @include('layouts.left-side')
-
+            {{-- @endif --}}
             <main class="flex-1 ">
                 @yield('content')
             </main>
         </div>
     </div>
-
+    
         @include('layouts.footer')
 
          <!-- Add your JS scripts here -->

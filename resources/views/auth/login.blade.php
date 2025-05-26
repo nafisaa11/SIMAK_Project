@@ -9,7 +9,7 @@
             <!-- Konten teks -->
             <div class="relative text-white px-10 z-10">
                 <h1 class="text-5xl font-bold mb-4 leading-tight">
-                    Selamat<br>Datang di <span class="text-yellow-400">SIMAK NAY</span>
+                    Selamat<br>Datang di <span class="text-yellow-400">SIMAK</span>
                 </h1>
                 <p class="text-2xl font-light mt-4">“Karena Setiap Data Akademik Itu Berharga.”</p>
             </div>
