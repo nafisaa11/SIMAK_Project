@@ -17,7 +17,7 @@ use App\Http\Controllers\HomeController;
 // Dashboard & Home
 // ----------------------
 
-Route::get('/home', fn() => view('home'))->middleware(['auth', 'verified'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
 Route::get('/', fn() => view('dashboard'))->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/dashboard', fn() => view('dashboard'))->middleware(['auth', 'verified']);
 

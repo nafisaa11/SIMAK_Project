@@ -42,7 +42,7 @@
     <div class="flex flex-col flex-1 ml-64 px-6">
         @include('layouts.header')
 
-        <div class="flex flex-1 my-6">
+        <div class="flex flex-1 my-6 py-6">
             @include('layouts.left-side')
 
             <main class="flex-1 ">
