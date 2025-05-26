@@ -6,6 +6,17 @@
 @section('content')
 <div class="max-w-5xl mx-auto bg-white rounded-lg shadow-md p-8">
     <h2 class="text-center text-xl font-semibold mb-6 border-b pb-2 text-gray-700">Tambah Data Dosen</h2>
+    @if ($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+            <strong>Oops!</strong> Ada masalah dengan data yang kamu masukkan.<br><br>
+            <ul class="list-disc list-inside">
+                @foreach ($errors->all() as $error)
+                    <h5>NIP sudah terdaftar</h5>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('dosen.store') }}" method="post" class="space-y-6">
         @csrf
         <div class="grid grid-cols-2 gap-6">

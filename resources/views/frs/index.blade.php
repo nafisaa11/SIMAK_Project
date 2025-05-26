@@ -4,9 +4,7 @@
 
 @section('content')
     <div class="bg-white rounded-lg shadow-md overflow-hidden">
-        <!-- Header Mahasiswa dan Tombol -->
         <div class="flex justify-between items-start px-6 py-4 border-b border-gray-200 bg-gray-50">
-            <!-- Informasi Mahasiswa -->
             <div>
                 <table>
                     <tbody>
@@ -35,7 +33,6 @@
             </div>
 
             @role('mahasiswa')
-                <!-- Tombol Tambah FRS -->
                 <div>
                     <button onclick="toggleModal()" class="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-4 rounded">
                         Tambah FRS
@@ -44,7 +41,6 @@
             @endrole
         </div>
 
-        <!-- TABEL FRS -->
         <div class="overflow-x-auto p-4">
             <table class="min-w-full text-sm text-left text-gray-700">
                 <thead>
@@ -151,10 +147,8 @@
         </div>
     </div>
 
-    <!-- MODAL PILIH JADWAL KULIAH -->
     <div id="frsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-6xl max-h-[90vh] overflow-hidden">
-            <!-- HEADER -->
             <div class="flex justify-between items-center px-6 py-4 border-b bg-gray-100">
                 <div>
                     <h2 class="text-xl font-bold text-gray-800">Pilih Jadwal Kuliah</h2>
@@ -164,13 +158,10 @@
                 <button onclick="toggleModal()" class="text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
             </div>
 
-            <!-- ISI YANG SCROLLABLE -->
             <div class="flex max-h-[calc(90vh-180px)]">
-                <!-- TABEL PILIHAN JADWAL -->
                 <div class="w-2/3 overflow-y-auto px-4 py-4 border-r">
                     <h3 class="font-semibold mb-3">Daftar Jadwal Kuliah</h3>
 
-                    <!-- FORM -->
                     <form id="frsForm" action="{{ route('frs.store') }}" method="POST">
                         @csrf
                         <div class="overflow-x-auto">
@@ -221,21 +212,18 @@
                     </form>
                 </div>
 
-                <!-- PREVIEW FRS TERPILIH -->
                 <div class="w-1/3 overflow-y-auto px-4 py-4 bg-gray-50">
                     <h3 class="font-semibold mb-3">FRS Terpilih</h3>
                     <div id="selectedFRS" class="space-y-2">
                         <p class="text-gray-500 text-sm">Belum ada mata kuliah dipilih</p>
                     </div>
 
-                    <!-- Total SKS -->
                     <div class="mt-4 p-3 bg-blue-100 rounded">
                         <p class="font-semibold">Total SKS: <span id="totalSKS">0</span></p>
                     </div>
                 </div>
             </div>
 
-            <!-- FOOTER -->
             <div class="flex justify-between items-center px-6 py-4 border-t bg-gray-50">
                 <div class="text-sm text-gray-600">
                     <span id="warningText" class="text-red-600 hidden">Maksimal 10 mata kuliah!</span>
@@ -255,20 +243,206 @@
         </div>
     </div>
 
-    <!-- ALERT MESSAGES -->
     @if (session('success'))
-        <div class="fixed top-4 right-4 bg-green-100 text-green-800 p-4 rounded shadow-lg z-50" id="successAlert">
-            {{ session('success') }}
+        <div id="successAlert" class="alert-notification alert-success">
+            <div class="alert-content">
+                <div class="alert-icon">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div class="alert-text">
+                    <h4 class="alert-title">Berhasil!</h4>
+                    <p class="alert-message">{{ session('success') }}</p>
+                </div>
+                <button onclick="closeAlert('successAlert')" class="alert-close">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="alert-progress"></div>
         </div>
     @endif
 
     @if (session('error'))
-        <div class="fixed top-4 right-4 bg-red-100 text-red-800 p-4 rounded shadow-lg z-50" id="errorAlert">
-            {{ session('error') }}
+        <div id="errorAlert" class="alert-notification alert-error">
+            <div class="alert-content">
+                <div class="alert-icon">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1zm0 8a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div class="alert-text">
+                    <h4 class="alert-title">Terjadi Kesalahan!</h4>
+                    <p class="alert-message">{{ session('error') }}</p>
+                </div>
+                <button onclick="closeAlert('errorAlert')" class="alert-close">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="alert-progress"></div>
         </div>
     @endif
 
-    <!-- SCRIPT MODAL DAN CHECKBOX -->
+    <style>
+        .alert-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            max-width: 400px;
+            z-index: 1000;
+            border-radius: 0.75rem; /* Equivalent to rounded-lg */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transform: translateX(100%);
+            opacity: 0;
+            animation: slideInRight 0.5s ease-out forwards, fadeOut 0.3s ease-in 4.7s forwards;
+            display: flex; /* Ensure flex for content layout */
+            flex-direction: column; /* Stack content and progress bar */
+        }
+
+        .alert-success {
+            background-color: #d1fae5; /* green-100 */
+            border: 1px solid #34d399; /* green-400 */
+            color: #065f46; /* green-800 */
+        }
+
+        .alert-error {
+            background-color: #fee2e2; /* red-100 */
+            border: 1px solid #f87171; /* red-400 */
+            color: #991b1b; /* red-800 */
+        }
+
+        .alert-content {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.25rem; /* px-5 py-4 */
+            gap: 0.75rem; /* gap-3 */
+        }
+
+        .alert-icon {
+            flex-shrink: 0;
+            width: 1.75rem; /* w-7 */
+            height: 1.75rem; /* h-7 */
+            /* Using currentColor for icons to inherit text color */
+        }
+
+        .alert-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .alert-title {
+            font-weight: 600; /* font-semibold */
+            font-size: 1rem; /* text-base */
+            margin-bottom: 0.25rem; /* mb-1 */
+        }
+
+        .alert-message {
+            font-size: 0.875rem; /* text-sm */
+            line-height: 1.5;
+        }
+
+        .alert-close {
+            flex-shrink: 0;
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            padding: 0.25rem; /* p-1 */
+            border-radius: 0.375rem; /* rounded-md */
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+            opacity: 0.7;
+        }
+
+        .alert-close:hover {
+            background-color: rgba(0, 0, 0, 0.05); /* Slightly darker on hover */
+            opacity: 1;
+        }
+        
+        .alert-success .alert-close:hover {
+            background-color: rgba(6, 95, 70, 0.1); /* Specific for success */
+        }
+
+        .alert-error .alert-close:hover {
+            background-color: rgba(153, 27, 27, 0.1); /* Specific for error */
+        }
+
+
+        .alert-progress {
+            height: 0.25rem; /* h-1 */
+            background-color: rgba(0, 0, 0, 0.1); /* Lighter background for progress bar */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alert-success .alert-progress::after {
+            background-color: #065f46; /* Deeper green for success progress */
+            animation: progressBar 5s linear forwards;
+        }
+
+        .alert-error .alert-progress::after {
+            background-color: #991b1b; /* Deeper red for error progress */
+            animation: progressBar 5s linear forwards;
+        }
+
+        .alert-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: translateX(0); }
+            80% { opacity: 0; transform: translateX(100%); }
+            100% { opacity: 0; display: none; } /* Ensure it disappears completely */
+        }
+
+        @keyframes progressBar {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .alert-notification {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+            
+            .alert-content {
+                padding: 1rem; /* p-4 */
+            }
+            
+            .alert-title {
+                font-size: 0.9375rem; /* slightly smaller */
+            }
+            
+            .alert-message {
+                font-size: 0.8125rem; /* slightly smaller */
+            }
+        }
+    </style>
+
     <script>
         let selectedJadwal = [];
         const maxSelection = 10;
@@ -381,6 +555,17 @@
             document.getElementById('frsForm').submit();
         }
 
+        // Function to close alert manually
+        function closeAlert(alertId) {
+            const alert = document.getElementById(alertId);
+            if (alert) {
+                alert.style.animation = 'fadeOut 0.3s ease-in forwards';
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 300);
+            }
+        }
+
         // Event listener untuk checkbox
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.jadwal-checkbox').forEach(checkbox => {
@@ -408,8 +593,8 @@
             setTimeout(() => {
                 const successAlert = document.getElementById('successAlert');
                 const errorAlert = document.getElementById('errorAlert');
-                if (successAlert) successAlert.style.display = 'none';
-                if (errorAlert) errorAlert.style.display = 'none';
+                if (successAlert) closeAlert('successAlert');
+                if (errorAlert) closeAlert('errorAlert');
             }, 5000);
         });
     </script>
