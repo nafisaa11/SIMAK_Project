@@ -73,8 +73,8 @@ Edit Kelas
 
 
         <div class="flex items-center justify-between pt-4">
-            <a href="{{ route('kelas.index') }}" class="text-indigo-600 hover:text-indigo-800">Kembali</a>
-            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <a href="{{ route('kelas.index') }}" class="bg-gray-400 text-white font-semibold py-2 px-6 rounded shadow hover:bg-gray-500">Kembali</a>
+            <button type="submit" class="bg-yellow-400 hover:bg-yellow-600 text-black font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Simpan Perubahan
             </button>
         </div>

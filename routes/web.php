@@ -11,6 +11,7 @@ use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\JadwalKuliahController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\HomeController;
 
 // ----------------------
 // Dashboard & Home
