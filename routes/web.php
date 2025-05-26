@@ -57,6 +57,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware('role:mahasiswa|dosen')->group(function () {
         Route::get('/frs', [FrsController::class, 'index'])->name('frs.index');
+        // Route::get('/frs', [FrsController::class, 'index'])->name('frs.dosen.index');
         Route::get('/frs/mahasiswa/{id_mahasiswa}', [FrsController::class, 'indexByMahasiswa'])->name('frs.index.byMahasiswa');
         Route::post('/frs/store', [FrsController::class, 'store'])->name('frs.store');
         Route::delete('/frs/{frs}', [FrsController::class, 'destroy'])->name('frs.destroy');

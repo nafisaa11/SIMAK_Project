@@ -47,7 +47,7 @@ Daftar Jadwal Kuliah
                     <td class="px-6 py-3 flex gap-2">
                         <div class="flex space-x-2">
                             <a href="{{ route('jadwal.edit', $jd->id_jadwal_kuliah) }}" class="bg-yellow-400 hover:bg-yellow-500 text-black p-2 rounded">
-                                <i class="ph ph-pencil"></i>
+                                <i class="pah ph-pencil"></i>
                             </a>
                             <form action="{{ route('jadwal.destroy', $jd->id_jadwal_kuliah) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
                                 @csrf

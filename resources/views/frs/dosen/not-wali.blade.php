@@ -3,7 +3,7 @@
 @section('title', 'FRS - Akses Ditolak')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center bg-gray-50">
+<div class=" flex items-center justify-center pt-6">
     <div class="bg-white rounded-lg shadow-md p-8 text-center max-w-md w-full mx-4">
         <div class="mb-6">
             <svg class="mx-auto h-16 w-16 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

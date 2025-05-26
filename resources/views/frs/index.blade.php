@@ -5,16 +5,15 @@
 @section('content')
     <div class="bg-white rounded-lg shadow-md overflow-hidden">
         <!-- Header Mahasiswa dan Tombol -->
+        {{-- <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
+            <h2 class="text-xl font-semibold text-gray-700">{{ $mahasiswa->user->name }}</h2>
+            <a href="{{ route('frs.dosen.index') }}" class="text-sm text-blue-600 hover:underline">Kembali</a>
+        </div> --}}
         <div class="flex justify-between items-start px-6 py-4 border-b border-gray-200 bg-gray-50">
             <!-- Informasi Mahasiswa -->
             <div>
                 <table>
                     <tbody>
-                        <tr>
-                            <th class="px-3 py-1 text-left">Nama</th>
-                            <td class="px-3 py-1 text-left">:</td>
-                            <td class="px-3 py-1 text-left">{{ $mahasiswa->user->name}}</td>
-                        </tr>
                         <tr>
                             <th class="px-3 py-1 text-left">NRP</th>
                             <td class="px-3 py-1 text-left">:</td>
